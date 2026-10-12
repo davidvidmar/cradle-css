@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en" data-skin="cradle">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cradle CSS — components</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="cradle.css">
+  <link rel="stylesheet" href="themes.css">
+  <link rel="stylesheet" href="inter.css">
+  <script defer src="examples.js"></script>
+</head>
+<body class="cradle">
+  <div class="cr-shell">
+    <aside class="cr-sidebar">
+      <div class="cr-sidebar-head"><a class="cr-brand" href="#intro">Cradle CSS</a></div>
+      <nav class="cr-nav" aria-label="Components">
+        <a href="#intro" aria-current="location">Overview</a>
+        <a href="#controls">Controls</a>
+        <a href="#forms">Forms</a>
+        <a href="#cards">Cards</a>
+        <a href="#tables">Tables</a>
+        <a href="#reading">Reading &amp; chat</a>
+      </nav>
+      <div class="cr-sidebar-foot cr-subtle">Private library · 0.1.0</div>
+    </aside>
+    <main class="cr-main">
+      <div class="cr-container">
+        <section id="intro" class="cr-section">
+          <h1>Quiet by design.</h1>
+          <p>A small collection of the styles and components used in Cradle.</p>
+          <p class="cr-subtle">16px base text. Native HTML. No dependencies or build step.</p>
+          <div class="cr-toolbar">
+            <label>Theme <select id="theme"><option value="auto">Auto</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
+            <label>Palette <select id="skin"><option value="cradle">Cradle</option><option value="dracula">Dracula</option><option value="one-dark">One Dark</option><option value="nord">Nord</option><option value="solarized">Solarized</option><option value="monokai">Monokai</option><option value="tokyo-night">Tokyo Night</option><option value="catppuccin">Catppuccin</option><option value="gruvbox">Gruvbox</option><option value="material">Material</option></select></label>
+            <label>Font <select id="font"><option value="native">System</option><option value="inter">Inter</option></select></label>
+          </div>
+        </section>
+        <section id="controls" class="cr-section">
+          <h2>Controls</h2>
+          <p class="cr-subtle">Use explicit variants for primary, secondary, quiet and destructive actions.</p>
+          <div class="cr-toolbar">
+            <button class="cr-button cr-primary" type="button" id="open-dialog">Open dialog</button>
+            <button class="cr-button" type="button">Secondary</button>
+            <button class="cr-button cr-quiet" type="button">Quiet</button>
+            <button class="cr-button cr-danger" type="button">Delete</button>
+            <button class="cr-button" type="button" disabled>Disabled</button>
+            <a class="cr-button" href="starter.html">Starter page</a>
+          </div>
+          <details class="cr-details"><summary>Button markup</summary><div class="cr-prose"><pre><code>&lt;button class="cr-button cr-primary" type="button"&gt;Save&lt;/button&gt;</code></pre></div></details>
+          <p class="cr-subtle" id="feedback" role="status" aria-live="polite"></p>
+        </section>
+        <section id="forms" class="cr-section">
+          <h2>Forms</h2>
+          <form class="cr-form" id="sample-form">
+            <fieldset>
+              <legend>Project settings</legend>
+              <div class="cr-row">
+                <label class="cr-field">Project name<input name="name" value="My workspace" required></label>
+                <label class="cr-field">Refresh<select name="refresh"><option>Hourly</option><option>Daily</option><option>Manual</option></select></label>
+              </div>
+              <label class="cr-field">Description<textarea name="description" rows="2" placeholder="What is this workspace for?"></textarea></label>
+              <label class="cr-check"><input type="checkbox" name="notifications" checked>Enable notifications</label>
+              <p class="cr-subtle">This example stays in your browser.</p>
+              <button class="cr-button cr-primary" type="submit">Save settings</button>
+              <p class="cr-subtle" id="form-status" role="status" aria-live="polite"></p>
+            </fieldset>
+          </form>
+        </section>
+        <section id="cards" class="cr-section">
+          <h2>Cards &amp; metrics</h2>
+          <div class="cr-grid">
+            <article class="cr-card">
+              <div class="cr-card-head"><div class="cr-identity"><span class="cr-avatar" aria-hidden="true">N</span><strong>Sample notes</strong></div><span class="cr-badge">Ready</span></div>
+              <p class="cr-subtle">Personal notes and project ideas.</p>
+              <div class="cr-toolbar"><button class="cr-button" type="button">Edit</button><span class="cr-badge cr-outline">Local directory</span></div>
+            </article>
+            <article class="cr-card">
+              <div class="cr-card-head"><div class="cr-identity"><span class="cr-avatar" aria-hidden="true">P</span><strong>Project archive</strong></div><span class="cr-badge cr-outline">Paused</span></div>
+              <p class="cr-subtle">A second card using the same spacing and controls.</p>
+              <button class="cr-button" type="button">Edit</button>
+            </article>
+          </div>
+          <h3 style="margin-top:24px">Overview</h3>
+          <div class="cr-metrics">
+            <div class="cr-metric"><span>Documents</span><strong>128</strong></div>
+            <div class="cr-metric"><span>Sources</span><strong>4</strong></div>
+            <div class="cr-metric"><span>Questions</span><strong>36</strong></div>
+            <div class="cr-metric"><span>Daily cost</span><strong>$0.12</strong></div>
+          </div>
+        </section>
+        <section id="tables" class="cr-section">
+          <h2>Tables</h2>
+          <div class="cr-table-wrap" tabindex="0" role="region" aria-label="Sample source status">
+            <table class="cr-table">
+              <thead><tr><th scope="col">Source</th><th scope="col">Documents</th><th scope="col">Last updated</th><th scope="col">Status</th></tr></thead>
+              <tbody><tr><td>Sample notes</td><td>128</td><td>Today, 09:00</td><td><span class="cr-badge">Ready</span></td></tr><tr><td>Project archive</td><td>64</td><td>Yesterday, 18:30</td><td><span class="cr-badge cr-outline">Paused</span></td></tr></tbody>
+            </table>
+          </div>
+        </section>
+        <section id="reading" class="cr-section cr-prose">
+          <h2>Reading &amp; chat</h2>
+          <div class="cr-message">How can I keep the interface consistent?</div>
+          <p>Reuse the same typography, controls and spacing across each page. Let the content provide the visual hierarchy.</p>
+          <blockquote>Use colour to indicate actions and state, and keep supporting information quiet.</blockquote>
+          <p>Set the main text size with <code>--cr-font-size</code>. Keep longer answers within a comfortable reading width.</p>
+          <label class="cr-sr-only" for="question">Ask a question</label>
+          <textarea class="cr-composer" id="question" placeholder="Ask a question…"></textarea>
+        </section>
+      </div>
+    </main>
+  </div>
+  <dialog class="cr-dialog" id="example-dialog" aria-labelledby="dialog-title">
+    <form method="dialog">
+      <header class="cr-dialog-head"><h2 id="dialog-title">Edit project</h2><button class="cr-button cr-quiet" type="submit" value="cancel" aria-label="Close dialog" formnovalidate>Close</button></header>
+      <div class="cr-dialog-body cr-form"><label class="cr-field">Project name<input name="project" value="My workspace" required autofocus></label><p class="cr-subtle">Native dialog handles focus and Escape. This is a local example.</p></div>
+      <footer class="cr-dialog-foot"><button class="cr-button" type="submit" value="cancel" formnovalidate>Cancel</button><button class="cr-button cr-primary" type="submit" value="save">Save</button></footer>
+    </form>
+  </dialog>
+</body>
+</html>

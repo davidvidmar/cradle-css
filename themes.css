@@ -1,0 +1,30 @@
+/* Optional Cradle palettes. Load after cradle.css. Auto mode works without JavaScript. */
+:root[data-skin="dracula"] { --cr-paper:#faf9ff;--cr-soft:#f0edf8;--cr-ink:#302c45;--cr-muted:#635d78;--cr-line:#dcd6eb;--cr-accent:#7954ba;--cr-accent-soft:#eee5fc;--cr-accent-line:var(--cr-line) }
+:root[data-skin="one-dark"] { --cr-paper:#fafafa;--cr-soft:#f0f1f3;--cr-ink:#383a42;--cr-muted:#676a75;--cr-line:#dcdee3;--cr-accent:#4078b0;--cr-accent-soft:#e4eff9;--cr-accent-line:var(--cr-line) }
+:root[data-skin="nord"] { --cr-paper:#eceff4;--cr-soft:#e5e9f0;--cr-ink:#2e3440;--cr-muted:#596579;--cr-line:#cdd5e0;--cr-accent:#376878;--cr-accent-soft:#deedf0;--cr-accent-line:var(--cr-line) }
+:root[data-skin="solarized"] { --cr-paper:#fdf6e3;--cr-soft:#eee8d5;--cr-ink:#42565d;--cr-muted:#657b83;--cr-line:#d9d2bd;--cr-accent:#176878;--cr-accent-soft:#e2eee7;--cr-accent-line:var(--cr-line) }
+:root[data-skin="monokai"] { --cr-paper:#faf9f3;--cr-soft:#f0eee2;--cr-ink:#38382c;--cr-muted:#706f5d;--cr-line:#dedcc9;--cr-accent:#586e22;--cr-accent-soft:#e9f0d2;--cr-accent-line:var(--cr-line) }
+:root[data-skin="tokyo-night"] { --cr-paper:#f5f6fc;--cr-soft:#e9ecf7;--cr-ink:#343b58;--cr-muted:#626c91;--cr-line:#d3d9ed;--cr-accent:#405fb9;--cr-accent-soft:#e1e8ff;--cr-accent-line:var(--cr-line) }
+:root[data-skin="catppuccin"] { --cr-paper:#eff1f5;--cr-soft:#e6e9ef;--cr-ink:#4c4f69;--cr-muted:#6c6f85;--cr-line:#ccd0da;--cr-accent:#8839ef;--cr-accent-soft:#e8ddff;--cr-accent-line:var(--cr-line) }
+:root[data-skin="gruvbox"] { --cr-paper:#fbf1c7;--cr-soft:#f2e5bc;--cr-ink:#3c3836;--cr-muted:#665c54;--cr-line:#d5c4a1;--cr-accent:#70631a;--cr-accent-soft:#ede6b8;--cr-accent-line:var(--cr-line) }
+:root[data-skin="material"] { --cr-paper:#fafafa;--cr-soft:#eef3f4;--cr-ink:#263238;--cr-muted:#60747d;--cr-line:#d5e0e3;--cr-accent:#216d80;--cr-accent-soft:#e0f2f6;--cr-accent-line:var(--cr-line) }
+@media (prefers-color-scheme: dark) {
+ :root[data-skin="dracula"]:not([data-theme="light"]) { --cr-paper:#282a36;--cr-soft:#343746;--cr-ink:#f8f8f2;--cr-muted:#b4b0ca;--cr-line:#494c63;--cr-accent:#bd93f9;--cr-accent-soft:#44345c;--cr-accent-line:var(--cr-line) }
+ :root[data-skin="one-dark"]:not([data-theme="light"]) { --cr-paper:#282c34;--cr-soft:#21252b;--cr-ink:#e3e7ee;--cr-muted:#a6acb9;--cr-line:#454b57;--cr-accent:#61afef;--cr-accent-soft:#243d51;--cr-accent-line:var(--cr-line) }
+ :root[data-skin="nord"]:not([data-theme="light"]) { --cr-paper:#2e3440;--cr-soft:#3b4252;--cr-ink:#eceff4;--cr-muted:#b0bdcf;--cr-line:#4c566a;--cr-accent:#88c0d0;--cr-accent-soft:#374f5c;--cr-accent-line:var(--cr-line) }
+ :root[data-skin="solarized"]:not([data-theme="light"]) { --cr-paper:#002b36;--cr-soft:#073642;--cr-ink:#d1e1df;--cr-muted:#93a9ac;--cr-line:#28505a;--cr-accent:#65bfd0;--cr-accent-soft:#124854;--cr-accent-line:var(--cr-line) }
+ :root[data-skin="monokai"]:not([data-theme="light"]) { --cr-paper:#272822;--cr-soft:#34352e;--cr-ink:#f8f8f2;--cr-muted:#b6b6a0;--cr-line:#494b3e;--cr-accent:#a6e22e;--cr-accent-soft:#3c4824;--cr-accent-line:var(--cr-line) }
+ :root[data-skin="tokyo-night"]:not([data-theme="light"]) { --cr-paper:#1a1b26;--cr-soft:#24283b;--cr-ink:#d4dcff;--cr-muted:#a0abd2;--cr-line:#414868;--cr-accent:#7aa2f7;--cr-accent-soft:#283b61;--cr-accent-line:var(--cr-line) }
+ :root[data-skin="catppuccin"]:not([data-theme="light"]) { --cr-paper:#1e1e2e;--cr-soft:#313244;--cr-ink:#cdd6f4;--cr-muted:#a6adc8;--cr-line:#45475a;--cr-accent:#cba6f7;--cr-accent-soft:#453357;--cr-accent-line:var(--cr-line) }
+ :root[data-skin="gruvbox"]:not([data-theme="light"]) { --cr-paper:#282828;--cr-soft:#3c3836;--cr-ink:#ebdbb2;--cr-muted:#bdae93;--cr-line:#665c54;--cr-accent:#b8bb26;--cr-accent-soft:#454622;--cr-accent-line:var(--cr-line) }
+ :root[data-skin="material"]:not([data-theme="light"]) { --cr-paper:#263238;--cr-soft:#2e3c43;--cr-ink:#e5eef1;--cr-muted:#a4bbc5;--cr-line:#455a64;--cr-accent:#80cbc4;--cr-accent-soft:#304e51;--cr-accent-line:var(--cr-line) }
+}
+:root[data-skin="dracula"][data-theme="dark"] { --cr-paper:#282a36;--cr-soft:#343746;--cr-ink:#f8f8f2;--cr-muted:#b4b0ca;--cr-line:#494c63;--cr-accent:#bd93f9;--cr-accent-soft:#44345c;--cr-accent-line:var(--cr-line) }
+:root[data-skin="one-dark"][data-theme="dark"] { --cr-paper:#282c34;--cr-soft:#21252b;--cr-ink:#e3e7ee;--cr-muted:#a6acb9;--cr-line:#454b57;--cr-accent:#61afef;--cr-accent-soft:#243d51;--cr-accent-line:var(--cr-line) }
+:root[data-skin="nord"][data-theme="dark"] { --cr-paper:#2e3440;--cr-soft:#3b4252;--cr-ink:#eceff4;--cr-muted:#b0bdcf;--cr-line:#4c566a;--cr-accent:#88c0d0;--cr-accent-soft:#374f5c;--cr-accent-line:var(--cr-line) }
+:root[data-skin="solarized"][data-theme="dark"] { --cr-paper:#002b36;--cr-soft:#073642;--cr-ink:#d1e1df;--cr-muted:#93a9ac;--cr-line:#28505a;--cr-accent:#65bfd0;--cr-accent-soft:#124854;--cr-accent-line:var(--cr-line) }
+:root[data-skin="monokai"][data-theme="dark"] { --cr-paper:#272822;--cr-soft:#34352e;--cr-ink:#f8f8f2;--cr-muted:#b6b6a0;--cr-line:#494b3e;--cr-accent:#a6e22e;--cr-accent-soft:#3c4824;--cr-accent-line:var(--cr-line) }
+:root[data-skin="tokyo-night"][data-theme="dark"] { --cr-paper:#1a1b26;--cr-soft:#24283b;--cr-ink:#d4dcff;--cr-muted:#a0abd2;--cr-line:#414868;--cr-accent:#7aa2f7;--cr-accent-soft:#283b61;--cr-accent-line:var(--cr-line) }
+:root[data-skin="catppuccin"][data-theme="dark"] { --cr-paper:#1e1e2e;--cr-soft:#313244;--cr-ink:#cdd6f4;--cr-muted:#a6adc8;--cr-line:#45475a;--cr-accent:#cba6f7;--cr-accent-soft:#453357;--cr-accent-line:var(--cr-line) }
+:root[data-skin="gruvbox"][data-theme="dark"] { --cr-paper:#282828;--cr-soft:#3c3836;--cr-ink:#ebdbb2;--cr-muted:#bdae93;--cr-line:#665c54;--cr-accent:#b8bb26;--cr-accent-soft:#454622;--cr-accent-line:var(--cr-line) }
+:root[data-skin="material"][data-theme="dark"] { --cr-paper:#263238;--cr-soft:#2e3c43;--cr-ink:#e5eef1;--cr-muted:#a4bbc5;--cr-line:#455a64;--cr-accent:#80cbc4;--cr-accent-soft:#304e51;--cr-accent-line:var(--cr-line) }
