@@ -7,8 +7,10 @@
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="cradle.css">
   <link rel="stylesheet" href="themes.css">
-  <link rel="stylesheet" href="inter.css">
+  <link rel="stylesheet" href="fonts.css">
+  <script src="fonts.js"></script>
   <script defer src="examples.js"></script>
+  <script defer src="sort-tables.js"></script>
 </head>
 <body class="cradle">
   <div class="cr-shell">
@@ -22,7 +24,7 @@
         <a href="#tables">Tables</a>
         <a href="#reading">Reading &amp; chat</a>
       </nav>
-      <div class="cr-sidebar-foot cr-subtle">Private library · 0.1.0</div>
+      <div class="cr-sidebar-foot cr-subtle">Private library · 0.2.0</div>
     </aside>
     <main class="cr-main">
       <div class="cr-container">
@@ -33,7 +35,7 @@
           <div class="cr-toolbar">
             <label>Theme <select id="theme"><option value="auto">Auto</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
             <label>Palette <select id="skin"><option value="cradle">Cradle</option><option value="dracula">Dracula</option><option value="one-dark">One Dark</option><option value="nord">Nord</option><option value="solarized">Solarized</option><option value="monokai">Monokai</option><option value="tokyo-night">Tokyo Night</option><option value="catppuccin">Catppuccin</option><option value="gruvbox">Gruvbox</option><option value="material">Material</option></select></label>
-            <label>Font <select id="font"><option value="native">System</option><option value="inter">Inter</option></select></label>
+            <label>Font <select id="font"><option value="native-sans">System</option><option value="inter">Inter</option><option value="native-mono">JetBrains Mono</option><option value="native-serif">Serif</option></select></label>
           </div>
         </section>
         <section id="controls" class="cr-section">
@@ -91,10 +93,11 @@
         </section>
         <section id="tables" class="cr-section">
           <h2>Tables</h2>
+          <p class="cr-subtle">Select a column heading to sort; select it again to reverse the order.</p>
           <div class="cr-table-wrap" tabindex="0" role="region" aria-label="Sample source status">
-            <table class="cr-table">
-              <thead><tr><th scope="col">Source</th><th scope="col">Documents</th><th scope="col">Last updated</th><th scope="col">Status</th></tr></thead>
-              <tbody><tr><td>Sample notes</td><td>128</td><td>Today, 09:00</td><td><span class="cr-badge">Ready</span></td></tr><tr><td>Project archive</td><td>64</td><td>Yesterday, 18:30</td><td><span class="cr-badge cr-outline">Paused</span></td></tr></tbody>
+            <table class="cr-table" data-sortable>
+              <thead><tr><th scope="col" data-sort="text">Source</th><th scope="col" data-sort="number">Documents</th><th scope="col" data-sort="date">Last updated</th><th scope="col" data-sort="text">Status</th></tr></thead>
+              <tbody><tr><td>Sample notes</td><td>128</td><td data-sort-value="2026-10-12T09:00:00Z">12 Oct, 09:00</td><td><span class="cr-badge">Ready</span></td></tr><tr><td>Project archive</td><td>64</td><td data-sort-value="2026-10-11T18:30:00Z">11 Oct, 18:30</td><td><span class="cr-badge cr-outline">Paused</span></td></tr><tr><td>Design ideas</td><td>9</td><td data-sort-value="2026-10-10T14:15:00Z">10 Oct, 14:15</td><td><span class="cr-badge">Ready</span></td></tr></tbody>
             </table>
           </div>
         </section>
