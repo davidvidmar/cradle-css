@@ -1,3 +1,2 @@
-/* Optional local Inter font. Keep vendor/ and its OFL license together. */
-@font-face { font-family:Inter; src:url("./vendor/InterVariable.woff2") format("woff2"); font-weight:100 900; font-style:normal; font-display:swap; }
+/* Optional Inter selection. Load Inter from Google Fonts as documented in README.md. */
 :root[data-font="inter"] { --cr-font:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }

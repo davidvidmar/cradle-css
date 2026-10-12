@@ -2,7 +2,7 @@
 
 A private, small CSS library extracted from Cradle. Version **0.1.0**.
 
-Neutral surfaces, subtle borders, compact navigation, readable 16px text and restrained accent colours. Plain HTML and CSS, with no package manager, framework, build step, network requests or required JavaScript.
+Neutral surfaces, subtle borders, compact navigation, readable 16px text and restrained accent colours. Plain HTML and CSS, with no package manager, framework, build step or required JavaScript. The core uses system fonts; optional Inter loads from Google Fonts.
 
 ## Preview
 
@@ -36,7 +36,16 @@ Load optional `themes.css` after `cradle.css` for the additional nine palettes. 
 
 Theme mode is CSS-only: omit `data-theme` for the system setting, or use `data-theme="light"` / `data-theme="dark"`. Auto works for every palette. The gallery's `examples.js` only demonstrates switching and interactions; it is not a library dependency.
 
-For Inter, also copy `inter.css` and `vendor/`, load `inter.css` after the other styles, and set `data-font="inter"` on `<html>`. Keep `vendor/Inter-LICENSE.txt` with the font. Otherwise the library uses system fonts and needs no font download.
+For Inter, copy `inter.css`, set `data-font="inter"` on `<html>`, and add:
+
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap">
+<link rel="stylesheet" href="inter.css">
+```
+
+Inter is served by Google Fonts; no font binaries are bundled or hosted by this repository. The [Google Fonts CSS API](https://developers.google.com/fonts/docs/css2) supplies variable weights with `display=swap` and the system stack provides fallback. The gallery loads the CDN stylesheet only when you select Inter. Projects using system fonts need no CDN request.
 
 ## Components
 
@@ -79,7 +88,7 @@ Palette rules are more specific than `:root`. To override colours for a selected
 
 Give another coding assistant this repository and this instruction:
 
-> Use my private Cradle CSS library as this project's visual foundation. Read its README and component gallery, reuse cradle.css and the documented cr- components, and preserve the quiet layout, 16px typography, subtle borders and restrained accents. Use themes.css and the bundled Inter font only if needed. Adapt the examples to the project's framework. Keep project-specific styles in a separate stylesheet; extend existing components before adding new ones. Use native accessible elements and check desktop/mobile and light/dark rendering.
+> Use my private Cradle CSS library as this project's visual foundation. Read its README and component gallery, reuse cradle.css and the documented cr- components, and preserve the quiet layout, 16px typography, subtle borders and restrained accents. Use themes.css and Inter from Google Fonts only if needed. Adapt the examples to the project's framework. Keep project-specific styles in a separate stylesheet; extend existing components before adding new ones. Use native accessible elements and check desktop/mobile and light/dark rendering.
 
 ## Repository and maintenance
 
@@ -89,10 +98,10 @@ The private repository is [david/cradle-css](https://git.v51.si/david/cradle-css
 git clone ssh://git@git.home.vidmar.net:2222/david/cradle-css.git
 ```
 
- Commit the CSS, examples, README, optional font and its license together. Applications should copy from a recorded commit, or vendor a pinned checkout through their existing build process. Avoid a moving CDN URL; upgrades should be deliberate and reviewable.
+Commit the CSS, examples and README together. Applications should copy from a recorded commit, or vendor a pinned checkout through their existing build process. Keep the library version pinned; its upgrades should be deliberate and reviewable. Optional Inter uses the Google Fonts CDN.
 
 The Cradle application still owns its existing styles. This extraction does not change its CSS imports. After the separate repository exists, adopting the library in Cradle is a separate integration step with visual regression checks.
 
 This initial library consolidates duplicate controls and theme overrides, removes app IDs and backend dependencies, prefixes component names and tokens, makes fonts/palettes optional, and fixes minimum card widths on phones. It intentionally remains a small source library; there is no generated/minified copy to keep synchronized. Keep changes focused, update the examples, verify rendering, and record breaking changes before adoption.
 
-For private use. The bundled Inter font is distributed under the SIL Open Font License in `vendor/Inter-LICENSE.txt`.
+For private use. Inter is requested from Google Fonts rather than redistributed here.

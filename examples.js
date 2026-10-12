@@ -8,6 +8,20 @@ document.querySelector('#skin').addEventListener('change', event => {
   root.dataset.skin = event.target.value;
 });
 document.querySelector('#font').addEventListener('change', event => {
+  if (event.target.value === 'inter' && !document.querySelector('#inter-cdn')) {
+    for (const href of ['https://fonts.googleapis.com', 'https://fonts.gstatic.com']) {
+      const connection = document.createElement('link');
+      connection.rel = 'preconnect';
+      connection.href = href;
+      if (href.includes('gstatic')) connection.crossOrigin = 'anonymous';
+      document.head.append(connection);
+    }
+    const stylesheet = document.createElement('link');
+    stylesheet.id = 'inter-cdn';
+    stylesheet.rel = 'stylesheet';
+    stylesheet.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap';
+    document.head.append(stylesheet);
+  }
   root.dataset.font = event.target.value;
 });
 const dialog = document.querySelector('#example-dialog');
