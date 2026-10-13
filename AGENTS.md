@@ -5,7 +5,7 @@ Private CSS library extracted from Cradle. Read README.md before changing compon
 - Keep the quiet Cradle style, readable 16px base, restrained accents and subtle borders.
 - Keep the core framework-free: no required JavaScript, build tools, remote fonts or CDN dependencies.
 - Use cr- component classes and --cr- tokens. Keep native element rules scoped inside .cradle.
-- Keep palettes and Inter optional. Load Inter and JetBrains Mono from Google Fonts CDN; do not bundle or self-host font files.
+- Keep palettes and CDN font loading optional; Inter is the default family with system fallbacks. Load Inter and JetBrains Mono from Google Fonts CDN; do not bundle or self-host font files.
 - Prefer tokens and existing components to duplicate rules or new variants.
 - Update the gallery and README when components change. Record breaking changes and bump the documented version when appropriate.
 - Default sizes target a laptop screen (~1440px) or a 24" monitor (1920px), not narrower displays. Do not shrink default layout widths for smaller screens; mobile is handled by responsive rules.
@@ -23,3 +23,5 @@ Private CSS library extracted from Cradle. Read README.md before changing compon
 - 2026-10-13 sidebar regression fix (0.2.1): bare-button font shorthand inherited the 16px body size, enlarging saved chats/files, and inherited text alignment left-aligned tab labels. Preserve the component 13px size while inheriting family/weight/line height; tabs explicitly centre their labels. Keep explicit local citation/file/control typography authoritative. No commit/push/deployment authorized for this fix.
 
 - 2026-10-13 layout width tokens (0.2.2): .cr-container, .cr-form and .cr-prose read --cr-container-width/--cr-form-width/--cr-prose-width (defaults 1180/860/760px) so consumers override widths in :root without redeclaring selectors or using !important. 0.3.0 raises the container default to 1440px (breaking; set 1180px to restore) and fixes the dark-palette semicolon that dropped --cr-faint.
+
+- 2026-10-13 typography default (0.4.0, breaking): Inter is the default --cr-font family; optional fonts.js loads it on startup unless data-font explicitly selects another family. fonts.css restores explicit native-sans; gallery and starter default to Inter. Core keeps system fallbacks and no network dependency. User authorized integration, testing, commit and push in the current turn; publish this library before the parent pin.

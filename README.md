@@ -1,8 +1,8 @@
 # Cradle CSS
 
-A private, small CSS library extracted from Cradle. Version **0.3.0**.
+A private, small CSS library extracted from Cradle. Version **0.4.0**.
 
-Neutral surfaces, subtle borders, compact navigation, readable 16px text and restrained accent colours. Plain HTML and CSS, with no package manager, framework, build step or required JavaScript. The core uses system fonts; optional Inter loads from Google Fonts.
+Neutral surfaces, subtle borders, compact navigation, readable 16px text and restrained accent colours. Plain HTML and CSS, with no package manager, framework, build step or required JavaScript. Inter is the default font family, with system fallbacks. The optional font loader fetches Inter from Google Fonts; the core alone makes no network requests.
 
 ## Preview
 
@@ -18,10 +18,12 @@ Run from the repository root, open `http://127.0.0.1:9963/`, and stop with Ctrl+
 
 ## Use in another project
 
-Copy `cradle.css` into the project's static assets and include it:
+Copy `cradle.css`, `fonts.css` and `fonts.js` into the project's static assets for the default Inter interface:
 
 ```html
 <link rel="stylesheet" href="/css/cradle.css">
+<link rel="stylesheet" href="/css/fonts.css">
+<script src="/css/fonts.js"></script>
 <body class="cradle">
   <main class="cr-container">
     <h1>My project</h1>
@@ -36,22 +38,22 @@ Load optional `themes.css` after `cradle.css` for the additional nine palettes. 
 
 Theme mode is CSS-only: omit `data-theme` for the system setting, or use `data-theme="light"` / `data-theme="dark"`. Auto works for every palette. The gallery's `examples.js` only demonstrates switching and interactions; it is not a library dependency.
 
-For font choices, load `fonts.css` and `fonts.js` after the core CSS. Fonts stay on the CDN; no font binaries are bundled.
+For font choices and automatic Inter loading, include `fonts.css` and `fonts.js` after the core CSS. Omit both to use the core with installed fonts and system fallbacks. Fonts stay on the CDN; no font binaries are bundled.
 
 ```html
 <link rel="stylesheet" href="fonts.css">
 <script src="fonts.js"></script>
 ```
 
-Set `data-font` on `<html>` to `native-sans` (system default), `native-serif`, `inter` or `native-mono` (JetBrains Mono; historical option name retained for compatibility). Request an optional CDN font only when needed:
+Set `data-font` on `<html>` to `inter` (default when omitted), `native-sans` (system), `native-serif` or `native-mono` (JetBrains Mono; historical option name retained for compatibility). Set an explicit choice before loading `fonts.js` to avoid fetching an unused interface font. The loader honours that choice on startup; runtime choices use the same helper:
 
 ```js
-CradleFonts.load('inter'); // For the Inter interface option.
+CradleFonts.select('native-sans'); // Use the system font instead of Inter.
 CradleFonts.load('mono');  // For code/pre blocks.
 CradleFonts.select('native-mono'); // Set the interface font and load it when needed.
 ```
 
-The helper de-duplicates stylesheet/preconnect links and uses the [Google Fonts CSS API](https://developers.google.com/fonts/docs/css2) with variable weights and `display=swap`. `fonts.css` owns all optional font stacks and the `--cr-mono` code font token. System fonts remain the fallback if loading fails. The core alone uses system fonts and makes no network requests. The gallery loads JetBrains Mono for its code samples and loads Inter only when selected.
+The helper de-duplicates stylesheet/preconnect links and uses the [Google Fonts CSS API](https://developers.google.com/fonts/docs/css2) with variable weights and `display=swap`. `fonts.css` owns all optional font stacks and the `--cr-mono` code font token. System fonts remain the fallback if loading fails. The core alone prefers installed Inter and falls back to system fonts without network requests. Including `fonts.js` loads Inter by default, or JetBrains Mono for an explicit `native-mono` choice. Explicit System/Serif choices do not fetch an interface font. The gallery and starter load Inter by default; the gallery also loads JetBrains Mono for code samples. For a CSS-only CDN setup, include a Google Fonts stylesheet for Inter with `display=swap` directly in your HTML.
 
 ## Components
 
@@ -97,7 +99,7 @@ Palette rules are more specific than `:root`. To override colours for a selected
 
 Give another coding assistant this repository and this instruction:
 
-> Use my private Cradle CSS library as this project's visual foundation. Read its README and component gallery, reuse cradle.css and the documented cr- components, and preserve the quiet layout, 16px typography, subtle borders and restrained accents. Use themes.css and the font choices/loaders in fonts.css/fonts.js only if needed. Adapt the examples to the project's framework. Keep project-specific styles in a separate stylesheet; extend existing components before adding new ones. Use native accessible elements and check desktop/mobile and light/dark rendering.
+> Use my private Cradle CSS library as this project's visual foundation. Read its README and component gallery, reuse cradle.css and the documented cr- components, and preserve the quiet layout, 16px typography, subtle borders and restrained accents. Use fonts.css/fonts.js for the default Inter interface and themes.css only if needed. Adapt the examples to the project's framework. Keep project-specific styles in a separate stylesheet; extend existing components before adding new ones. Use native accessible elements and check desktop/mobile and light/dark rendering.
 
 ## Repository and maintenance
 
@@ -167,3 +169,5 @@ Version 0.2.1 restores compact 13px typography for bare buttons and explicitly c
 Version 0.2.2 exposes layout widths as tokens: `--cr-container-width`, `--cr-form-width` and `--cr-prose-width`. Defaults are unchanged; override them in `:root` instead of redeclaring `.cr-container`, `.cr-form` or `.cr-prose`.
 
 Version 0.3.0 (breaking): the default `--cr-container-width` grows from 1180px to 1440px so layouts target laptop and 24" displays. Set `--cr-container-width: 1180px` to keep the previous width. Also fixes a missing semicolon in the dark palette that left `--cr-faint` unset and `--cr-accent-line` invalid in dark mode.
+
+Version 0.4.0 (breaking): Inter becomes the default interface family. The optional `fonts.js` loader fetches it automatically unless `data-font` explicitly selects another font. Gallery and starter use Inter by default. To restore the previous interface, include `fonts.css` and set `data-font="native-sans"` on `<html>` before the loader runs, or override `--cr-font` in your project stylesheet. The core still has no required JavaScript or CDN dependency.

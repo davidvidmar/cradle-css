@@ -1,6 +1,6 @@
-/* Cradle CSS 0.3.0 — private, framework-free. */
+/* Cradle CSS 0.4.0 — private, framework-free. */
 :root {
- --cr-font: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+ --cr-font: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
  --cr-mono:ui-monospace,SFMono-Regular,Consolas,monospace;
  --cr-font-size: 16px; --cr-radius: 10px; --cr-sidebar: 268px;
  --cr-container-width: 1440px; --cr-form-width: 860px; --cr-prose-width: 760px;
