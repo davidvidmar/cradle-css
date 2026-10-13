@@ -43,7 +43,10 @@ document.querySelector('#tables').addEventListener('click', event => {
 const iconSearch = document.querySelector('#icon-search');
 const iconTiles = [...document.querySelectorAll('[data-icon-name]')];
 iconSearch.disabled = false;
-iconSearch.addEventListener('input', () => {
+const iconClear = document.querySelector('#icon-clear');
+iconClear.disabled = false;
+function filterIcons() {
+  document.querySelector('#icon-library').open = true;
   const query = iconSearch.value.trim().toLowerCase().replace(/\s+/g, '-');
   let visible = 0;
   iconTiles.forEach(tile => {
@@ -53,4 +56,10 @@ iconSearch.addEventListener('input', () => {
   document.querySelector('#icon-catalogue').scrollTop = 0;
   document.querySelector('#icon-count').textContent = visible
     ? `${visible} of ${iconTiles.length} icons` : 'No icons match. Try another name.';
+}
+iconSearch.addEventListener('input', filterIcons);
+iconClear.addEventListener('click', () => {
+  iconSearch.value = '';
+  filterIcons();
+  iconSearch.focus();
 });

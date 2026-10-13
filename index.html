@@ -9,12 +9,16 @@
   <link rel="stylesheet" href="themes.css">
   <link rel="stylesheet" href="fonts.css">
   <style>
-    .cr-gallery .cr-icon-catalogue { display:grid; grid-template-columns:repeat(auto-fill,minmax(145px,1fr)); gap:8px; list-style:none; padding:4px; margin:12px 0 0; max-height:480px; overflow:auto; }
-    .cr-gallery .cr-icon-catalogue li { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; min-width:0; padding:14px 8px; border:1px solid var(--cr-line); border-radius:var(--cr-radius); background:var(--cr-paper); }
-    .cr-gallery .cr-icon-catalogue code { font:11px/1.5 var(--cr-mono); overflow-wrap:anywhere; text-align:center; }
+    .cr-gallery .cr-icon-catalogue { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; list-style:none; padding:4px; margin:12px 0 0; max-height:480px; overflow:auto; }
+    .cr-gallery .cr-icon-catalogue li { display:flex; align-items:center; gap:16px; min-width:0; padding:12px 16px; border:1px solid var(--cr-line); border-radius:var(--cr-radius); background:var(--cr-paper); }
+    .cr-gallery .cr-icon-catalogue code { font:11px/1.5 var(--cr-mono); overflow-wrap:anywhere; text-align:left; min-width:0; }
     .cr-gallery .cr-icon-catalogue .cr-icon { --cr-icon-size:24px; }
+    .cr-gallery .cr-icon-search { align-items:flex-end; margin-bottom:12px; }
+    .cr-gallery .cr-icon-search .cr-field { margin-bottom:0; }
+    .cr-gallery #icons .cr-button { gap:10px; }
     /* Keep all gallery links visible when the sidebar becomes mobile navigation. */
     @media (max-width:720px) {
+      .cr-gallery .cr-icon-catalogue { grid-template-columns:repeat(2,minmax(0,1fr)); }
       .cr-gallery .cr-nav { flex:none; flex-wrap:wrap; overflow:visible; }
     }
   </style>
@@ -32,9 +36,9 @@
         <a href="#forms">Forms</a>
         <a href="#cards">Cards</a>
         <a href="#dashboard">Dashboard</a>
-        <a href="#icons">Icons</a>
         <a href="#tables">Tables</a>
         <a href="#reading">Reading &amp; chat</a>
+        <a href="#icons">Icons</a>
       </nav>
       <div class="cr-sidebar-foot cr-subtle">Private library · 0.8.0</div>
     </aside>
@@ -136,6 +140,51 @@
 &lt;label for="work-progress"&gt;Imported · 64 of 100&lt;/label&gt;
 &lt;progress id="work-progress" class="cr-progress" value="64" max="100"&gt;64%&lt;/progress&gt;</code></pre></div></details>
         </section>
+        <section id="tables" class="cr-section">
+          <h2>Tables</h2>
+          <p class="cr-subtle">Tables sort by default when the optional helper is loaded. Select a column heading to sort; select it again to reverse the order.</p>
+          <div class="cr-table-wrap" tabindex="0" role="region" aria-label="Sample source status">
+            <table class="cr-table">
+              <thead><tr><th scope="col">Source</th><th scope="col">Documents</th><th scope="col" data-sort="date">Last updated</th><th scope="col" data-sort="text">Status</th></tr></thead>
+              <tbody><tr><td>Sample notes</td><td>128</td><td data-sort-value="2026-10-12T09:00:00Z">12 Oct, 09:00</td><td><span class="cr-badge">Ready</span></td></tr><tr><td>Project archive</td><td>64</td><td data-sort-value="2026-10-11T18:30:00Z">11 Oct, 18:30</td><td><span class="cr-badge cr-outline">Paused</span></td></tr><tr><td>Design ideas</td><td>9</td><td data-sort-value="2026-10-10T14:15:00Z">10 Oct, 14:15</td><td><span class="cr-badge">Ready</span></td></tr></tbody>
+            </table>
+          </div>
+          <section id="sticky-tables" class="cr-section" style="padding-top:32px">
+          <h3>Sticky headings &amp; actions</h3>
+          <p class="cr-subtle">Scroll inside the table. Headings stay at the top and the action column stays at the edge.</p>
+          <div class="cr-table-wrap cr-table-scroll" tabindex="0" role="region" aria-label="Scrollable source collections">
+            <table class="cr-table cr-table-sticky" style="min-width:900px">
+              <thead><tr><th scope="col">Source</th><th scope="col">Documents</th><th scope="col">Description</th><th scope="col">Status</th><th scope="col" class="cr-table-actions" data-sort="none">Actions</th></tr></thead>
+              <tbody>
+<tr><td>Sample collection 01</td><td>8</td><td>Fictional project documents for the shared workspace.</td><td><span class="cr-badge">Ready</span></td><td class="cr-table-actions"><button class="cr-button" type="button" data-example-source="Sample collection 01" aria-label="Edit Sample collection 01">Edit</button></td></tr>
+<tr><td>Sample collection 02</td><td>16</td><td>Fictional project documents for the shared workspace.</td><td><span class="cr-badge">Ready</span></td><td class="cr-table-actions"><button class="cr-button" type="button" data-example-source="Sample collection 02" aria-label="Edit Sample collection 02">Edit</button></td></tr>
+<tr><td>Sample collection 03</td><td>24</td><td>Fictional project documents for the shared workspace.</td><td><span class="cr-badge">Ready</span></td><td class="cr-table-actions"><button class="cr-button" type="button" data-example-source="Sample collection 03" aria-label="Edit Sample collection 03">Edit</button></td></tr>
+<tr><td>Sample collection 04</td><td>32</td><td>Fictional project documents for the shared workspace.</td><td><span class="cr-badge">Ready</span></td><td class="cr-table-actions"><button class="cr-button" type="button" data-example-source="Sample collection 04" aria-label="Edit Sample collection 04">Edit</button></td></tr>
+<tr><td>Sample collection 05</td><td>40</td><td>Fictional project documents for the shared workspace.</td><td><span class="cr-badge">Ready</span></td><td class="cr-table-actions"><button class="cr-button" type="button" data-example-source="Sample collection 05" aria-label="Edit Sample collection 05">Edit</button></td></tr>
+<tr><td>Sample collection 06</td><td>48</td><td>Fictional project documents for the shared workspace.</td><td><span class="cr-badge">Ready</span></td><td class="cr-table-actions"><button class="cr-button" type="button" data-example-source="Sample collection 06" aria-label="Edit Sample collection 06">Edit</button></td></tr>
+<tr><td>Sample collection 07</td><td>56</td><td>Fictional project documents for the shared workspace.</td><td><span class="cr-badge">Ready</span></td><td class="cr-table-actions"><button class="cr-button" type="button" data-example-source="Sample collection 07" aria-label="Edit Sample collection 07">Edit</button></td></tr>
+<tr><td>Sample collection 08</td><td>64</td><td>Fictional project documents for the shared workspace.</td><td><span class="cr-badge">Ready</span></td><td class="cr-table-actions"><button class="cr-button" type="button" data-example-source="Sample collection 08" aria-label="Edit Sample collection 08">Edit</button></td></tr>
+<tr><td>Sample collection 09</td><td>72</td><td>Fictional project documents for the shared workspace.</td><td><span class="cr-badge">Ready</span></td><td class="cr-table-actions"><button class="cr-button" type="button" data-example-source="Sample collection 09" aria-label="Edit Sample collection 09">Edit</button></td></tr>
+<tr><td>Sample collection 10</td><td>80</td><td>Fictional project documents for the shared workspace.</td><td><span class="cr-badge">Ready</span></td><td class="cr-table-actions"><button class="cr-button" type="button" data-example-source="Sample collection 10" aria-label="Edit Sample collection 10">Edit</button></td></tr>
+<tr><td>Sample collection 11</td><td>88</td><td>Fictional project documents for the shared workspace.</td><td><span class="cr-badge">Ready</span></td><td class="cr-table-actions"><button class="cr-button" type="button" data-example-source="Sample collection 11" aria-label="Edit Sample collection 11">Edit</button></td></tr>
+<tr><td>Sample collection 12</td><td>96</td><td>Fictional project documents for the shared workspace.</td><td><span class="cr-badge">Ready</span></td><td class="cr-table-actions"><button class="cr-button" type="button" data-example-source="Sample collection 12" aria-label="Edit Sample collection 12">Edit</button></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p id="table-action-status" class="cr-subtle" role="status"></p>
+          </section>
+          <details class="cr-details"><summary>Keep a table in its original order</summary><div class="cr-prose"><pre><code>&lt;table class="cr-table" data-sortable="false"&gt;…&lt;/table&gt;
+&lt;th scope="col" data-sort="none"&gt;Actions&lt;/th&gt;</code></pre></div></details>
+        </section>
+        <section id="reading" class="cr-section cr-prose">
+          <h2>Reading &amp; chat</h2>
+          <div class="cr-message">How can I keep the interface consistent?</div>
+          <p>Reuse the same typography, controls and spacing across each page. Let the content provide the visual hierarchy.</p>
+          <blockquote>Use colour to indicate actions and state, and keep supporting information quiet.</blockquote>
+          <p>Set the main text size with <code>--cr-font-size</code>. Keep longer answers within a comfortable reading width.</p>
+          <label class="cr-sr-only" for="question">Ask a question</label>
+          <textarea class="cr-composer" id="question" placeholder="Ask a question…"></textarea>
+        </section>
         <section id="icons" class="cr-section">
           <h2>Lucide icons</h2>
           <p class="cr-subtle">Local SVGs inherit the text colour. Keep labels on controls and use the same icon consistently for the same action.</p>
@@ -152,11 +201,14 @@
   &lt;/svg&gt;
   Save
 &lt;/button&gt;</code></pre></div></details>
-          <details id="icon-library" class="cr-details">
+          <div class="cr-toolbar cr-icon-search">
+            <label class="cr-field" style="flex:1;min-width:min(220px,100%);max-width:420px">Search icons<input id="icon-search" type="search" placeholder="Try arrow, folder or search" aria-controls="icon-catalogue" disabled></label>
+            <button id="icon-clear" class="cr-button" type="button" disabled>Clear search</button>
+          </div>
+          <p id="icon-count" class="cr-subtle" role="status">1879 icons</p>
+          <details id="icon-library" class="cr-details" open>
             <summary>Browse all 1879 icons · Lucide 1.56.0</summary>
             <div>
-              <label class="cr-field" style="max-width:420px">Find an icon<input id="icon-search" type="search" placeholder="Try arrow, folder or search" aria-controls="icon-catalogue" disabled></label>
-              <p id="icon-count" class="cr-subtle" role="status">1879 icons</p>
               <noscript><p class="cr-subtle">All icons are listed below. Filtering requires the gallery JavaScript.</p></noscript>
               <ul id="icon-catalogue" class="cr-icon-catalogue" tabindex="0" aria-label="Lucide icon catalogue">
                 <li data-icon-name="a-arrow-down"><svg class="cr-icon" aria-hidden="true" focusable="false"><use href="lucide.svg#a-arrow-down"></use></svg><code>a-arrow-down</code></li>
@@ -2042,51 +2094,6 @@
             </div>
           </details>
           <p class="cr-subtle"><a href="https://lucide.dev/icons/">Lucide reference</a> · <a href="https://lucide.dev/license">Licence</a>. Serve the gallery over HTTP for external SVG references.</p>
-        </section>
-        <section id="tables" class="cr-section">
-          <h2>Tables</h2>
-          <p class="cr-subtle">Tables sort by default when the optional helper is loaded. Select a column heading to sort; select it again to reverse the order.</p>
-          <div class="cr-table-wrap" tabindex="0" role="region" aria-label="Sample source status">
-            <table class="cr-table">
-              <thead><tr><th scope="col">Source</th><th scope="col">Documents</th><th scope="col" data-sort="date">Last updated</th><th scope="col" data-sort="text">Status</th></tr></thead>
-              <tbody><tr><td>Sample notes</td><td>128</td><td data-sort-value="2026-10-12T09:00:00Z">12 Oct, 09:00</td><td><span class="cr-badge">Ready</span></td></tr><tr><td>Project archive</td><td>64</td><td data-sort-value="2026-10-11T18:30:00Z">11 Oct, 18:30</td><td><span class="cr-badge cr-outline">Paused</span></td></tr><tr><td>Design ideas</td><td>9</td><td data-sort-value="2026-10-10T14:15:00Z">10 Oct, 14:15</td><td><span class="cr-badge">Ready</span></td></tr></tbody>
-            </table>
-          </div>
-          <section id="sticky-tables" class="cr-section" style="padding-top:32px">
-          <h3>Sticky headings &amp; actions</h3>
-          <p class="cr-subtle">Scroll inside the table. Headings stay at the top and the action column stays at the edge.</p>
-          <div class="cr-table-wrap cr-table-scroll" tabindex="0" role="region" aria-label="Scrollable source collections">
-            <table class="cr-table cr-table-sticky" style="min-width:900px">
-              <thead><tr><th scope="col">Source</th><th scope="col">Documents</th><th scope="col">Description</th><th scope="col">Status</th><th scope="col" class="cr-table-actions" data-sort="none">Actions</th></tr></thead>
-              <tbody>
-<tr><td>Sample collection 01</td><td>8</td><td>Fictional project documents for the shared workspace.</td><td><span class="cr-badge">Ready</span></td><td class="cr-table-actions"><button class="cr-button" type="button" data-example-source="Sample collection 01" aria-label="Edit Sample collection 01">Edit</button></td></tr>
-<tr><td>Sample collection 02</td><td>16</td><td>Fictional project documents for the shared workspace.</td><td><span class="cr-badge">Ready</span></td><td class="cr-table-actions"><button class="cr-button" type="button" data-example-source="Sample collection 02" aria-label="Edit Sample collection 02">Edit</button></td></tr>
-<tr><td>Sample collection 03</td><td>24</td><td>Fictional project documents for the shared workspace.</td><td><span class="cr-badge">Ready</span></td><td class="cr-table-actions"><button class="cr-button" type="button" data-example-source="Sample collection 03" aria-label="Edit Sample collection 03">Edit</button></td></tr>
-<tr><td>Sample collection 04</td><td>32</td><td>Fictional project documents for the shared workspace.</td><td><span class="cr-badge">Ready</span></td><td class="cr-table-actions"><button class="cr-button" type="button" data-example-source="Sample collection 04" aria-label="Edit Sample collection 04">Edit</button></td></tr>
-<tr><td>Sample collection 05</td><td>40</td><td>Fictional project documents for the shared workspace.</td><td><span class="cr-badge">Ready</span></td><td class="cr-table-actions"><button class="cr-button" type="button" data-example-source="Sample collection 05" aria-label="Edit Sample collection 05">Edit</button></td></tr>
-<tr><td>Sample collection 06</td><td>48</td><td>Fictional project documents for the shared workspace.</td><td><span class="cr-badge">Ready</span></td><td class="cr-table-actions"><button class="cr-button" type="button" data-example-source="Sample collection 06" aria-label="Edit Sample collection 06">Edit</button></td></tr>
-<tr><td>Sample collection 07</td><td>56</td><td>Fictional project documents for the shared workspace.</td><td><span class="cr-badge">Ready</span></td><td class="cr-table-actions"><button class="cr-button" type="button" data-example-source="Sample collection 07" aria-label="Edit Sample collection 07">Edit</button></td></tr>
-<tr><td>Sample collection 08</td><td>64</td><td>Fictional project documents for the shared workspace.</td><td><span class="cr-badge">Ready</span></td><td class="cr-table-actions"><button class="cr-button" type="button" data-example-source="Sample collection 08" aria-label="Edit Sample collection 08">Edit</button></td></tr>
-<tr><td>Sample collection 09</td><td>72</td><td>Fictional project documents for the shared workspace.</td><td><span class="cr-badge">Ready</span></td><td class="cr-table-actions"><button class="cr-button" type="button" data-example-source="Sample collection 09" aria-label="Edit Sample collection 09">Edit</button></td></tr>
-<tr><td>Sample collection 10</td><td>80</td><td>Fictional project documents for the shared workspace.</td><td><span class="cr-badge">Ready</span></td><td class="cr-table-actions"><button class="cr-button" type="button" data-example-source="Sample collection 10" aria-label="Edit Sample collection 10">Edit</button></td></tr>
-<tr><td>Sample collection 11</td><td>88</td><td>Fictional project documents for the shared workspace.</td><td><span class="cr-badge">Ready</span></td><td class="cr-table-actions"><button class="cr-button" type="button" data-example-source="Sample collection 11" aria-label="Edit Sample collection 11">Edit</button></td></tr>
-<tr><td>Sample collection 12</td><td>96</td><td>Fictional project documents for the shared workspace.</td><td><span class="cr-badge">Ready</span></td><td class="cr-table-actions"><button class="cr-button" type="button" data-example-source="Sample collection 12" aria-label="Edit Sample collection 12">Edit</button></td></tr>
-              </tbody>
-            </table>
-          </div>
-          <p id="table-action-status" class="cr-subtle" role="status"></p>
-          </section>
-          <details class="cr-details"><summary>Keep a table in its original order</summary><div class="cr-prose"><pre><code>&lt;table class="cr-table" data-sortable="false"&gt;…&lt;/table&gt;
-&lt;th scope="col" data-sort="none"&gt;Actions&lt;/th&gt;</code></pre></div></details>
-        </section>
-        <section id="reading" class="cr-section cr-prose">
-          <h2>Reading &amp; chat</h2>
-          <div class="cr-message">How can I keep the interface consistent?</div>
-          <p>Reuse the same typography, controls and spacing across each page. Let the content provide the visual hierarchy.</p>
-          <blockquote>Use colour to indicate actions and state, and keep supporting information quiet.</blockquote>
-          <p>Set the main text size with <code>--cr-font-size</code>. Keep longer answers within a comfortable reading width.</p>
-          <label class="cr-sr-only" for="question">Ask a question</label>
-          <textarea class="cr-composer" id="question" placeholder="Ask a question…"></textarea>
         </section>
       </div>
     </main>
