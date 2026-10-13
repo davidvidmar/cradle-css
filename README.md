@@ -1,6 +1,6 @@
 # Cradle CSS
 
-A private, small CSS library extracted from Cradle. Version **0.6.0**.
+A private, small CSS library extracted from Cradle. Version **0.7.0**.
 
 Neutral surfaces, subtle borders, compact navigation, readable 16px text and restrained accent colours. Plain HTML and CSS, with no package manager, framework, build step or required JavaScript. Inter is the default font family, with system fallbacks. The optional font loader fetches Inter from Google Fonts; the core alone makes no network requests.
 
@@ -62,6 +62,7 @@ The helper de-duplicates stylesheet/preconnect links and uses the [Google Fonts 
 | Page layout | `cr-container`, `cr-section` |
 | App shell | optional `cr-drawer-shell` modifier; `cr-shell`, `cr-sidebar`, `cr-sidebar-head`, `cr-brand`, `cr-nav`, `cr-sidebar-foot`, `cr-main` |
 | Buttons | `cr-button` with optional `cr-primary`, `cr-quiet`, `cr-danger`, `cr-danger-fill`, `cr-bare` |
+| Destructive actions | `cr-danger-box` (optional `cr-danger-title` or `h3`) around a message, an optional type-to-confirm `cr-field` and a `cr-danger-fill` button |
 | Forms | `cr-form`, `cr-field`, `cr-row`, `cr-check`, `cr-toolbar` |
 | Breadcrumb navigation | `cr-breadcrumbs` |
 | Mixed-width dashboard | `cr-dashboard`, `cr-span-third`, `cr-span-half`, `cr-span-two-thirds`, `cr-span-full` |
@@ -96,7 +97,7 @@ Load project overrides last. Keep overrides small and use tokens first:
 }
 ```
 
-Primary tokens: `--cr-paper` (page), `--cr-soft` (secondary surface), `--cr-ink`, `--cr-muted`, `--cr-faint`, `--cr-line`, `--cr-accent`, `--cr-accent-soft`, `--cr-accent-line`, `--cr-on-accent`, `--cr-danger`, `--cr-font`, `--cr-font-size`, `--cr-control-height` (46px), `--cr-textarea-min-height` (120px), `--cr-radius`, `--cr-sidebar`, `--cr-container-width` (1440px), `--cr-form-width` (860px), `--cr-prose-width` (760px).
+Primary tokens: `--cr-paper` (page), `--cr-soft` (secondary surface), `--cr-ink`, `--cr-muted`, `--cr-faint`, `--cr-line`, `--cr-accent`, `--cr-accent-soft`, `--cr-accent-line`, `--cr-on-accent`, `--cr-danger`, `--cr-danger-soft`, `--cr-on-danger`, `--cr-font`, `--cr-font-size`, `--cr-control-height` (46px), `--cr-textarea-min-height` (120px), `--cr-radius`, `--cr-sidebar`, `--cr-container-width` (1440px), `--cr-form-width` (860px), `--cr-prose-width` (760px).
 
 Palette rules are more specific than `:root`. To override colours for a selected palette/mode, match its selectors in your final override sheet, for example `:root[data-skin="nord"][data-theme="dark"]`. Change accent text and background together and check contrast.
 
@@ -246,3 +247,6 @@ Add `cr-table-scroll` to the existing wrapper for bounded vertical scrolling (`-
 The focusable, named wrapper supports keyboard scrolling. Stickiness is relative to the wrapper, not the page. Use one unmerged header row and one trailing action column; keep action controls compact so they leave room for data on phones. Set a project-specific table minimum width only when its content needs horizontal scrolling. The gallery demonstrates both scroll directions and preserves action buttons when sorting.
 
 Version 0.6.0 adds these four component patterns without changing existing defaults. The design reference is [Dreeve](https://github.com/dreeveapp/dreeve); the implementation uses Cradle tokens and native markup without importing upstream code or dependencies.
+||||||| Stash base
+
+Version 0.7.0 adds destructive-action design. `cr-danger-box` is a tinted, red-bordered panel for irreversible actions (title, message, optional type-to-confirm field, then a `cr-danger-fill` button). `cr-danger` gets a soft red hover/pressed tint, both danger buttons focus with a red ring, and the solid button has a not-allowed disabled state. New tokens `--cr-danger-soft` (panel and hover tint) and `--cr-on-danger` (text on `cr-danger-fill`: white in light themes, the page colour in dark ones, where the red is light; this fixes white-on-light-red contrast in dark mode). Not breaking: existing markup keeps working.

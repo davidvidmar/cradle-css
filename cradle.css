@@ -1,4 +1,4 @@
-/* Cradle CSS 0.6.0 — private, framework-free. */
+/* Cradle CSS 0.7.0 — private, framework-free. */
 :root {
  --cr-font: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
  --cr-mono:ui-monospace,SFMono-Regular,Consolas,monospace;
@@ -6,14 +6,14 @@
  --cr-font-size: 16px; --cr-radius: 10px; --cr-sidebar: 268px;
  --cr-table-max-height: 320px; --cr-progress-height: 8px;
  --cr-container-width: 1440px; --cr-form-width: 860px; --cr-prose-width: 760px;
- --cr-faint: #798391; --cr-danger: #a33a2c; --cr-on-accent: #fff;
+ --cr-faint: #798391; --cr-danger: #a33a2c; --cr-danger-soft: #fdf1ef; --cr-on-danger: #fff; --cr-on-accent: #fff;
  color-scheme: light;
  --cr-paper:#ffffff;--cr-soft:#f6f8fa;--cr-ink:#24292f;--cr-muted:#57606a;--cr-line:#d0d7de;--cr-accent:#0969da;--cr-accent-soft:#ddf4ff;--cr-accent-line:var(--cr-line)
 }
 @media (prefers-color-scheme: dark) {
- :root:not([data-theme="light"]) { --cr-paper:#0d1117;--cr-soft:#161b22;--cr-ink:#e6edf3;--cr-muted:#9da7b3;--cr-line:#30363d;--cr-accent:#79b8ff;--cr-accent-soft:#172f4d;--cr-accent-line:var(--cr-line); --cr-faint:#9aa3ad; --cr-danger:#ef8a7c; --cr-on-accent:var(--cr-paper); color-scheme:dark; }
+ :root:not([data-theme="light"]) { --cr-paper:#0d1117;--cr-soft:#161b22;--cr-ink:#e6edf3;--cr-muted:#9da7b3;--cr-line:#30363d;--cr-accent:#79b8ff;--cr-accent-soft:#172f4d;--cr-accent-line:var(--cr-line); --cr-faint:#9aa3ad; --cr-danger:#ef8a7c; --cr-danger-soft:#2b1715; --cr-on-danger:var(--cr-paper); --cr-on-accent:var(--cr-paper); color-scheme:dark; }
 }
-:root[data-theme="dark"] { --cr-paper:#0d1117;--cr-soft:#161b22;--cr-ink:#e6edf3;--cr-muted:#9da7b3;--cr-line:#30363d;--cr-accent:#79b8ff;--cr-accent-soft:#172f4d;--cr-accent-line:var(--cr-line); --cr-faint:#9aa3ad; --cr-danger:#ef8a7c; --cr-on-accent:var(--cr-paper); color-scheme:dark; }
+:root[data-theme="dark"] { --cr-paper:#0d1117;--cr-soft:#161b22;--cr-ink:#e6edf3;--cr-muted:#9da7b3;--cr-line:#30363d;--cr-accent:#79b8ff;--cr-accent-soft:#172f4d;--cr-accent-line:var(--cr-line); --cr-faint:#9aa3ad; --cr-danger:#ef8a7c; --cr-danger-soft:#2b1715; --cr-on-danger:var(--cr-paper); --cr-on-accent:var(--cr-paper); color-scheme:dark; }
 
 /* Base rules are scoped to .cradle; unrelated pages keep their own styles. */
 .cradle, .cradle *, .cradle *::before, .cradle *::after { box-sizing:border-box; }
@@ -40,7 +40,8 @@ body.cradle { margin:0; }
 .cr-button.cr-quiet { background:transparent; border-color:transparent; color:var(--cr-muted); }
 .cr-button.cr-quiet:hover:not(:disabled) { background:var(--cr-soft); border-color:transparent; color:var(--cr-ink); }
 .cr-button.cr-danger { color:var(--cr-danger); border-color:var(--cr-danger); }
-.cr-button.cr-danger:hover:not(:disabled) { background:var(--cr-soft); border-color:var(--cr-danger); }
+.cr-button.cr-danger:hover:not(:disabled) { background:var(--cr-danger-soft); border-color:var(--cr-danger); }
+.cr-button.cr-danger:active:not(:disabled) { background:var(--cr-danger-soft); filter:brightness(.95); }
 .cradle :where(input:not([type="checkbox"]):not([type="radio"]),select,textarea) { min-width:0; max-width:100%; background:var(--cr-paper); border:1px solid var(--cr-line); border-radius:8px; padding:9px 11px; }
 .cradle :where(input:not([type="checkbox"]):not([type="radio"]),select) { min-height:var(--cr-control-height); }
 .cradle :where(input[type="checkbox"],input[type="radio"],progress) { accent-color:var(--cr-accent); }
@@ -145,8 +146,19 @@ body.cradle { margin:0; }
  .cr-drawer-shell .cr-nav { display:flex; flex-direction:column; gap:1px; padding:0 8px 12px; }
 }
 @media(prefers-reduced-motion:reduce) { .cr-drawer-shell .cr-sidebar { transition:none; } }
-.cr-button.cr-danger-fill { background:var(--cr-danger); border-color:var(--cr-danger); color:#fff; }
+.cr-button.cr-danger-fill { background:var(--cr-danger); border-color:var(--cr-danger); color:var(--cr-on-danger); }
 .cr-button.cr-danger-fill:hover:not(:disabled) { background:var(--cr-danger); border-color:var(--cr-danger); filter:brightness(.92); }
+.cr-button.cr-danger-fill:active:not(:disabled) { filter:brightness(.85); }
+.cr-button.cr-danger-fill:disabled { cursor:not-allowed; }
+/* Destructive actions focus in red, like the control they belong to. */
+.cradle .cr-button:is(.cr-danger,.cr-danger-fill):focus-visible, .cr-danger-box :focus-visible { outline-color:var(--cr-danger); }
+/* Confirmation panel for irreversible actions: what will happen, an optional type-to-confirm field, then a cr-danger-fill button. */
+.cr-danger-box { margin:8px 0 12px; padding:14px 16px; border:1px solid var(--cr-danger); border-radius:var(--cr-radius); background:var(--cr-danger-soft); }
+.cr-danger-box > :first-child { margin-top:0; }
+.cr-danger-box > :last-child { margin-bottom:0; }
+.cr-danger-box h3, .cr-danger-box .cr-danger-title { margin:0 0 6px; color:var(--cr-danger); font-size:14px; font-weight:650; }
+.cr-danger-box p { margin:0 0 10px; font-size:13px; }
+.cr-danger-box :where(.cr-field,.cr-check) { margin-bottom:10px; }
 .cr-metric small { color:var(--cr-muted); font-size:11px; }
 .cr-prose h1 { font-size:24px; letter-spacing:-.02em; margin:16px 0 8px; }
 .cr-prose h2 { font-size:20px; margin:16px 0 8px; }
