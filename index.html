@@ -31,7 +31,7 @@
         <a href="#tables">Tables</a>
         <a href="#reading">Reading &amp; chat</a>
       </nav>
-      <div class="cr-sidebar-foot cr-subtle">Private library · 0.6.0</div>
+      <div class="cr-sidebar-foot cr-subtle">Private library · 0.6.1</div>
     </aside>
     <main class="cr-main">
       <div class="cr-container">
@@ -125,7 +125,8 @@
               <tbody><tr><td>Sample notes</td><td>128</td><td data-sort-value="2026-10-12T09:00:00Z">12 Oct, 09:00</td><td><span class="cr-badge">Ready</span></td></tr><tr><td>Project archive</td><td>64</td><td data-sort-value="2026-10-11T18:30:00Z">11 Oct, 18:30</td><td><span class="cr-badge cr-outline">Paused</span></td></tr><tr><td>Design ideas</td><td>9</td><td data-sort-value="2026-10-10T14:15:00Z">10 Oct, 14:15</td><td><span class="cr-badge">Ready</span></td></tr></tbody>
             </table>
           </div>
-          <h3 style="margin-top:24px">Sticky headings &amp; actions</h3>
+          <section id="sticky-tables" class="cr-section" style="margin-top:32px">
+          <h3>Sticky headings &amp; actions</h3>
           <p class="cr-subtle">Scroll inside the table. Headings stay at the top and the action column stays at the edge.</p>
           <div class="cr-table-wrap cr-table-scroll" tabindex="0" role="region" aria-label="Scrollable source collections">
             <table class="cr-table cr-table-sticky" style="min-width:900px">
@@ -147,6 +148,7 @@
             </table>
           </div>
           <p id="table-action-status" class="cr-subtle" role="status"></p>
+          </section>
           <details class="cr-details"><summary>Keep a table in its original order</summary><div class="cr-prose"><pre><code>&lt;table class="cr-table" data-sortable="false"&gt;…&lt;/table&gt;
 &lt;th scope="col" data-sort="none"&gt;Actions&lt;/th&gt;</code></pre></div></details>
         </section>

@@ -1,6 +1,6 @@
 # Cradle CSS
 
-A private, small CSS library extracted from Cradle. Version **0.6.0**.
+A private, small CSS library extracted from Cradle. Version **0.6.1**.
 
 Neutral surfaces, subtle borders, compact navigation, readable 16px text and restrained accent colours. Plain HTML and CSS, with no package manager, framework, build step or required JavaScript. Inter is the default font family, with system fallbacks. The optional font loader fetches Inter from Google Fonts; the core alone makes no network requests.
 
@@ -246,3 +246,6 @@ Add `cr-table-scroll` to the existing wrapper for bounded vertical scrolling (`-
 The focusable, named wrapper supports keyboard scrolling. Stickiness is relative to the wrapper, not the page. Use one unmerged header row and one trailing action column; keep action controls compact so they leave room for data on phones. Set a project-specific table minimum width only when its content needs horizontal scrolling. The gallery demonstrates both scroll directions and preserves action buttons when sorting.
 
 Version 0.6.0 adds these four component patterns without changing existing defaults. The design reference is [Dreeve](https://github.com/dreeveapp/dreeve); the implementation uses Cradle tokens and native markup without importing upstream code or dependencies.
+
+
+Version 0.6.1 fixes shell scrolling during anchor navigation: `cr-main` now contains absolutely positioned descendants, including visually hidden labels, so they cannot expand or scroll the outer document/shell. Keep such labels within their relevant scroll pane; do not position them relative to the outer shell. The gallery also gives the sticky-table example its own section with 32px of top spacing and the existing section scroll margin.
