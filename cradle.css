@@ -1,4 +1,4 @@
-/* Cradle CSS 0.2.0 — private, framework-free. */
+/* Cradle CSS 0.2.1 — private, framework-free. */
 :root {
  --cr-font: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
  --cr-mono:ui-monospace,SFMono-Regular,Consolas,monospace;
@@ -154,7 +154,7 @@ body.cradle { margin:0; }
 .cr-prose hr { border:0; border-top:1px solid var(--cr-line); margin:18px 0; }
 @media(hover:none) and (pointer:coarse) { .cr-sort { min-height:32px; } }
 
-.cr-button:where(.cr-bare) { display:inline-block; min-height:0; border:0; padding:0; background:transparent; color:inherit; font:inherit; border-radius:7px; text-align:inherit; }
+.cr-button:where(.cr-bare) { display:inline-block; min-height:0; border:0; padding:0; background:transparent; color:inherit; font-family:inherit; font-weight:inherit; line-height:inherit; border-radius:7px; text-align:inherit; }
 
 .cr-busy { position:fixed; inset:0 0 auto; height:3px; z-index:100; overflow:hidden; background:var(--cr-accent-soft); pointer-events:none; }
 .cr-busy::after { content:''; position:absolute; inset:0 auto 0 0; width:35%; background:var(--cr-accent); animation:cr-busy 1.1s ease-in-out infinite; }
@@ -162,5 +162,5 @@ body.cradle { margin:0; }
 @media(prefers-reduced-motion:reduce) { .cr-busy::after { animation:none; width:100%; opacity:.6; } }
 
 .cr-tabs { display:flex; gap:4px; padding:4px 12px 8px; }
-.cr-tabs button { flex:1; min-height:0; border:0; background:transparent; color:var(--cr-muted); font-size:13px; font-weight:600; padding:6px; }
+.cr-tabs button { text-align:center; flex:1; min-height:0; border:0; background:transparent; color:var(--cr-muted); font-size:13px; font-weight:600; padding:6px; }
 .cr-tabs button[aria-selected="true"] { background:var(--cr-paper); color:var(--cr-ink); box-shadow:0 0 0 1px var(--cr-line); }
