@@ -1,6 +1,6 @@
 # Cradle CSS
 
-A private, small CSS library extracted from Cradle. Version **0.4.1**.
+A private, small CSS library extracted from Cradle. Version **0.5.0**.
 
 Neutral surfaces, subtle borders, compact navigation, readable 16px text and restrained accent colours. Plain HTML and CSS, with no package manager, framework, build step or required JavaScript. Inter is the default font family, with system fallbacks. The optional font loader fetches Inter from Google Fonts; the core alone makes no network requests.
 
@@ -133,11 +133,11 @@ The home-host HTTPS router also uses exact-path `cradle-css-slash` and `cradle-c
 
 ## Optional sortable tables
 
-Load `sort-tables.js` with `defer`; it automatically initializes tables inside `.cradle` that opt in with `data-sortable`:
+Load optional `sort-tables.js` with `defer`; it makes every supported table inside `.cradle` sortable by default, including plain/Markdown tables and tables inserted later. No `data-sortable` opt-in is needed:
 
 ```html
 <script defer src="sort-tables.js"></script>
-<table class="cr-table" data-sortable>
+<table class="cr-table">
   <thead><tr>
     <th scope="col" data-sort="text">Name</th>
     <th scope="col" data-sort="number">Count</th>
@@ -151,9 +151,9 @@ Load `sort-tables.js` with `defer`; it automatically initializes tables inside `
 </table>
 ```
 
-The helper creates native header buttons with visible direction indicators and `aria-sort`. Click, Enter or Space toggles ascending/descending. Text uses locale-aware natural comparison; numbers sort numerically; dates should use ISO values. Set `data-sort-value` on a cell when its display text differs from its machine value, such as currency or a formatted date. Empty/invalid numeric/date values stay last in both directions; ties retain their current row order. Existing row elements and their event handlers are preserved.
+The helper creates native header buttons with visible direction indicators and `aria-sort`. Click, Enter or Space toggles ascending/descending. Columns infer plain decimal/exponent numbers or ISO dates when all nonempty values match; other columns use locale-aware natural text comparison. Set header `data-sort="text"`, `"number"` or `"date"` to choose explicitly (recommended for formatted/mixed values), or `"auto"` to infer. Set `data-sort-value` on a cell when its display text differs from its machine value, such as currency or a formatted date. Empty values, and invalid values in explicit numeric/date columns, stay last in both directions; ties retain their current row order. Existing row elements and their event handlers are preserved.
 
-For dynamically inserted tables call `CradleTables.init(container)` after rendering; repeated initialization is safe. This small helper supports one header row, one body and unmerged cells, and sorts only the rows currently in the DOM. For paginated/server-backed tables, let the application implement ordering. Omit `data-sort` on a column to leave it unsortable. Tables remain ordinary readable HTML without JavaScript.
+Newly inserted tables initialize automatically. `CradleTables.init(container)` remains available for manual initialization; repeated initialization is safe. This small helper supports one header row, one body and unmerged cells, and sorts only the rows currently in the DOM. For paginated/server-backed tables, let the application implement ordering. Set `data-sortable="false"` on a table or `data-sort="none"` on a header to opt out. Headers containing interactive controls are left to the application; nested, merged or uneven tables are skipped. Tables remain ordinary readable HTML without JavaScript.
 
 Version 0.2.0 adds this optional helper and the matching header controls; core CSS still requires no JavaScript. Add `sort-tables.js` to the served release assets when deploying the updated gallery.
 
@@ -175,3 +175,5 @@ Version 0.3.0 (breaking): the default `--cr-container-width` grows from 1180px t
 Version 0.4.0 (breaking): Inter becomes the default interface family. The optional `fonts.js` loader fetches it automatically unless `data-font` explicitly selects another font. Gallery and starter use Inter by default. To restore the previous interface, include `fonts.css` and set `data-font="native-sans"` on `<html>` before the loader runs, or override `--cr-font` in your project stylesheet. The core still has no required JavaScript or CDN dependency.
 
 Version 0.4.1 aligns native input/select minimum heights and gives form textareas a configurable minimum height. The gallery Description field now starts with four rows.
+
+Version 0.5.0 (breaking): loading `sort-tables.js` enables sorting for all supported tables inside `.cradle`, with automatic column types and initialization of new tables. Previously tables/columns required explicit opt-in. Use `data-sortable="false"` or header `data-sort="none"` where row order must be preserved; application-managed headers keep their own controls. CSS-only tables still work without JavaScript.

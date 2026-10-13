@@ -16,19 +16,30 @@
     }).map(entry => entry.item);
   }
 
+  const interactive = 'a,button,input,select,textarea,summary,[contenteditable],[tabindex],[role="button"],[role="link"]';
+  const numeric = /^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/i;
+  const isoDate = /^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:\d{2})?)?$/;
+  const rawValue = cell => (cell?.dataset.sortValue ?? cell?.textContent ?? '').trim();
+  function inferType(rows, column) {
+    const values = rows.map(row => rawValue(row.cells[column])).filter(Boolean);
+    if (values.length && values.every(value => numeric.test(value) && Number.isFinite(Number(value)))) return 'number';
+    if (values.length && values.every(value => isoDate.test(value) && Number.isFinite(Date.parse(value)))) return 'date';
+    return 'text';
+  }
+
   function init(root = document) {
-    const tables = [...root.querySelectorAll('.cr-table[data-sortable]')];
-    if (root.matches?.('.cr-table[data-sortable]')) tables.unshift(root);
+    const tables = [...root.querySelectorAll('table')];
+    if (root.matches?.('table')) tables.unshift(root);
     for (const table of tables) {
-      if (initialized.has(table) || !table.closest('.cradle') || table.tBodies.length !== 1 || table.tHead?.rows.length !== 1) continue;
+      if (initialized.has(table) || !table.closest('.cradle') || table.dataset.sortable === 'false' || table.tBodies.length !== 1 || table.tHead?.rows.length !== 1 || table.querySelector('table') || table.parentElement?.closest('table')) continue;
       const body = table.tBodies[0];
       const headers = [...(table.tHead?.rows[0]?.cells ?? [])];
       // Keep merged headers/rows outside this deliberately small helper's scope.
-      if ([...headers, ...body.querySelectorAll('td,th')].some(cell => cell.colSpan !== 1 || cell.rowSpan !== 1)) continue;
+      if (!headers.length || headers.some(cell => cell.tagName !== 'TH') || [...body.rows].some(row => row.cells.length !== headers.length) || [...headers, ...body.querySelectorAll('td,th')].some(cell => cell.colSpan !== 1 || cell.rowSpan !== 1)) continue;
       const controls = [];
       headers.forEach((header, column) => {
-        const type = header.dataset.sort;
-        if (!['text', 'number', 'date'].includes(type)) return;
+        const configuredType = header.dataset.sort || 'auto';
+        if (!['auto', 'text', 'number', 'date'].includes(configuredType) || header.matches(interactive) || header.querySelector(interactive)) return;
         const label = header.textContent.trim();
         const button = document.createElement('button');
         button.type = 'button';
@@ -40,9 +51,13 @@
         controls.push({ header, button, label });
         button.addEventListener('click', () => {
           const descending = header.getAttribute('aria-sort') === 'ascending';
-          const rows = [...body.rows].map((row, index) => {
+          const currentRows = [...body.rows];
+          // A later render can introduce merged/uneven rows; never reorder those.
+          if (table.dataset.sortable === 'false' || table.tBodies.length !== 1 || table.tBodies[0] !== body || currentRows.some(row => row.cells.length !== headers.length || [...row.cells].some(cell => cell.colSpan !== 1 || cell.rowSpan !== 1)) || table.querySelector('table')) return;
+          const type = configuredType === 'auto' ? inferType(currentRows, column) : configuredType;
+          const rows = currentRows.map((row, index) => {
             const cell = row.cells[column];
-            const raw = (cell?.dataset.sortValue ?? cell?.textContent ?? '').trim();
+            const raw = rawValue(cell);
             let value = raw;
             if (type === 'number') value = raw === '' ? NaN : Number(raw);
             if (type === 'date') value = Date.parse(raw);
@@ -60,10 +75,23 @@
           }
         });
       });
-      initialized.add(table);
+      if (controls.length) initialized.add(table);
     }
   }
   window.CradleTables = { init, order };
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => init(), { once: true });
-  else init();
+  function start() {
+    init();
+    // Newly rendered tables gain controls without application-specific initialization.
+    const observer = new MutationObserver(records => {
+      const roots = new Set();
+      for (const record of records) for (const node of record.addedNodes) {
+        if (node.nodeType !== 1) continue;
+        roots.add(node.closest('table') || node);
+      }
+      for (const root of roots) init(root);
+    });
+    observer.observe(document.documentElement, { childList: true, subtree: true });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start, { once: true });
+  else start();
 })();

@@ -24,7 +24,7 @@
         <a href="#tables">Tables</a>
         <a href="#reading">Reading &amp; chat</a>
       </nav>
-      <div class="cr-sidebar-foot cr-subtle">Private library · 0.4.1</div>
+      <div class="cr-sidebar-foot cr-subtle">Private library · 0.5.0</div>
     </aside>
     <main class="cr-main">
       <div class="cr-container">
@@ -93,13 +93,15 @@
         </section>
         <section id="tables" class="cr-section">
           <h2>Tables</h2>
-          <p class="cr-subtle">Select a column heading to sort; select it again to reverse the order.</p>
+          <p class="cr-subtle">Tables sort by default when the optional helper is loaded. Select a column heading to sort; select it again to reverse the order.</p>
           <div class="cr-table-wrap" tabindex="0" role="region" aria-label="Sample source status">
-            <table class="cr-table" data-sortable>
-              <thead><tr><th scope="col" data-sort="text">Source</th><th scope="col" data-sort="number">Documents</th><th scope="col" data-sort="date">Last updated</th><th scope="col" data-sort="text">Status</th></tr></thead>
+            <table class="cr-table">
+              <thead><tr><th scope="col">Source</th><th scope="col">Documents</th><th scope="col" data-sort="date">Last updated</th><th scope="col" data-sort="text">Status</th></tr></thead>
               <tbody><tr><td>Sample notes</td><td>128</td><td data-sort-value="2026-10-12T09:00:00Z">12 Oct, 09:00</td><td><span class="cr-badge">Ready</span></td></tr><tr><td>Project archive</td><td>64</td><td data-sort-value="2026-10-11T18:30:00Z">11 Oct, 18:30</td><td><span class="cr-badge cr-outline">Paused</span></td></tr><tr><td>Design ideas</td><td>9</td><td data-sort-value="2026-10-10T14:15:00Z">10 Oct, 14:15</td><td><span class="cr-badge">Ready</span></td></tr></tbody>
             </table>
           </div>
+          <details class="cr-details"><summary>Keep a table in its original order</summary><div class="cr-prose"><pre><code>&lt;table class="cr-table" data-sortable="false"&gt;…&lt;/table&gt;
+&lt;th scope="col" data-sort="none"&gt;Actions&lt;/th&gt;</code></pre></div></details>
         </section>
         <section id="reading" class="cr-section cr-prose">
           <h2>Reading &amp; chat</h2>
