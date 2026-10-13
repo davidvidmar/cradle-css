@@ -1,5 +1,6 @@
 import importlib.util
 import io
+from html.parser import HTMLParser
 import json
 from pathlib import Path
 import tarfile
@@ -56,6 +57,24 @@ class GalleryDeployTests(unittest.TestCase):
         self.assertEqual(Path(receipt['composeBackup']).read_text(), self.original)
         self.assertEqual(set(receipt['assets']), set(gallery.ASSETS) | {'version.txt'})
         self.assertEqual(self.invoke(archive()), 0)
+
+    def test_gallery_styles_are_external_for_host_csp(self):
+        class GalleryMarkup(HTMLParser):
+            def __init__(self):
+                super().__init__()
+                self.inline_styles = []
+                self.stylesheets = []
+            def handle_starttag(self, tag, attrs):
+                attrs = dict(attrs)
+                if tag == 'style' or 'style' in attrs:
+                    self.inline_styles.append(tag)
+                if tag == 'link' and attrs.get('rel') == 'stylesheet':
+                    self.stylesheets.append(attrs.get('href'))
+        markup = GalleryMarkup()
+        markup.feed((Path(__file__).parents[1] / 'index.html').read_text())
+        self.assertEqual(markup.inline_styles, [])
+        self.assertIn('examples.css', markup.stylesheets)
+        self.assertIn('examples.css', gallery.ASSETS)
 
     def test_real_gallery_bundle_fits_receiver_limits(self):
         root = Path(__file__).parents[1]

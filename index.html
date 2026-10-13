@@ -8,20 +8,7 @@
   <link rel="stylesheet" href="cradle.css">
   <link rel="stylesheet" href="themes.css">
   <link rel="stylesheet" href="fonts.css">
-  <style>
-    .cr-gallery .cr-icon-catalogue { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; list-style:none; padding:4px; margin:12px 0 0; max-height:480px; overflow:auto; }
-    .cr-gallery .cr-icon-catalogue li { display:flex; align-items:center; gap:16px; min-width:0; padding:12px 16px; border:1px solid var(--cr-line); border-radius:var(--cr-radius); background:var(--cr-paper); }
-    .cr-gallery .cr-icon-catalogue code { font:11px/1.5 var(--cr-mono); overflow-wrap:anywhere; text-align:left; min-width:0; }
-    .cr-gallery .cr-icon-catalogue .cr-icon { --cr-icon-size:24px; }
-    .cr-gallery .cr-icon-search { align-items:flex-end; margin-bottom:12px; }
-    .cr-gallery .cr-icon-search .cr-field { margin-bottom:0; }
-    .cr-gallery #icons .cr-button { gap:10px; }
-    /* Keep all gallery links visible when the sidebar becomes mobile navigation. */
-    @media (max-width:720px) {
-      .cr-gallery .cr-icon-catalogue { grid-template-columns:repeat(2,minmax(0,1fr)); }
-      .cr-gallery .cr-nav { flex:none; flex-wrap:wrap; overflow:visible; }
-    }
-  </style>
+  <link rel="stylesheet" href="examples.css">
   <script src="fonts.js"></script>
   <script defer src="examples.js"></script>
   <script defer src="sort-tables.js"></script>
@@ -40,7 +27,7 @@
         <a href="#reading">Reading &amp; chat</a>
         <a href="#icons">Icons</a>
       </nav>
-      <div class="cr-sidebar-foot cr-subtle">Private library · 0.8.0</div>
+      <div class="cr-sidebar-foot cr-subtle">Private library · 0.8.1</div>
     </aside>
     <main class="cr-main">
       <div class="cr-container">
@@ -115,7 +102,7 @@
               <button class="cr-button" type="button">Edit</button>
             </article>
           </div>
-          <h3 style="margin-top:24px">Overview</h3>
+          <h3>Overview</h3>
           <div class="cr-metrics">
             <div class="cr-metric"><span>Documents</span><strong>128</strong></div>
             <div class="cr-metric"><span>Sources</span><strong>4</strong></div>
@@ -149,11 +136,11 @@
               <tbody><tr><td>Sample notes</td><td>128</td><td data-sort-value="2026-10-12T09:00:00Z">12 Oct, 09:00</td><td><span class="cr-badge">Ready</span></td></tr><tr><td>Project archive</td><td>64</td><td data-sort-value="2026-10-11T18:30:00Z">11 Oct, 18:30</td><td><span class="cr-badge cr-outline">Paused</span></td></tr><tr><td>Design ideas</td><td>9</td><td data-sort-value="2026-10-10T14:15:00Z">10 Oct, 14:15</td><td><span class="cr-badge">Ready</span></td></tr></tbody>
             </table>
           </div>
-          <section id="sticky-tables" class="cr-section" style="padding-top:32px">
+          <section id="sticky-tables" class="cr-section">
           <h3>Sticky headings &amp; actions</h3>
           <p class="cr-subtle">Scroll inside the table. Headings stay at the top and the action column stays at the edge.</p>
           <div class="cr-table-wrap cr-table-scroll" tabindex="0" role="region" aria-label="Scrollable source collections">
-            <table class="cr-table cr-table-sticky" style="min-width:900px">
+            <table class="cr-table cr-table-sticky">
               <thead><tr><th scope="col">Source</th><th scope="col">Documents</th><th scope="col">Description</th><th scope="col">Status</th><th scope="col" class="cr-table-actions" data-sort="none">Actions</th></tr></thead>
               <tbody>
 <tr><td>Sample collection 01</td><td>8</td><td>Fictional project documents for the shared workspace.</td><td><span class="cr-badge">Ready</span></td><td class="cr-table-actions"><button class="cr-button" type="button" data-example-source="Sample collection 01" aria-label="Edit Sample collection 01">Edit</button></td></tr>
@@ -202,7 +189,7 @@
   Save
 &lt;/button&gt;</code></pre></div></details>
           <div class="cr-toolbar cr-icon-search">
-            <label class="cr-field" style="flex:1;min-width:min(220px,100%);max-width:420px">Search icons<input id="icon-search" type="search" placeholder="Try arrow, folder or search" aria-controls="icon-catalogue" disabled></label>
+            <label class="cr-field">Search icons<input id="icon-search" type="search" placeholder="Try arrow, folder or search" aria-controls="icon-catalogue" disabled></label>
             <button id="icon-clear" class="cr-button" type="button" disabled>Clear search</button>
           </div>
           <p id="icon-count" class="cr-subtle" role="status">1879 icons</p>

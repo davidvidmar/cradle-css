@@ -1,6 +1,6 @@
 # Cradle CSS
 
-A private, small CSS library extracted from Cradle. Version **0.8.0**.
+A private, small CSS library extracted from Cradle. Version **0.8.1**.
 
 Neutral surfaces, subtle borders, compact navigation, readable 16px text and restrained accent colours. Plain HTML and CSS, with no package manager, framework, build step or required JavaScript. Inter is the default font family, with system fallbacks. The optional font loader fetches Inter from Google Fonts; the core alone makes no network requests.
 
@@ -135,7 +135,7 @@ Every push to library `main` automatically deploys the gallery to Bob through a 
 
 The receiver backs up the authoritative Compose file, updates only the gallery mount and recreates only `cradle` using its running immutable image ID (`--no-deps --no-build --pull never`). It verifies the application image/version and mounted asset hashes and restores the previous mount if checks fail. Restarting Cradle revokes its in-memory sessions. A failed deployment reports an error in the push output; the commit is still in Git, so retry deployment before reporting the push as published. Branch/tag pushes do not deploy, and the application’s pinned CSS submodule remains independent.
 
-Run receiver regression tests with `python3 -m unittest discover -s tests`. For a manual retry, export the nine asset names listed in the hook with `git archive <full-commit>` and pipe it over SSH to Bob’s receiver with `deploy <full-commit>`. Never overwrite the shared Compose file from a repository template or copy application data into the CSS release.
+Run receiver regression tests with `python3 -m unittest discover -s tests`. For a manual retry, export the ten asset names listed in the hook with `git archive <full-commit>` and pipe it over SSH to Bob’s receiver with `deploy <full-commit>`. Never overwrite the shared Compose file from a repository template or copy application data into the CSS release.
 
 The home-host HTTPS router also uses exact-path `cradle-css-slash` and `cradle-css-index` middleware: `/css` redirects to `/css/`, and `/css/` is rewritten to `/css/index.html` before reaching Cradle. This avoids its source-bookmark route while preserving the existing sign-in gate. Preserve these middleware settings when updating the authoritative Traefik configuration.
 
@@ -260,7 +260,7 @@ Version 0.7.1 fixes shell scrolling during anchor navigation: `cr-main` now cont
 
 Use [Lucide](https://lucide.dev/icons/) for interface icons in projects using Cradle CSS. The pack includes the complete **lucide-static 1.56.0** SVG sprite (`lucide.svg`, 1879 named symbols), pinned from the [official static package](https://www.npmjs.com/package/lucide-static/v/1.56.0). No JavaScript, icon font, CDN or build step is required. The optional sprite is only fetched when your markup references it; the core stylesheet alone does not load icons.
 
-Copy `lucide.svg` alongside your CSS, then use a native SVG reference. Keep the sprite on the same origin and serve it over HTTP(S); browsers restrict external SVG references when opening files directly with `file://`. Inline individual Lucide SVG markup is an alternative for direct-file use or applications needing just a few icons. Keep the relevant upstream licence notices when copying individual SVGs. The gallery ends with the complete catalogue: three columns on desktop, two on smaller screens, and 16px between each icon and its name. Search stays visible above the expanded catalogue; typing filters names and reopens the catalogue, and Clear search restores every icon. Filtering requires only the optional gallery JavaScript.
+Copy `lucide.svg` alongside your CSS, then use a native SVG reference. Keep the sprite on the same origin and serve it over HTTP(S); browsers restrict external SVG references when opening files directly with `file://`. Inline individual Lucide SVG markup is an alternative for direct-file use or applications needing just a few icons. Keep the relevant upstream licence notices when copying individual SVGs. The gallery ends with the complete catalogue: three columns on desktop, two on smaller screens, and 20px between each icon and its name. Search stays visible above the expanded catalogue; typing filters names and reopens the catalogue, and Clear search restores every icon. Filtering requires only the optional gallery JavaScript.
 
 ```html
 <button class="cr-button" type="button">
@@ -284,3 +284,8 @@ Use kebab-case symbol names from the catalogue. Default size is 18px (`--cr-icon
 Version 0.8.0 adds optional Lucide icons and the full searchable gallery catalogue. Existing core usage is unchanged. To update the sprite, use a pinned official `lucide-static` archive, retain its licence, regenerate the gallery's symbol list from the sprite, and verify every reference in Playwright Chromium and WebKit. Keep the gallery archive below the receiver's 2 MiB limit and each asset below 1 MiB.
 
 The installed copies were synchronized for the 0.8.0 release. Before any future asset-list change is pushed, synchronize the installed Forgejo `post-receive.d/deploy-gallery` hook and Bob's `~/app-dev/config/cradle-css/bob-deploy-gallery.py` receiver with the repository scripts: both now allowlist `lucide.svg` in addition to the previous eight assets. Updating these script sources alone does not update their installed copies. Run receiver tests before installing them; retain the restricted SSH key/host settings and existing deployment safeguards. Do this as part of an authorized publish, before pushing main, then verify the sprite hash alongside all other deployed assets. Application consumers must include `lucide.svg` in their separate runtime-asset copying rules when adopting icons.
+
+
+Version 0.8.1 moves all gallery presentation into external `examples.css` so Cradle's `style-src` policy can apply it. The catalogue now uses a three-column desktop/two-column mobile grid, with each row placing its 24px icon in a separate grid track and a 20px gap before a 12px name. The same sheet owns mobile navigation wrapping, search layout and sticky-demo spacing/width. Do not add inline style blocks or style attributes to the gallery: Bob's policy rejects them. Validate the served gallery with Bob's CSP in Playwright Firefox, Chromium and WebKit. `examples.css` is for the gallery only; application consumers still use core CSS and optional runtime assets.
+
+The publishing allowlists now include `examples.css` (ten assets plus generated version.txt). Both installed deployment scripts were synchronized for 0.8.1. Synchronize them again when the allowlists change, and verify the stylesheet hash on every deployment. Keep this external sheet linked from index.html and included in future gallery releases.
