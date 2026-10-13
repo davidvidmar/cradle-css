@@ -1,6 +1,6 @@
 # Cradle CSS
 
-A private, small CSS library extracted from Cradle. Version **0.7.1**.
+A private, small CSS library extracted from Cradle. Version **0.8.0**.
 
 Neutral surfaces, subtle borders, compact navigation, readable 16px text and restrained accent colours. Plain HTML and CSS, with no package manager, framework, build step or required JavaScript. Inter is the default font family, with system fallbacks. The optional font loader fetches Inter from Google Fonts; the core alone makes no network requests.
 
@@ -76,6 +76,7 @@ The helper de-duplicates stylesheet/preconnect links and uses the [Google Fonts 
 | Reading and chat | `cr-prose`, `cr-message`, `cr-composer` |
 | Tab controls | `cr-tabs` |
 | Loading indicator | `cr-busy` (hide with `hidden`; respects reduced motion) |
+| Lucide icons | `cr-icon` on `<svg>` with optional local `lucide.svg` |
 | Supporting text | `cr-subtle`, `cr-error`, `cr-sr-only` |
 
 Single-line inputs and selects share a 46px minimum height (`--cr-control-height`). Textareas inside `cr-field` have a 120px minimum height (`--cr-textarea-min-height`) and remain vertically resizable; larger `rows` values can make them taller. Override these tokens in `:root` or on an individual form.
@@ -105,7 +106,7 @@ Palette rules are more specific than `:root`. To override colours for a selected
 
 Give another coding assistant this repository and this instruction:
 
-> Use my private Cradle CSS library as this project's visual foundation. Read its README and component gallery, reuse cradle.css and the documented cr- components, and preserve the quiet layout, 16px typography, subtle borders and restrained accents. Use fonts.css/fonts.js for the default Inter interface and themes.css only if needed. Adapt the examples to the project's framework. Keep project-specific styles in a separate stylesheet; extend existing components before adding new ones. Use native accessible elements and check desktop/mobile and light/dark rendering.
+> Use my private Cradle CSS library as this project's visual foundation. Read its README and component gallery, reuse cradle.css and the documented cr- components, and preserve the quiet layout, 16px typography, subtle borders and restrained accents. Use fonts.css/fonts.js for the default Inter interface and themes.css only if needed. Use the bundled Lucide sprite with cr-icon for interface icons; keep labels accessible and use consistent icon names for the same actions. Adapt the examples to the project's framework. Keep project-specific styles in a separate stylesheet; extend existing components before adding new ones. Use native accessible elements and check desktop/mobile and light/dark rendering.
 
 ## Repository and maintenance
 
@@ -128,13 +129,13 @@ For private use. Inter is requested from Google Fonts rather than redistributed 
 
 The gallery is available at [cradle.home.vidmar.net/css/](https://cradle.home.vidmar.net/css/) and uses Cradle's existing Pocket ID sign-in.
 
-Bob's authoritative `~/app-dev/docker-compose.yml` mounts a pinned release read-only at `/app/wwwroot/css` in the existing `cradle` service. Gallery assets live in `~/app-dev/config/cradle-css/releases/<commit>/site`; `deployment.json` beside the site records the commit, asset hashes, application image/version and Compose backup. Only HTML, CSS, example JavaScript and `version.txt` are served.
+Bob's authoritative `~/app-dev/docker-compose.yml` mounts a pinned release read-only at `/app/wwwroot/css` in the existing `cradle` service. Gallery assets live in `~/app-dev/config/cradle-css/releases/<commit>/site`; `deployment.json` beside the site records the commit, asset hashes, application image/version and Compose backup. Only allowlisted HTML, CSS, example JavaScript, the optional Lucide SVG sprite and `version.txt` are served.
 
 Every push to library `main` automatically deploys the gallery to Bob through a Forgejo repository hook. The hook (`scripts/forgejo-post-receive.sh`) exports only the committed gallery assets and sends them to `scripts/bob-deploy-gallery.py`, installed at `~/app-dev/config/cradle-css/bob-deploy-gallery.py`. Its dedicated SSH key is restricted to that receiver; no private key lives in Git. The hook is installed alongside Forgejo’s existing hooks at `cradle-css.git/hooks/post-receive.d/deploy-gallery`; its key and pinned host key live in Forgejo’s persistent `/data/gitea/gallery-deploy/` directory.
 
 The receiver backs up the authoritative Compose file, updates only the gallery mount and recreates only `cradle` using its running immutable image ID (`--no-deps --no-build --pull never`). It verifies the application image/version and mounted asset hashes and restores the previous mount if checks fail. Restarting Cradle revokes its in-memory sessions. A failed deployment reports an error in the push output; the commit is still in Git, so retry deployment before reporting the push as published. Branch/tag pushes do not deploy, and the application’s pinned CSS submodule remains independent.
 
-Run receiver regression tests with `python3 -m unittest discover -s tests`. For a manual retry, export the eight asset names listed in the hook with `git archive <full-commit>` and pipe it over SSH to Bob’s receiver with `deploy <full-commit>`. Never overwrite the shared Compose file from a repository template or copy application data into the CSS release.
+Run receiver regression tests with `python3 -m unittest discover -s tests`. For a manual retry, export the nine asset names listed in the hook with `git archive <full-commit>` and pipe it over SSH to Bob’s receiver with `deploy <full-commit>`. Never overwrite the shared Compose file from a repository template or copy application data into the CSS release.
 
 The home-host HTTPS router also uses exact-path `cradle-css-slash` and `cradle-css-index` middleware: `/css` redirects to `/css/`, and `/css/` is rewritten to `/css/index.html` before reaching Cradle. This avoids its source-bookmark route while preserving the existing sign-in gate. Preserve these middleware settings when updating the authoritative Traefik configuration.
 
@@ -253,3 +254,33 @@ Version 0.7.0 adds destructive-action design. `cr-danger-box` is a tinted, red-b
 
 
 Version 0.7.1 fixes shell scrolling during anchor navigation: `cr-main` now contains absolutely positioned descendants, including visually hidden labels, so they cannot expand or scroll the outer document/shell. Keep such labels within their relevant scroll pane; do not position them relative to the outer shell. The gallery also gives the sticky-table example its own section with 32px of explicit top padding and the existing section scroll margin. This keeps the spacing inside the section rather than relying on adjacent margins.
+
+
+## Optional Lucide icons (0.8.0)
+
+Use [Lucide](https://lucide.dev/icons/) for interface icons in projects using Cradle CSS. The pack includes the complete **lucide-static 1.56.0** SVG sprite (`lucide.svg`, 1879 named symbols), pinned from the [official static package](https://www.npmjs.com/package/lucide-static/v/1.56.0). No JavaScript, icon font, CDN or build step is required. The optional sprite is only fetched when your markup references it; the core stylesheet alone does not load icons.
+
+Copy `lucide.svg` alongside your CSS, then use a native SVG reference. Keep the sprite on the same origin and serve it over HTTP(S); browsers restrict external SVG references when opening files directly with `file://`. Inline individual Lucide SVG markup is an alternative for direct-file use or applications needing just a few icons. Keep the relevant upstream licence notices when copying individual SVGs. The gallery's expandable catalogue displays every named symbol included in the pinned version, with optional name filtering.
+
+```html
+<button class="cr-button" type="button">
+  <svg class="cr-icon" aria-hidden="true" focusable="false">
+    <use href="lucide.svg#save"></use>
+  </svg>
+  Save
+</button>
+
+<button class="cr-button cr-quiet" type="button" aria-label="Search workspace">
+  <svg class="cr-icon" aria-hidden="true" focusable="false">
+    <use href="lucide.svg#search"></use>
+  </svg>
+</button>
+```
+
+Use kebab-case symbol names from the catalogue. Default size is 18px (`--cr-icon-size`); stroke width is 2 (`--cr-icon-stroke`). Icons inherit `currentColor`, so buttons, navigation and theme colours apply without additional variants. Prefer labelled controls; decorative SVGs must use `aria-hidden="true"` and `focusable="false"`. Give icon-only controls an accessible name. For a standalone meaningful icon use `role="img"` and an accessible name on the SVG. Do not rely on an icon alone to communicate success, danger or progress. Keep Lucide's line style and choose a consistent symbol for each action; avoid mixing icon libraries or substituting emoji for interface controls.
+
+`lucide.svg` embeds the full upstream licence notices; [LUCIDE-LICENSE](LUCIDE-LICENSE) preserves the original notice separately. Lucide uses ISC with MIT notices for icons derived from Feather. Preserve these notices when distributing the sprite. Upstream references: [static usage](https://lucide.dev/guide/static), [accessibility](https://lucide.dev/guide/advanced/accessibility), [licence](https://lucide.dev/license).
+
+Version 0.8.0 adds optional Lucide icons and the full searchable gallery catalogue. Existing core usage is unchanged. To update the sprite, use a pinned official `lucide-static` archive, retain its licence, regenerate the gallery's symbol list from the sprite, and verify every reference in Playwright Chromium and WebKit. Keep the gallery archive below the receiver's 2 MiB limit and each asset below 1 MiB.
+
+The installed copies were synchronized for the 0.8.0 release. Before any future asset-list change is pushed, synchronize the installed Forgejo `post-receive.d/deploy-gallery` hook and Bob's `~/app-dev/config/cradle-css/bob-deploy-gallery.py` receiver with the repository scripts: both now allowlist `lucide.svg` in addition to the previous eight assets. Updating these script sources alone does not update their installed copies. Run receiver tests before installing them; retain the restricted SSH key/host settings and existing deployment safeguards. Do this as part of an authorized publish, before pushing main, then verify the sprite hash alongside all other deployed assets. Application consumers must include `lucide.svg` in their separate runtime-asset copying rules when adopting icons.

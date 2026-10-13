@@ -1,8 +1,9 @@
-/* Cradle CSS 0.7.1 — private, framework-free. */
+/* Cradle CSS 0.8.0 — private, framework-free. */
 :root {
  --cr-font: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
  --cr-mono:ui-monospace,SFMono-Regular,Consolas,monospace;
  --cr-control-height: 46px; --cr-textarea-min-height: 120px;
+ --cr-icon-size: 18px; --cr-icon-stroke: 2;
  --cr-font-size: 16px; --cr-radius: 10px; --cr-sidebar: 268px;
  --cr-table-max-height: 320px; --cr-progress-height: 8px;
  --cr-container-width: 1440px; --cr-form-width: 860px; --cr-prose-width: 760px;
@@ -217,3 +218,7 @@ body.cradle { margin:0; }
 .cr-progress::-moz-progress-bar { background:var(--cr-accent); border-radius:999px; }
 .cr-progress:indeterminate { background:var(--cr-accent-soft); }
 .cr-progress:indeterminate::-webkit-progress-bar { background:var(--cr-accent-soft); }
+
+
+/* Optional Lucide SVGs inherit text colour; labels belong to their controls. */
+.cr-icon { display:inline-block; width:var(--cr-icon-size); height:var(--cr-icon-size); flex:none; vertical-align:-.15em; fill:none; stroke:currentColor; stroke-width:var(--cr-icon-stroke); stroke-linecap:round; stroke-linejoin:round; }

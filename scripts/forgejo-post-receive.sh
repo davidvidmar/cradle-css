@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Install as cradle-css.git/hooks/post-receive.d/deploy-gallery on Forgejo.
 set -euo pipefail
-assets=(index.html starter.html cradle.css themes.css fonts.css fonts.js examples.js sort-tables.js)
+assets=(index.html starter.html cradle.css themes.css fonts.css fonts.js examples.js sort-tables.js lucide.svg)
 while read -r old_revision new_revision ref; do
   [[ "$ref" == refs/heads/main && "$new_revision" =~ ^[0-9a-f]{40}$ && "$new_revision" != 0000000000000000000000000000000000000000 ]] || continue
   echo "Deploying Cradle CSS gallery to Bob: $new_revision"

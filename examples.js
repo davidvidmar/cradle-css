@@ -38,3 +38,19 @@ document.querySelector('#tables').addEventListener('click', event => {
   const button = event.target.closest('[data-example-source]');
   if (button) document.querySelector('#table-action-status').textContent = `${button.dataset.exampleSource} selected for editing in this example.`;
 });
+
+// The catalogue itself is static HTML; this optional control only filters it.
+const iconSearch = document.querySelector('#icon-search');
+const iconTiles = [...document.querySelectorAll('[data-icon-name]')];
+iconSearch.disabled = false;
+iconSearch.addEventListener('input', () => {
+  const query = iconSearch.value.trim().toLowerCase().replace(/\s+/g, '-');
+  let visible = 0;
+  iconTiles.forEach(tile => {
+    tile.hidden = !tile.dataset.iconName.includes(query);
+    if (!tile.hidden) visible++;
+  });
+  document.querySelector('#icon-catalogue').scrollTop = 0;
+  document.querySelector('#icon-count').textContent = visible
+    ? `${visible} of ${iconTiles.length} icons` : 'No icons match. Try another name.';
+});

@@ -57,6 +57,13 @@ class GalleryDeployTests(unittest.TestCase):
         self.assertEqual(set(receipt['assets']), set(gallery.ASSETS) | {'version.txt'})
         self.assertEqual(self.invoke(archive()), 0)
 
+    def test_real_gallery_bundle_fits_receiver_limits(self):
+        root = Path(__file__).parents[1]
+        files = {name: (root / name).read_bytes() for name in gallery.ASSETS}
+        self.assertIn('lucide.svg', files)
+        self.assertTrue(all(len(data) <= 1024 * 1024 for data in files.values()))
+        self.assertLessEqual(len(archive(files)), 2 * 1024 * 1024)
+
     def test_rolls_back_mount_on_failed_deployment(self):
         with self.assertRaisesRegex(RuntimeError, 'Failed new mount'):
             self.invoke(archive(), failure=True)

@@ -16,7 +16,7 @@ import tempfile
 import time
 import urllib.request
 
-ASSETS = ('index.html', 'starter.html', 'cradle.css', 'themes.css', 'fonts.css', 'fonts.js', 'examples.js', 'sort-tables.js')
+ASSETS = ('index.html', 'starter.html', 'cradle.css', 'themes.css', 'fonts.css', 'fonts.js', 'examples.js', 'sort-tables.js', 'lucide.svg')
 STACK = Path('/home/david/app-dev')
 ROOT = STACK / 'config/cradle-css'
 COMPOSE = STACK / 'docker-compose.yml'
