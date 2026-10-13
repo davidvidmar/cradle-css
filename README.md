@@ -1,6 +1,6 @@
 # Cradle CSS
 
-A private, small CSS library extracted from Cradle. Version **0.4.0**.
+A private, small CSS library extracted from Cradle. Version **0.4.1**.
 
 Neutral surfaces, subtle borders, compact navigation, readable 16px text and restrained accent colours. Plain HTML and CSS, with no package manager, framework, build step or required JavaScript. Inter is the default font family, with system fallbacks. The optional font loader fetches Inter from Google Fonts; the core alone makes no network requests.
 
@@ -74,6 +74,8 @@ The helper de-duplicates stylesheet/preconnect links and uses the [Google Fonts 
 | Loading indicator | `cr-busy` (hide with `hidden`; respects reduced motion) |
 | Supporting text | `cr-subtle`, `cr-error`, `cr-sr-only` |
 
+Single-line inputs and selects share a 46px minimum height (`--cr-control-height`). Textareas inside `cr-field` have a 120px minimum height (`--cr-textarea-min-height`) and remain vertically resizable; larger `rows` values can make them taller. Override these tokens in `:root` or on an individual form.
+
 Copy the markup from `index.html`. For navigation, use `aria-current="page"` for a current page or `location` for an anchor. Button appearance is explicit and does not depend on IDs or submit behavior. Use labels, named dialogs, table headers and actual HTML controls.
 
 The optional shell fills the viewport. On phones, its sidebar becomes a compact top navigation row by default; with `cr-drawer-shell`, it becomes an off-canvas sidebar toggled by the application’s `sidebar-open` body class; its content remains scrollable. The starter page uses ordinary document scrolling. Wide tables scroll inside their wrapper. This library includes visual styles, not a Markdown renderer, sanitizer, chat client, routing or application state.
@@ -91,7 +93,7 @@ Load project overrides last. Keep overrides small and use tokens first:
 }
 ```
 
-Primary tokens: `--cr-paper` (page), `--cr-soft` (secondary surface), `--cr-ink`, `--cr-muted`, `--cr-faint`, `--cr-line`, `--cr-accent`, `--cr-accent-soft`, `--cr-accent-line`, `--cr-on-accent`, `--cr-danger`, `--cr-font`, `--cr-font-size`, `--cr-radius`, `--cr-sidebar`, `--cr-container-width` (1440px), `--cr-form-width` (860px), `--cr-prose-width` (760px).
+Primary tokens: `--cr-paper` (page), `--cr-soft` (secondary surface), `--cr-ink`, `--cr-muted`, `--cr-faint`, `--cr-line`, `--cr-accent`, `--cr-accent-soft`, `--cr-accent-line`, `--cr-on-accent`, `--cr-danger`, `--cr-font`, `--cr-font-size`, `--cr-control-height` (46px), `--cr-textarea-min-height` (120px), `--cr-radius`, `--cr-sidebar`, `--cr-container-width` (1440px), `--cr-form-width` (860px), `--cr-prose-width` (760px).
 
 Palette rules are more specific than `:root`. To override colours for a selected palette/mode, match its selectors in your final override sheet, for example `:root[data-skin="nord"][data-theme="dark"]`. Change accent text and background together and check contrast.
 
@@ -171,3 +173,5 @@ Version 0.2.2 exposes layout widths as tokens: `--cr-container-width`, `--cr-for
 Version 0.3.0 (breaking): the default `--cr-container-width` grows from 1180px to 1440px so layouts target laptop and 24" displays. Set `--cr-container-width: 1180px` to keep the previous width. Also fixes a missing semicolon in the dark palette that left `--cr-faint` unset and `--cr-accent-line` invalid in dark mode.
 
 Version 0.4.0 (breaking): Inter becomes the default interface family. The optional `fonts.js` loader fetches it automatically unless `data-font` explicitly selects another font. Gallery and starter use Inter by default. To restore the previous interface, include `fonts.css` and set `data-font="native-sans"` on `<html>` before the loader runs, or override `--cr-font` in your project stylesheet. The core still has no required JavaScript or CDN dependency.
+
+Version 0.4.1 aligns native input/select minimum heights and gives form textareas a configurable minimum height. The gallery Description field now starts with four rows.
