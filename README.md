@@ -252,4 +252,4 @@ Version 0.7.0 adds destructive-action design. `cr-danger-box` is a tinted, red-b
 
 
 
-Version 0.7.1 fixes shell scrolling during anchor navigation: `cr-main` now contains absolutely positioned descendants, including visually hidden labels, so they cannot expand or scroll the outer document/shell. Keep such labels within their relevant scroll pane; do not position them relative to the outer shell. The gallery also gives the sticky-table example its own section with 32px of top spacing and the existing section scroll margin.
+Version 0.7.1 fixes shell scrolling during anchor navigation: `cr-main` now contains absolutely positioned descendants, including visually hidden labels, so they cannot expand or scroll the outer document/shell. Keep such labels within their relevant scroll pane; do not position them relative to the outer shell. The gallery also gives the sticky-table example its own section with 32px of explicit top padding and the existing section scroll margin. This keeps the spacing inside the section rather than relying on adjacent margins.
