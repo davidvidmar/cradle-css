@@ -8,11 +8,17 @@
   <link rel="stylesheet" href="cradle.css">
   <link rel="stylesheet" href="themes.css">
   <link rel="stylesheet" href="fonts.css">
+  <style>
+    /* Keep all gallery links visible when the sidebar becomes mobile navigation. */
+    @media (max-width:720px) {
+      .cr-gallery .cr-nav { flex:none; flex-wrap:wrap; overflow:visible; }
+    }
+  </style>
   <script src="fonts.js"></script>
   <script defer src="examples.js"></script>
   <script defer src="sort-tables.js"></script>
 </head>
-<body class="cradle">
+<body class="cradle cr-gallery">
   <div class="cr-shell">
     <aside class="cr-sidebar">
       <div class="cr-sidebar-head"><a class="cr-brand" href="#intro">Cradle CSS</a></div>
@@ -21,14 +27,16 @@
         <a href="#controls">Controls</a>
         <a href="#forms">Forms</a>
         <a href="#cards">Cards</a>
+        <a href="#dashboard">Dashboard</a>
         <a href="#tables">Tables</a>
         <a href="#reading">Reading &amp; chat</a>
       </nav>
-      <div class="cr-sidebar-foot cr-subtle">Private library · 0.5.0</div>
+      <div class="cr-sidebar-foot cr-subtle">Private library · 0.6.0</div>
     </aside>
     <main class="cr-main">
       <div class="cr-container">
         <section id="intro" class="cr-section">
+          <nav class="cr-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="starter.html">Workspace</a></li><li><a href="#cards">Design library</a></li><li><span aria-current="page">Components</span></li></ol></nav>
           <h1>Quiet by design.</h1>
           <p>A small collection of the styles and components used in Cradle.</p>
           <p class="cr-subtle">16px base text. Inter by default. Native HTML. No build step.</p>
@@ -91,6 +99,23 @@
             <div class="cr-metric"><span>Daily cost</span><strong>$0.12</strong></div>
           </div>
         </section>
+        <section id="dashboard" class="cr-section">
+          <h2>Dashboard &amp; progress</h2>
+          <p class="cr-subtle">Cards share a six-column grid when there is room, and stack in smaller containers. Progress uses native HTML with a visible label and value.</p>
+          <div class="cr-dashboard">
+            <article class="cr-card cr-span-third"><h3>Import queue</h3><label for="import-progress" class="cr-subtle">Documents imported · 64 of 100</label><progress id="import-progress" class="cr-progress" value="64" max="100">64%</progress><p class="cr-subtle">64% complete</p></article>
+            <article class="cr-card cr-span-two-thirds"><h3>Project overview</h3><p>Sample notes and the project archive share a quiet workspace.</p><p class="cr-subtle">A wider panel leaves room for context beside the summary.</p></article>
+            <article class="cr-card cr-span-half"><h3>Waiting to start</h3><label for="waiting-progress" class="cr-subtle">Sources checked · 0 of 4</label><progress id="waiting-progress" class="cr-progress" value="0" max="4">0%</progress><p class="cr-subtle">Nothing processed yet.</p></article>
+            <article class="cr-card cr-span-half"><h3>Archive ready</h3><label for="complete-progress" class="cr-subtle">Files indexed · 12 of 12</label><progress id="complete-progress" class="cr-progress" value="12" max="12">100%</progress><p class="cr-subtle">All files are available.</p></article>
+            <article class="cr-card cr-span-full"><h3>Activity summary</h3><p class="cr-subtle">A full-width card can hold a timeline, chart or table using the same components.</p></article>
+          </div>
+          <details class="cr-details"><summary>Dashboard and progress markup</summary><div class="cr-prose"><pre><code>&lt;div class="cr-dashboard"&gt;
+  &lt;article class="cr-card cr-span-third"&gt;Summary&lt;/article&gt;
+  &lt;article class="cr-card cr-span-two-thirds"&gt;Details&lt;/article&gt;
+&lt;/div&gt;
+&lt;label for="work-progress"&gt;Imported · 64 of 100&lt;/label&gt;
+&lt;progress id="work-progress" class="cr-progress" value="64" max="100"&gt;64%&lt;/progress&gt;</code></pre></div></details>
+        </section>
         <section id="tables" class="cr-section">
           <h2>Tables</h2>
           <p class="cr-subtle">Tables sort by default when the optional helper is loaded. Select a column heading to sort; select it again to reverse the order.</p>
@@ -100,6 +125,28 @@
               <tbody><tr><td>Sample notes</td><td>128</td><td data-sort-value="2026-10-12T09:00:00Z">12 Oct, 09:00</td><td><span class="cr-badge">Ready</span></td></tr><tr><td>Project archive</td><td>64</td><td data-sort-value="2026-10-11T18:30:00Z">11 Oct, 18:30</td><td><span class="cr-badge cr-outline">Paused</span></td></tr><tr><td>Design ideas</td><td>9</td><td data-sort-value="2026-10-10T14:15:00Z">10 Oct, 14:15</td><td><span class="cr-badge">Ready</span></td></tr></tbody>
             </table>
           </div>
+          <h3 style="margin-top:24px">Sticky headings &amp; actions</h3>
+          <p class="cr-subtle">Scroll inside the table. Headings stay at the top and the action column stays at the edge.</p>
+          <div class="cr-table-wrap cr-table-scroll" tabindex="0" role="region" aria-label="Scrollable source collections">
+            <table class="cr-table cr-table-sticky" style="min-width:900px">
+              <thead><tr><th scope="col">Source</th><th scope="col">Documents</th><th scope="col">Description</th><th scope="col">Status</th><th scope="col" class="cr-table-actions" data-sort="none">Actions</th></tr></thead>
+              <tbody>
+<tr><td>Sample collection 01</td><td>8</td><td>Fictional project documents for the shared workspace.</td><td><span class="cr-badge">Ready</span></td><td class="cr-table-actions"><button class="cr-button" type="button" data-example-source="Sample collection 01" aria-label="Edit Sample collection 01">Edit</button></td></tr>
+<tr><td>Sample collection 02</td><td>16</td><td>Fictional project documents for the shared workspace.</td><td><span class="cr-badge">Ready</span></td><td class="cr-table-actions"><button class="cr-button" type="button" data-example-source="Sample collection 02" aria-label="Edit Sample collection 02">Edit</button></td></tr>
+<tr><td>Sample collection 03</td><td>24</td><td>Fictional project documents for the shared workspace.</td><td><span class="cr-badge">Ready</span></td><td class="cr-table-actions"><button class="cr-button" type="button" data-example-source="Sample collection 03" aria-label="Edit Sample collection 03">Edit</button></td></tr>
+<tr><td>Sample collection 04</td><td>32</td><td>Fictional project documents for the shared workspace.</td><td><span class="cr-badge">Ready</span></td><td class="cr-table-actions"><button class="cr-button" type="button" data-example-source="Sample collection 04" aria-label="Edit Sample collection 04">Edit</button></td></tr>
+<tr><td>Sample collection 05</td><td>40</td><td>Fictional project documents for the shared workspace.</td><td><span class="cr-badge">Ready</span></td><td class="cr-table-actions"><button class="cr-button" type="button" data-example-source="Sample collection 05" aria-label="Edit Sample collection 05">Edit</button></td></tr>
+<tr><td>Sample collection 06</td><td>48</td><td>Fictional project documents for the shared workspace.</td><td><span class="cr-badge">Ready</span></td><td class="cr-table-actions"><button class="cr-button" type="button" data-example-source="Sample collection 06" aria-label="Edit Sample collection 06">Edit</button></td></tr>
+<tr><td>Sample collection 07</td><td>56</td><td>Fictional project documents for the shared workspace.</td><td><span class="cr-badge">Ready</span></td><td class="cr-table-actions"><button class="cr-button" type="button" data-example-source="Sample collection 07" aria-label="Edit Sample collection 07">Edit</button></td></tr>
+<tr><td>Sample collection 08</td><td>64</td><td>Fictional project documents for the shared workspace.</td><td><span class="cr-badge">Ready</span></td><td class="cr-table-actions"><button class="cr-button" type="button" data-example-source="Sample collection 08" aria-label="Edit Sample collection 08">Edit</button></td></tr>
+<tr><td>Sample collection 09</td><td>72</td><td>Fictional project documents for the shared workspace.</td><td><span class="cr-badge">Ready</span></td><td class="cr-table-actions"><button class="cr-button" type="button" data-example-source="Sample collection 09" aria-label="Edit Sample collection 09">Edit</button></td></tr>
+<tr><td>Sample collection 10</td><td>80</td><td>Fictional project documents for the shared workspace.</td><td><span class="cr-badge">Ready</span></td><td class="cr-table-actions"><button class="cr-button" type="button" data-example-source="Sample collection 10" aria-label="Edit Sample collection 10">Edit</button></td></tr>
+<tr><td>Sample collection 11</td><td>88</td><td>Fictional project documents for the shared workspace.</td><td><span class="cr-badge">Ready</span></td><td class="cr-table-actions"><button class="cr-button" type="button" data-example-source="Sample collection 11" aria-label="Edit Sample collection 11">Edit</button></td></tr>
+<tr><td>Sample collection 12</td><td>96</td><td>Fictional project documents for the shared workspace.</td><td><span class="cr-badge">Ready</span></td><td class="cr-table-actions"><button class="cr-button" type="button" data-example-source="Sample collection 12" aria-label="Edit Sample collection 12">Edit</button></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p id="table-action-status" class="cr-subtle" role="status"></p>
           <details class="cr-details"><summary>Keep a table in its original order</summary><div class="cr-prose"><pre><code>&lt;table class="cr-table" data-sortable="false"&gt;…&lt;/table&gt;
 &lt;th scope="col" data-sort="none"&gt;Actions&lt;/th&gt;</code></pre></div></details>
         </section>

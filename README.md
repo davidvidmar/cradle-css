@@ -1,12 +1,12 @@
 # Cradle CSS
 
-A private, small CSS library extracted from Cradle. Version **0.5.0**.
+A private, small CSS library extracted from Cradle. Version **0.6.0**.
 
 Neutral surfaces, subtle borders, compact navigation, readable 16px text and restrained accent colours. Plain HTML and CSS, with no package manager, framework, build step or required JavaScript. Inter is the default font family, with system fallbacks. The optional font loader fetches Inter from Google Fonts; the core alone makes no network requests.
 
 ## Preview
 
-Open `index.html` directly in a browser. It contains working theme controls, forms, a native modal, cards, metrics, tables and reading/chat examples. `starter.html` is the smallest starting point.
+Open `index.html` directly in a browser. It contains working theme controls, forms, a native modal, cards, metrics, tables and reading/chat examples. `starter.html` is the smallest starting point. The gallery keeps its sidebar fixed on desktop; on phones, its navigation wraps so every component link is visible without horizontal scrolling.
 
 Alternatively, serve this directory:
 
@@ -63,10 +63,13 @@ The helper de-duplicates stylesheet/preconnect links and uses the [Google Fonts 
 | App shell | optional `cr-drawer-shell` modifier; `cr-shell`, `cr-sidebar`, `cr-sidebar-head`, `cr-brand`, `cr-nav`, `cr-sidebar-foot`, `cr-main` |
 | Buttons | `cr-button` with optional `cr-primary`, `cr-quiet`, `cr-danger`, `cr-danger-fill`, `cr-bare` |
 | Forms | `cr-form`, `cr-field`, `cr-row`, `cr-check`, `cr-toolbar` |
+| Breadcrumb navigation | `cr-breadcrumbs` |
+| Mixed-width dashboard | `cr-dashboard`, `cr-span-third`, `cr-span-half`, `cr-span-two-thirds`, `cr-span-full` |
+| Native progress | `cr-progress` on `<progress>` |
 | Cards | `cr-grid`, `cr-card`, `cr-card-head`, `cr-identity`, `cr-avatar` |
 | Badges | `cr-badge`, optional `cr-outline` |
 | Metrics | `cr-metrics`, `cr-metric` |
-| Tables | `cr-table-wrap`, `cr-table`, `cr-sort` |
+| Tables | `cr-table-wrap`, `cr-table`, `cr-sort`; optional `cr-table-scroll`, `cr-table-sticky`, `cr-table-actions` |
 | Native disclosure | `cr-details` on `<details>` |
 | Native dialog | `cr-dialog`, `cr-dialog-head`, `cr-dialog-body`, `cr-dialog-foot` |
 | Reading and chat | `cr-prose`, `cr-message`, `cr-composer` |
@@ -115,7 +118,7 @@ Commit the CSS, examples and README together. Applications should copy from a re
 
 The Cradle application still owns its existing styles. This extraction does not change its CSS imports. After the separate repository exists, adopting the library in Cradle is a separate integration step with visual regression checks.
 
-This initial library consolidates duplicate controls and theme overrides, removes app IDs and backend dependencies, prefixes component names and tokens, makes fonts/palettes optional, and fixes minimum card widths on phones. It intentionally remains a small source library; there is no generated/minified copy to keep synchronized. Keep changes focused, update the examples, verify rendering, and record breaking changes before adoption.
+This initial library consolidates duplicate controls and theme overrides, removes app IDs and backend dependencies, prefixes component names and tokens, makes fonts/palettes optional, and fixes minimum card widths on phones. It intentionally remains a small source library; there is no generated/minified copy to keep synchronized. Keep changes focused, update the examples, verify rendering, and record breaking changes before adoption. Use Playwright for browser QA, including desktop/mobile, light/dark/auto, keyboard focus, dialogs, form feedback and overflow. When adding gallery sections, check that every mobile navigation link stays visible. Keep temporary tests/screenshots outside the repository, bound commands with explicit timeouts, and stop temporary servers.
 
 For private use. Inter is requested from Google Fonts rather than redistributed here.
 
@@ -181,3 +184,65 @@ Version 0.4.0 (breaking): Inter becomes the default interface family. The option
 Version 0.4.1 aligns native input/select minimum heights and gives form textareas a configurable minimum height. The gallery Description field now starts with four rows.
 
 Version 0.5.0 (breaking): loading `sort-tables.js` enables sorting for all supported tables inside `.cradle`, with automatic column types and initialization of new tables. Previously tables/columns required explicit opt-in. Use `data-sortable="false"` or header `data-sort="none"` where row order must be preserved; application-managed headers keep their own controls. CSS-only tables still work without JavaScript.
+
+
+## Dashboard, breadcrumbs and progress (0.6.0)
+
+These additions are opt-in and work without JavaScript. Existing grids and tables keep their layout.
+
+Use a labelled breadcrumb navigation with an ordered list and `aria-current="page"` on the current item. Long names wrap so links and keyboard focus stay visible:
+
+```html
+<nav class="cr-breadcrumbs" aria-label="Breadcrumb">
+  <ol>
+    <li><a href="/">Workspace</a></li>
+    <li><a href="/projects">Projects</a></li>
+    <li><span aria-current="page">Sample notes</span></li>
+  </ol>
+</nav>
+```
+
+Use existing `cr-card` components inside `cr-dashboard`. Cards stack by default; when the dashboard itself is at least 760px wide, the span classes occupy a third, half, two thirds or the full six-column grid. Cards without a span class occupy the full row. Container queries respond to the available content width rather than just the viewport; browsers without container queries retain stacked cards. The default page width remains 1440px.
+
+```html
+<div class="cr-dashboard">
+  <article class="cr-card cr-span-third">Summary</article>
+  <article class="cr-card cr-span-two-thirds">Details</article>
+  <article class="cr-card cr-span-half">First panel</article>
+  <article class="cr-card cr-span-half">Second panel</article>
+  <article class="cr-card cr-span-full">Activity</article>
+</div>
+```
+
+Use a native labelled `<progress>` with `value` and `max`. Keep readable values outside the bar: its fallback text is not normally visible in supporting browsers. Values of zero and the maximum represent waiting and completion. The application owns updates; use a separate polite status message for meaningful milestones rather than announcing every increment. Omit `value` for native indeterminate progress; its appearance varies by browser. The existing `cr-busy` is available for the application-wide indeterminate indicator.
+
+```html
+<label for="import-progress">Documents imported · 64 of 100</label>
+<progress id="import-progress" class="cr-progress" value="64" max="100">64%</progress>
+<p class="cr-subtle">64% complete</p>
+```
+
+Override `--cr-progress-height` (8px) to change bar thickness. Colours follow the active palette.
+
+## Sticky table headings and actions (0.6.0)
+
+Add `cr-table-scroll` to the existing wrapper for bounded vertical scrolling (`--cr-table-max-height`, default 320px). Add `cr-table-sticky` to the table for sticky headings. Put `cr-table-actions` on the header and every cell of a single trailing action column; it stays at the inline end while scrolling horizontally. Header/action intersections layer above the body with opaque theme surfaces. Use `data-sort="none"` on the action header when the optional sorting helper is loaded.
+
+```html
+<div class="cr-table-wrap cr-table-scroll" tabindex="0" role="region" aria-label="Project sources">
+  <table class="cr-table cr-table-sticky">
+    <thead><tr>
+      <th scope="col">Source</th>
+      <th scope="col" class="cr-table-actions" data-sort="none">Actions</th>
+    </tr></thead>
+    <tbody><tr>
+      <td>Sample notes</td>
+      <td class="cr-table-actions"><button class="cr-button" type="button" aria-label="Edit Sample notes">Edit</button></td>
+    </tr></tbody>
+  </table>
+</div>
+```
+
+The focusable, named wrapper supports keyboard scrolling. Stickiness is relative to the wrapper, not the page. Use one unmerged header row and one trailing action column; keep action controls compact so they leave room for data on phones. Set a project-specific table minimum width only when its content needs horizontal scrolling. The gallery demonstrates both scroll directions and preserves action buttons when sorting.
+
+Version 0.6.0 adds these four component patterns without changing existing defaults. The design reference is [Dreeve](https://github.com/dreeveapp/dreeve); the implementation uses Cradle tokens and native markup without importing upstream code or dependencies.

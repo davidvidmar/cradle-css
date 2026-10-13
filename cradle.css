@@ -1,9 +1,10 @@
-/* Cradle CSS 0.5.0 — private, framework-free. */
+/* Cradle CSS 0.6.0 — private, framework-free. */
 :root {
  --cr-font: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
  --cr-mono:ui-monospace,SFMono-Regular,Consolas,monospace;
  --cr-control-height: 46px; --cr-textarea-min-height: 120px;
  --cr-font-size: 16px; --cr-radius: 10px; --cr-sidebar: 268px;
+ --cr-table-max-height: 320px; --cr-progress-height: 8px;
  --cr-container-width: 1440px; --cr-form-width: 860px; --cr-prose-width: 760px;
  --cr-faint: #798391; --cr-danger: #a33a2c; --cr-on-accent: #fff;
  color-scheme: light;
@@ -168,3 +169,39 @@ body.cradle { margin:0; }
 .cr-tabs { display:flex; gap:4px; padding:4px 12px 8px; }
 .cr-tabs button { text-align:center; flex:1; min-height:0; border:0; background:transparent; color:var(--cr-muted); font-size:13px; font-weight:600; padding:6px; }
 .cr-tabs button[aria-selected="true"] { background:var(--cr-paper); color:var(--cr-ink); box-shadow:0 0 0 1px var(--cr-line); }
+
+
+/* Breadcrumbs wrap instead of hiding long names or focused links. */
+.cr-breadcrumbs { margin-bottom:16px; font-size:13px; color:var(--cr-muted); }
+.cr-breadcrumbs ol { display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 10px; list-style:none; padding:0; margin:0; }
+.cr-breadcrumbs li { display:flex; align-items:baseline; gap:10px; min-width:0; max-width:100%; overflow-wrap:anywhere; }
+.cr-breadcrumbs li + li::before { content:"/"; color:var(--cr-faint); flex:none; }
+.cr-breadcrumbs a { min-width:0; color:inherit; text-decoration:none; }
+.cr-breadcrumbs a:hover { color:var(--cr-accent); text-decoration:underline; }
+.cr-breadcrumbs [aria-current="page"] { min-width:0; color:var(--cr-ink); }
+
+/* A named container lets mixed-width cards respond to available content space. */
+.cr-dashboard { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:14px; align-items:start; container:cr-dashboard / inline-size; }
+.cr-dashboard > * { grid-column:span 6; min-width:0; }
+@container cr-dashboard (min-width:760px) {
+ .cr-dashboard > .cr-span-third { grid-column:span 2; }
+ .cr-dashboard > .cr-span-half { grid-column:span 3; }
+ .cr-dashboard > .cr-span-two-thirds { grid-column:span 4; }
+ .cr-dashboard > .cr-span-full { grid-column:span 6; }
+}
+
+/* Opt-in bounded table scrolling. One header row and one trailing action column. */
+.cr-table-wrap.cr-table-scroll { max-height:var(--cr-table-max-height); scroll-padding-block:48px 8px; }
+.cr-table.cr-table-sticky { border-collapse:separate; border-spacing:0; }
+.cr-table-sticky > thead > tr > th { position:sticky; top:0; z-index:2; }
+.cr-table :is(th,td).cr-table-actions { position:sticky; inset-inline-end:0; z-index:1; background:var(--cr-paper); white-space:nowrap; box-shadow:-1px 0 0 var(--cr-line); }
+.cr-table th.cr-table-actions { background:var(--cr-soft); }
+.cr-table-sticky > thead > tr > th.cr-table-actions { z-index:3; }
+
+/* Native determinate progress; labels and numeric feedback live outside the bar. */
+.cr-progress { display:block; width:100%; height:var(--cr-progress-height); margin:8px 0; border:0; border-radius:999px; overflow:hidden; appearance:none; background:var(--cr-soft); color:var(--cr-accent); }
+.cr-progress::-webkit-progress-bar { background:var(--cr-soft); border-radius:999px; }
+.cr-progress::-webkit-progress-value { background:var(--cr-accent); border-radius:999px; }
+.cr-progress::-moz-progress-bar { background:var(--cr-accent); border-radius:999px; }
+.cr-progress:indeterminate { background:var(--cr-accent-soft); }
+.cr-progress:indeterminate::-webkit-progress-bar { background:var(--cr-accent-soft); }

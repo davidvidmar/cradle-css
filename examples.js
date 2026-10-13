@@ -32,3 +32,9 @@ document.querySelector('.cr-nav').addEventListener('click', event => {
 });
 
 window.CradleFonts.load('mono');
+
+// Fictional table action feedback, independent of the sorting helper.
+document.querySelector('#tables').addEventListener('click', event => {
+  const button = event.target.closest('[data-example-source]');
+  if (button) document.querySelector('#table-action-status').textContent = `${button.dataset.exampleSource} selected for editing in this example.`;
+});
