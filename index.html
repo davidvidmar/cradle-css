@@ -31,7 +31,7 @@
         <a href="#tables">Tables</a>
         <a href="#reading">Reading &amp; chat</a>
       </nav>
-      <div class="cr-sidebar-foot cr-subtle">Private library · 0.6.1</div>
+      <div class="cr-sidebar-foot cr-subtle">Private library · 0.7.1</div>
     </aside>
     <main class="cr-main">
       <div class="cr-container">
@@ -54,9 +54,24 @@
             <button class="cr-button" type="button">Secondary</button>
             <button class="cr-button cr-quiet" type="button">Quiet</button>
             <button class="cr-button cr-danger" type="button">Delete</button>
+            <button class="cr-button cr-danger-fill" type="button">Delete permanently</button>
+            <button class="cr-button cr-danger-fill" type="button" disabled>Disabled</button>
             <button class="cr-button" type="button" disabled>Disabled</button>
             <a class="cr-button" href="starter.html">Starter page</a>
           </div>
+          <div class="cr-danger-box">
+            <h3>Delete project Atlas?</h3>
+            <p>This removes the project and its files. It cannot be undone.</p>
+            <label class="cr-field"><span>Type the project name to confirm: <strong>atlas</strong></span><input autocomplete="off" aria-label="Project name"></label>
+            <label class="cr-check"><input type="checkbox"><span>Also delete its comments and history.</span></label>
+            <button class="cr-button cr-danger-fill" type="button">Delete permanently</button>
+          </div>
+          <details class="cr-details"><summary>Danger box markup</summary><div class="cr-prose"><pre><code>&lt;div class="cr-danger-box"&gt;
+  &lt;h3&gt;Delete project Atlas?&lt;/h3&gt;
+  &lt;p&gt;This removes the project and its files. It cannot be undone.&lt;/p&gt;
+  &lt;label class="cr-field"&gt;&lt;span&gt;Type the name to confirm&lt;/span&gt;&lt;input&gt;&lt;/label&gt;
+  &lt;button class="cr-button cr-danger-fill" type="button"&gt;Delete permanently&lt;/button&gt;
+&lt;/div&gt;</code></pre></div></details>
           <details class="cr-details"><summary>Button markup</summary><div class="cr-prose"><pre><code>&lt;button class="cr-button cr-primary" type="button"&gt;Save&lt;/button&gt;</code></pre></div></details>
           <p class="cr-subtle" id="feedback" role="status" aria-live="polite"></p>
         </section>
