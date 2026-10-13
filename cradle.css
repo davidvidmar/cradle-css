@@ -1,16 +1,17 @@
-/* Cradle CSS 0.2.1 — private, framework-free. */
+/* Cradle CSS 0.3.0 — private, framework-free. */
 :root {
  --cr-font: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
  --cr-mono:ui-monospace,SFMono-Regular,Consolas,monospace;
  --cr-font-size: 16px; --cr-radius: 10px; --cr-sidebar: 268px;
+ --cr-container-width: 1440px; --cr-form-width: 860px; --cr-prose-width: 760px;
  --cr-faint: #798391; --cr-danger: #a33a2c; --cr-on-accent: #fff;
  color-scheme: light;
  --cr-paper:#ffffff;--cr-soft:#f6f8fa;--cr-ink:#24292f;--cr-muted:#57606a;--cr-line:#d0d7de;--cr-accent:#0969da;--cr-accent-soft:#ddf4ff;--cr-accent-line:var(--cr-line)
 }
 @media (prefers-color-scheme: dark) {
- :root:not([data-theme="light"]) { --cr-paper:#0d1117;--cr-soft:#161b22;--cr-ink:#e6edf3;--cr-muted:#9da7b3;--cr-line:#30363d;--cr-accent:#79b8ff;--cr-accent-soft:#172f4d;--cr-accent-line:var(--cr-line) --cr-faint:#9aa3ad; --cr-danger:#ef8a7c; --cr-on-accent:var(--cr-paper); color-scheme:dark; }
+ :root:not([data-theme="light"]) { --cr-paper:#0d1117;--cr-soft:#161b22;--cr-ink:#e6edf3;--cr-muted:#9da7b3;--cr-line:#30363d;--cr-accent:#79b8ff;--cr-accent-soft:#172f4d;--cr-accent-line:var(--cr-line); --cr-faint:#9aa3ad; --cr-danger:#ef8a7c; --cr-on-accent:var(--cr-paper); color-scheme:dark; }
 }
-:root[data-theme="dark"] { --cr-paper:#0d1117;--cr-soft:#161b22;--cr-ink:#e6edf3;--cr-muted:#9da7b3;--cr-line:#30363d;--cr-accent:#79b8ff;--cr-accent-soft:#172f4d;--cr-accent-line:var(--cr-line) --cr-faint:#9aa3ad; --cr-danger:#ef8a7c; --cr-on-accent:var(--cr-paper); color-scheme:dark; }
+:root[data-theme="dark"] { --cr-paper:#0d1117;--cr-soft:#161b22;--cr-ink:#e6edf3;--cr-muted:#9da7b3;--cr-line:#30363d;--cr-accent:#79b8ff;--cr-accent-soft:#172f4d;--cr-accent-line:var(--cr-line); --cr-faint:#9aa3ad; --cr-danger:#ef8a7c; --cr-on-accent:var(--cr-paper); color-scheme:dark; }
 
 /* Base rules are scoped to .cradle; unrelated pages keep their own styles. */
 .cradle, .cradle *, .cradle *::before, .cradle *::after { box-sizing:border-box; }
@@ -54,11 +55,11 @@ body.cradle { margin:0; }
 .cr-nav a[aria-current]:not([aria-current="false"]) { background:var(--cr-accent-soft); color:var(--cr-accent); font-weight:600; }
 .cr-sidebar-foot { padding:12px 18px; border-top:1px solid var(--cr-line); }
 .cr-main { flex:1; min-width:0; overflow:auto; }
-.cr-container { width:100%; max-width:1180px; margin-inline:auto; padding:32px clamp(18px,4vw,48px) 64px; }
+.cr-container { width:100%; max-width:var(--cr-container-width); margin-inline:auto; padding:32px clamp(18px,4vw,48px) 64px; }
 .cr-section { margin-bottom:32px; scroll-margin-top:20px; }
 
 /* Forms. Labels wrap their controls; checkbox labels use .cr-check. */
-.cr-form { max-width:860px; }
+.cr-form { max-width:var(--cr-form-width); }
 .cr-form fieldset { min-width:0; margin:0 0 16px; padding:16px 20px; border:1px solid var(--cr-line); border-radius:var(--cr-radius); }
 .cr-form legend { padding:0 8px; font-size:14px; font-weight:650; }
 .cr-field { display:block; min-width:0; margin-bottom:14px; color:var(--cr-muted); font-size:13px; font-weight:600; }
@@ -104,7 +105,7 @@ body.cradle { margin:0; }
 .cr-dialog-foot { display:flex; justify-content:flex-end; flex-wrap:wrap; gap:10px; padding:12px 20px; border-top:1px solid var(--cr-line); background:var(--cr-soft); }
 
 /* Reading and chat components accept already-sanitized HTML. */
-.cr-prose { max-width:760px; overflow-wrap:anywhere; line-height:1.7; }
+.cr-prose { max-width:var(--cr-prose-width); overflow-wrap:anywhere; line-height:1.7; }
 .cr-prose :where(blockquote) { margin:12px 0; padding-left:14px; border-left:3px solid var(--cr-line); color:var(--cr-muted); }
 .cr-prose :where(code) { padding:1px 4px; border-radius:4px; background:var(--cr-soft); font:.87em var(--cr-mono); }
 .cr-prose :where(pre) { overflow:auto; padding:12px 14px; border-radius:8px; background:var(--cr-soft); font:13px/1.6 var(--cr-mono); }

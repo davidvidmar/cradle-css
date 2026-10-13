@@ -8,6 +8,7 @@ Private CSS library extracted from Cradle. Read README.md before changing compon
 - Keep palettes and Inter optional. Load Inter and JetBrains Mono from Google Fonts CDN; do not bundle or self-host font files.
 - Prefer tokens and existing components to duplicate rules or new variants.
 - Update the gallery and README when components change. Record breaking changes and bump the documented version when appropriate.
+- Default sizes target a laptop screen (~1440px) or a 24" monitor (1920px), not narrower displays. Do not shrink default layout widths for smaller screens; mobile is handled by responsive rules.
 - Verify desktop/mobile, light/dark/auto, keyboard focus, dialog behavior, form feedback and overflow. Use fictional content only.
 - Bound external commands with explicit timeouts and stop temporary servers.
 - Do not commit, tag, push or deploy without explicit user approval in the current turn. After file changes, remind the user to commit and push.
@@ -20,3 +21,5 @@ Private CSS library extracted from Cradle. Read README.md before changing compon
 - 2026-10-12 Cradle now consumes this repository as a submodule under its webroot. Shared font stacks/CDN loader (fonts.css/fonts.js), theme palettes, tabs, drawer-shell variant, loading bar, dialog/prose refinements and typed table ordering APIs live here. Existing saved native-mono values select JetBrains Mono. Only runtime files are published into the app; no Git metadata/demos/instructions. Cradle's own behavior/layout state stays in the parent. Library work must be committed/pushed before its updated parent gitlink, with explicit user approval for both. Current integration changes remain uncommitted.
 
 - 2026-10-13 sidebar regression fix (0.2.1): bare-button font shorthand inherited the 16px body size, enlarging saved chats/files, and inherited text alignment left-aligned tab labels. Preserve the component 13px size while inheriting family/weight/line height; tabs explicitly centre their labels. Keep explicit local citation/file/control typography authoritative. No commit/push/deployment authorized for this fix.
+
+- 2026-10-13 layout width tokens (0.2.2): .cr-container, .cr-form and .cr-prose read --cr-container-width/--cr-form-width/--cr-prose-width (defaults 1180/860/760px) so consumers override widths in :root without redeclaring selectors or using !important. 0.3.0 raises the container default to 1440px (breaking; set 1180px to restore) and fixes the dark-palette semicolon that dropped --cr-faint.
