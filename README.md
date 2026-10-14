@@ -16,6 +16,8 @@ timeout 300s python3 -m http.server 9963 --bind 127.0.0.1
 
 Run from the repository root, open `http://127.0.0.1:9963/`, and stop with Ctrl+C.
 
+The local [GEN-I Portal design reference](gen-i-portal-design.html) shows the supplied colour swatches, HEX/RGB values, supporting contrast pairs, typography and number/date alignment rules (amounts and numbers right-aligned, dates centred). It uses `gen-i-portal-design.css` alongside core, Portal and optional font assets. This reference is separate from the deployed component gallery.
+
 ## Use in another project
 
 Copy `cradle.css`, `fonts.css`, the ten `font-*.woff2` files and `fonts.js` into the project's static assets for the default Inter interface:

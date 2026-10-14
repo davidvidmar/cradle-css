@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en" data-skin="gen-i-portal" data-theme="light" data-font="inter">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="GEN-I Portal design reference: supplied colours, typography and supporting colour guidance.">
+  <title>GEN-I Portal — design specifications</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="cradle.css">
+  <link rel="stylesheet" href="theme-gen-i-portal.css">
+  <link rel="stylesheet" href="fonts.css">
+  <link rel="stylesheet" href="gen-i-portal-design.css">
+  <script src="fonts.js"></script>
+</head>
+<body class="cradle cr-design-sheet">
+  <main class="cr-container">
+    <header class="cr-design-header">
+      <p class="cr-design-eyebrow">Design reference · 01</p>
+      <h1>GEN-I Portal</h1>
+      <p class="cr-design-lead">White space. Soft green-gray. A clear turquoise accent.</p>
+      <p class="cr-subtle">A reference sheet for the supplied Portal palette and its supporting typography. Colour values below apply to the light design.</p>
+    </header>
+
+    <section class="cr-section" aria-labelledby="palette-title">
+      <div class="cr-design-section-head"><span class="cr-design-index" aria-hidden="true">01</span><h2 id="palette-title">Core colour palette</h2></div>
+      <div class="cr-design-colours">
+        <article class="cr-design-colour">
+          <div class="cr-design-swatch cr-design-swatch-surface" role="img" aria-label="Pale green-gray colour swatch"></div>
+          <div class="cr-design-colour-caption"><h3>Soft green-gray</h3><p>Secondary background · supplied sidebar colour</p><dl><dt>HEX</dt><dd><code>#E5ECEB</code></dd><dt>RGB</dt><dd><code>229, 236, 235</code></dd></dl></div>
+        </article>
+        <article class="cr-design-colour">
+          <div class="cr-design-swatch cr-design-swatch-accent" role="img" aria-label="Turquoise colour swatch"></div>
+          <div class="cr-design-colour-caption"><h3>Portal turquoise</h3><p>Emphasis · supplied button colour</p><dl><dt>HEX</dt><dd><code>#15BFAC</code></dd><dt>RGB</dt><dd><code>21, 191, 172</code></dd></dl></div>
+        </article>
+        <article class="cr-design-colour">
+          <div class="cr-design-swatch cr-design-swatch-white" role="img" aria-label="White colour swatch"></div>
+          <div class="cr-design-colour-caption"><h3>White</h3><p>Canvas · primary background</p><dl><dt>HEX</dt><dd><code>#FFFFFF</code></dd><dt>RGB</dt><dd><code>255, 255, 255</code></dd></dl></div>
+        </article>
+      </div>
+      <p class="cr-subtle cr-design-note">Use white for the main canvas, green-gray for secondary areas, and turquoise for emphasis. These are the supplied Portal colours; supporting tones are described separately.</p>
+    </section>
+
+    <section class="cr-section" aria-labelledby="support-title">
+      <div class="cr-design-section-head"><span class="cr-design-index" aria-hidden="true">02</span><h2 id="support-title">Supporting colours &amp; contrast</h2></div>
+      <p class="cr-subtle">The following colours come from the implemented Portal theme. They support readable text and boundaries alongside the three supplied colours.</p>
+      <div class="cr-design-support">
+        <div><span class="cr-design-chip cr-design-chip-ink" aria-hidden="true"></span><h3>Charcoal</h3><code>#414141</code><p class="cr-subtle">Main text</p></div>
+        <div><span class="cr-design-chip cr-design-chip-label" aria-hidden="true"></span><h3>Deep teal</h3><code>#073D36</code><p class="cr-subtle">Text on turquoise</p></div>
+        <div><span class="cr-design-chip cr-design-chip-link" aria-hidden="true"></span><h3>Dark teal</h3><code>#00695E</code><p class="cr-subtle">Accent text on white</p></div>
+        <div><span class="cr-design-chip cr-design-chip-line" aria-hidden="true"></span><h3>Gray-green</h3><code>#6B7F86</code><p class="cr-subtle">Borders and dividers</p></div>
+      </div>
+      <div class="cr-design-pairings">
+        <figure><div class="cr-design-pair cr-design-pair-white">Readable by design.</div><figcaption>Charcoal on white <span>10.21:1</span></figcaption></figure>
+        <figure><div class="cr-design-pair cr-design-pair-teal">Readable by design.</div><figcaption>Deep teal on turquoise <span>5.25:1</span></figcaption></figure>
+      </div>
+      <p class="cr-subtle cr-design-note">Use dark labels on turquoise. White text on #15BFAC has only 2.31:1 contrast and fails the 4.5:1 threshold for ordinary text. Ratios refer to these exact colour pairs.</p>
+    </section>
+
+    <section class="cr-section" aria-labelledby="type-title">
+      <div class="cr-design-section-head"><span class="cr-design-index" aria-hidden="true">03</span><h2 id="type-title">Typography</h2></div>
+      <div class="cr-design-type">
+        <div><p class="cr-design-eyebrow">Primary family</p><p class="cr-design-family">Inter</p><p class="cr-subtle">Sans-serif · system fallbacks when Inter is unavailable</p></div>
+        <div class="cr-design-specimen"><p>Aa Bb Cc Čč Šš Žž</p><p>ABCDEFGHIJKLMNOPQRSTUVWXYZ</p><p>abcdefghijklmnopqrstuvwxyz</p><p>0123456789 · € % + −</p></div>
+      </div>
+      <div class="cr-design-type-scale">
+        <div><span>Display · 48px / 1.1 · 700</span><p class="cr-design-display">A clear point of view.</p></div>
+        <div><span>Heading · 28px / 1.2 · 700</span><p class="cr-design-heading">Room for what matters.</p></div>
+        <div><span>Body · 16px / 1.6 · 400</span><p class="cr-design-body">Calm backgrounds and purposeful accents create a readable foundation. Keep longer passages comfortable, with generous line spacing and clear hierarchy.</p></div>
+        <div><span>Supporting text · 13px / 1.6 · 400</span><p class="cr-subtle">Slovenian character sample: Delovni prostor · č, š, ž · Č, Š, Ž.</p></div>
+      </div>
+      <p class="cr-subtle cr-design-note">The 48px display size is specific to this reference sheet; the shared library keeps its 16px body base and 28px main heading. Inter uses the existing optional self-hosted font stylesheet.</p>
+    </section>
+
+    <section class="cr-section" aria-labelledby="align-title">
+      <div class="cr-design-section-head"><span class="cr-design-index" aria-hidden="true">04</span><h2 id="align-title">Numbers &amp; dates</h2></div>
+      <ul class="cr-design-rules">
+        <li><strong>Amounts and other numbers are always right-aligned</strong> so units, tens and decimal places line up. Use tabular figures and the same number of decimal places within a column.</li>
+        <li><strong>Dates are always centred.</strong> Use one consistent date format within a column.</li>
+        <li>Column headers follow the alignment of their values. Text stays left-aligned.</li>
+      </ul>
+      <div class="cr-table-wrap" tabindex="0" role="region" aria-label="Alignment example">
+        <table class="cr-table cr-design-align-table">
+          <caption class="cr-subtle">Example with fictional data</caption>
+          <thead><tr><th scope="col">Item</th><th scope="col" class="cr-design-date">Date</th><th scope="col" class="cr-design-num">Quantity</th><th scope="col" class="cr-design-num">Amount (€)</th></tr></thead>
+          <tbody>
+            <tr><td>Northfield office</td><td class="cr-design-date">03.10.2026</td><td class="cr-design-num">12</td><td class="cr-design-num">1.240,50</td></tr>
+            <tr><td>Harbour workshop</td><td class="cr-design-date">07.10.2026</td><td class="cr-design-num">4</td><td class="cr-design-num">89,00</td></tr>
+            <tr><td>Riverside archive</td><td class="cr-design-date">11.10.2026</td><td class="cr-design-num">138</td><td class="cr-design-num">12.905,75</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer class="cr-design-footer"><p>GEN-I Portal · Design specifications</p><p>Supplied palette + documented digital adaptations · Cradle CSS 0.16.1</p></footer>
+  </main>
+</body>
+</html>
