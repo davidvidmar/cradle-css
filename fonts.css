@@ -3,7 +3,6 @@
 :root[data-font="native-sans"] { --cr-font:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
 :root[data-font="native-serif"] { --cr-font:Georgia,"Times New Roman",serif; }
 :root[data-font="native-mono"] { --cr-font:var(--cr-mono); }
-:root[data-font="inter"] { --cr-font:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+:root:is([data-font="inter"],[data-font="gen-i"]) { --cr-font:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
 
-/* Optional installed GEN-I typography. No licensed font files are distributed. */
-:root[data-font="gen-i"] { --cr-font:"Proxima Nova",Calibri,sans-serif; font-synthesis:none; }
+/* The historical GEN-I choice now aliases the shared Inter web font. */

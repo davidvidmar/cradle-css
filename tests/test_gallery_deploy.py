@@ -2,6 +2,7 @@ import importlib.util
 import io
 from html.parser import HTMLParser
 import json
+import re
 from pathlib import Path
 import tarfile
 import tempfile
@@ -75,6 +76,18 @@ class GalleryDeployTests(unittest.TestCase):
         self.assertEqual(markup.inline_styles, [])
         self.assertIn('examples.css', markup.stylesheets)
         self.assertIn('examples.css', gallery.ASSETS)
+
+    def test_every_theme_file_is_imported_and_published(self):
+        root = Path(__file__).parents[1]
+        themes = sorted(path.name for path in root.glob('theme-*.css'))
+        imports = sorted(re.findall(r'@import url\("(theme-[\w-]+\.css)"\)', (root / 'themes.css').read_text()))
+        hook = re.search(r'assets=\(([^)]*)\)', (root / 'scripts/forgejo-post-receive.sh').read_text())[1].split()
+        self.assertGreaterEqual(len(themes), 16)
+        self.assertEqual(imports, themes)
+        for name in themes:
+            self.assertIn(name, gallery.ASSETS)
+            self.assertIn(name, hook)
+        self.assertEqual(sorted(hook), sorted(gallery.ASSETS))
 
     def test_real_gallery_bundle_fits_receiver_limits(self):
         root = Path(__file__).parents[1]

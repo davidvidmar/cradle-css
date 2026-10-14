@@ -1,0 +1,6 @@
+/* Cradle CSS palette: Nord. Optional; load after cradle.css and set data-skin="nord" on <html>. */
+:root[data-skin="nord"] { --cr-paper:#eceff4; --cr-soft:#e5e9f0; --cr-ink:#2e3440; --cr-muted:#596579; --cr-line:#cdd5e0; --cr-accent:#376878; --cr-accent-soft:#deedf0; --cr-accent-line:var(--cr-line); }
+@media (prefers-color-scheme:dark) {
+ :root[data-skin="nord"]:not([data-theme="light"]) { --cr-paper:#2e3440; --cr-soft:#3b4252; --cr-ink:#eceff4; --cr-muted:#b0bdcf; --cr-line:#4c566a; --cr-accent:#88c0d0; --cr-accent-soft:#374f5c; --cr-accent-line:var(--cr-line); }
+}
+:root[data-skin="nord"][data-theme="dark"] { --cr-paper:#2e3440; --cr-soft:#3b4252; --cr-ink:#eceff4; --cr-muted:#b0bdcf; --cr-line:#4c566a; --cr-accent:#88c0d0; --cr-accent-soft:#374f5c; --cr-accent-line:var(--cr-line); }

@@ -1,0 +1,6 @@
+/* Cradle CSS palette: Dracula. Optional; load after cradle.css and set data-skin="dracula" on <html>. */
+:root[data-skin="dracula"] { --cr-paper:#faf9ff; --cr-soft:#f0edf8; --cr-ink:#302c45; --cr-muted:#635d78; --cr-line:#dcd6eb; --cr-accent:#7954ba; --cr-accent-soft:#eee5fc; --cr-accent-line:var(--cr-line); }
+@media (prefers-color-scheme:dark) {
+ :root[data-skin="dracula"]:not([data-theme="light"]) { --cr-paper:#282a36; --cr-soft:#343746; --cr-ink:#f8f8f2; --cr-muted:#b4b0ca; --cr-line:#494c63; --cr-accent:#bd93f9; --cr-accent-soft:#44345c; --cr-accent-line:var(--cr-line); }
+}
+:root[data-skin="dracula"][data-theme="dark"] { --cr-paper:#282a36; --cr-soft:#343746; --cr-ink:#f8f8f2; --cr-muted:#b4b0ca; --cr-line:#494c63; --cr-accent:#bd93f9; --cr-accent-soft:#44345c; --cr-accent-line:var(--cr-line); }

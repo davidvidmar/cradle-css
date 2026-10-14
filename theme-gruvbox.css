@@ -1,0 +1,6 @@
+/* Cradle CSS palette: Gruvbox. Optional; load after cradle.css and set data-skin="gruvbox" on <html>. */
+:root[data-skin="gruvbox"] { --cr-paper:#fbf1c7; --cr-soft:#f2e5bc; --cr-ink:#3c3836; --cr-muted:#665c54; --cr-line:#d5c4a1; --cr-accent:#70631a; --cr-accent-soft:#ede6b8; --cr-accent-line:var(--cr-line); }
+@media (prefers-color-scheme:dark) {
+ :root[data-skin="gruvbox"]:not([data-theme="light"]) { --cr-paper:#282828; --cr-soft:#3c3836; --cr-ink:#ebdbb2; --cr-muted:#bdae93; --cr-line:#665c54; --cr-accent:#b8bb26; --cr-accent-soft:#454622; --cr-accent-line:var(--cr-line); }
+}
+:root[data-skin="gruvbox"][data-theme="dark"] { --cr-paper:#282828; --cr-soft:#3c3836; --cr-ink:#ebdbb2; --cr-muted:#bdae93; --cr-line:#665c54; --cr-accent:#b8bb26; --cr-accent-soft:#454622; --cr-accent-line:var(--cr-line); }

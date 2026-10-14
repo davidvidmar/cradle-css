@@ -1,0 +1,6 @@
+/* Cradle CSS palette: One Dark. Optional; load after cradle.css and set data-skin="one-dark" on <html>. */
+:root[data-skin="one-dark"] { --cr-paper:#fafafa; --cr-soft:#f0f1f3; --cr-ink:#383a42; --cr-muted:#676a75; --cr-line:#dcdee3; --cr-accent:#4078b0; --cr-accent-soft:#e4eff9; --cr-accent-line:var(--cr-line); }
+@media (prefers-color-scheme:dark) {
+ :root[data-skin="one-dark"]:not([data-theme="light"]) { --cr-paper:#282c34; --cr-soft:#21252b; --cr-ink:#e3e7ee; --cr-muted:#a6acb9; --cr-line:#454b57; --cr-accent:#61afef; --cr-accent-soft:#243d51; --cr-accent-line:var(--cr-line); }
+}
+:root[data-skin="one-dark"][data-theme="dark"] { --cr-paper:#282c34; --cr-soft:#21252b; --cr-ink:#e3e7ee; --cr-muted:#a6acb9; --cr-line:#454b57; --cr-accent:#61afef; --cr-accent-soft:#243d51; --cr-accent-line:var(--cr-line); }

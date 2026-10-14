@@ -16,12 +16,12 @@
   }
   function select(name) {
     document.documentElement.dataset.font = name;
-    if (name === 'inter') load('inter');
+    if (name === 'inter' || name === 'gen-i') load('inter');
     if (name === 'native-mono') load('mono');
   }
   window.CradleFonts = { load, select };
   // Honour an explicit interface choice; otherwise load the default Inter family.
   const initial = document.documentElement.dataset.font || 'inter';
-  if (initial === 'inter') load('inter');
+  if (initial === 'inter' || initial === 'gen-i') load('inter');
   if (initial === 'native-mono') load('mono');
 })();

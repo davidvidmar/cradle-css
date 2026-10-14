@@ -1,0 +1,6 @@
+/* Cradle CSS palette: Solarized. Optional; load after cradle.css and set data-skin="solarized" on <html>. */
+:root[data-skin="solarized"] { --cr-paper:#fdf6e3; --cr-soft:#eee8d5; --cr-ink:#42565d; --cr-muted:#657b83; --cr-line:#d9d2bd; --cr-accent:#176878; --cr-accent-soft:#e2eee7; --cr-accent-line:var(--cr-line); }
+@media (prefers-color-scheme:dark) {
+ :root[data-skin="solarized"]:not([data-theme="light"]) { --cr-paper:#002b36; --cr-soft:#073642; --cr-ink:#d1e1df; --cr-muted:#93a9ac; --cr-line:#28505a; --cr-accent:#65bfd0; --cr-accent-soft:#124854; --cr-accent-line:var(--cr-line); }
+}
+:root[data-skin="solarized"][data-theme="dark"] { --cr-paper:#002b36; --cr-soft:#073642; --cr-ink:#d1e1df; --cr-muted:#93a9ac; --cr-line:#28505a; --cr-accent:#65bfd0; --cr-accent-soft:#124854; --cr-accent-line:var(--cr-line); }

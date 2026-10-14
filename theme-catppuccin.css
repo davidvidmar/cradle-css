@@ -1,0 +1,6 @@
+/* Cradle CSS palette: Catppuccin. Optional; load after cradle.css and set data-skin="catppuccin" on <html>. */
+:root[data-skin="catppuccin"] { --cr-paper:#eff1f5; --cr-soft:#e6e9ef; --cr-ink:#4c4f69; --cr-muted:#6c6f85; --cr-line:#ccd0da; --cr-accent:#8839ef; --cr-accent-soft:#e8ddff; --cr-accent-line:var(--cr-line); }
+@media (prefers-color-scheme:dark) {
+ :root[data-skin="catppuccin"]:not([data-theme="light"]) { --cr-paper:#1e1e2e; --cr-soft:#313244; --cr-ink:#cdd6f4; --cr-muted:#a6adc8; --cr-line:#45475a; --cr-accent:#cba6f7; --cr-accent-soft:#453357; --cr-accent-line:var(--cr-line); }
+}
+:root[data-skin="catppuccin"][data-theme="dark"] { --cr-paper:#1e1e2e; --cr-soft:#313244; --cr-ink:#cdd6f4; --cr-muted:#a6adc8; --cr-line:#45475a; --cr-accent:#cba6f7; --cr-accent-soft:#453357; --cr-accent-line:var(--cr-line); }

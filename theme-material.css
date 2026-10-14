@@ -1,0 +1,6 @@
+/* Cradle CSS palette: Material. Optional; load after cradle.css and set data-skin="material" on <html>. */
+:root[data-skin="material"] { --cr-paper:#fafafa; --cr-soft:#eef3f4; --cr-ink:#263238; --cr-muted:#60747d; --cr-line:#d5e0e3; --cr-accent:#216d80; --cr-accent-soft:#e0f2f6; --cr-accent-line:var(--cr-line); }
+@media (prefers-color-scheme:dark) {
+ :root[data-skin="material"]:not([data-theme="light"]) { --cr-paper:#263238; --cr-soft:#2e3c43; --cr-ink:#e5eef1; --cr-muted:#a4bbc5; --cr-line:#455a64; --cr-accent:#80cbc4; --cr-accent-soft:#304e51; --cr-accent-line:var(--cr-line); }
+}
+:root[data-skin="material"][data-theme="dark"] { --cr-paper:#263238; --cr-soft:#2e3c43; --cr-ink:#e5eef1; --cr-muted:#a4bbc5; --cr-line:#455a64; --cr-accent:#80cbc4; --cr-accent-soft:#304e51; --cr-accent-line:var(--cr-line); }

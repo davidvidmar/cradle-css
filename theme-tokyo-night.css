@@ -1,0 +1,6 @@
+/* Cradle CSS palette: Tokyo Night. Optional; load after cradle.css and set data-skin="tokyo-night" on <html>. */
+:root[data-skin="tokyo-night"] { --cr-paper:#f5f6fc; --cr-soft:#e9ecf7; --cr-ink:#343b58; --cr-muted:#626c91; --cr-line:#d3d9ed; --cr-accent:#405fb9; --cr-accent-soft:#e1e8ff; --cr-accent-line:var(--cr-line); }
+@media (prefers-color-scheme:dark) {
+ :root[data-skin="tokyo-night"]:not([data-theme="light"]) { --cr-paper:#1a1b26; --cr-soft:#24283b; --cr-ink:#d4dcff; --cr-muted:#a0abd2; --cr-line:#414868; --cr-accent:#7aa2f7; --cr-accent-soft:#283b61; --cr-accent-line:var(--cr-line); }
+}
+:root[data-skin="tokyo-night"][data-theme="dark"] { --cr-paper:#1a1b26; --cr-soft:#24283b; --cr-ink:#d4dcff; --cr-muted:#a0abd2; --cr-line:#414868; --cr-accent:#7aa2f7; --cr-accent-soft:#283b61; --cr-accent-line:var(--cr-line); }

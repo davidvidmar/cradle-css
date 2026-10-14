@@ -1,6 +1,6 @@
 # Cradle CSS
 
-A private, small CSS library extracted from Cradle. Version **0.9.0**.
+A private, small CSS library extracted from Cradle. Version **0.11.0**.
 
 Neutral surfaces, subtle borders, compact navigation, readable 16px text and restrained accent colours. Plain HTML and CSS, with no package manager, framework, build step or required JavaScript. Inter is the default font family, with system fallbacks. The optional font loader fetches Inter from Google Fonts; the core alone makes no network requests.
 
@@ -34,7 +34,7 @@ Copy `cradle.css`, `fonts.css` and `fonts.js` into the project's static assets f
 
 The base reset and native element styles apply inside `.cradle`. Components have `cr-` class names and tokens use `--cr-` to reduce collisions. Components must live inside `.cradle`; put native dialogs inside it too. Root tokens and colour-scheme apply to the document. This is intended as a project's base stylesheet, rather than a drop-in widget in an unrelated design system.
 
-Load optional `themes.css` after `cradle.css` for the additional ten palettes. Set `data-skin` on `<html>` to `cradle`, `dracula`, `one-dark`, `nord`, `solarized`, `monokai`, `tokyo-night`, `catppuccin`, `gruvbox`, `material` or `gen-i`.
+Each optional palette is a standalone file, `theme-<name>.css`. Load the one you use after `cradle.css`, for example `theme-gen-i.css` or `theme-nord.css`. `themes.css` imports every theme file for palette pickers; publish the imported files beside it. Set `data-skin` on `<html>` to `cradle`, `dracula`, `one-dark`, `nord`, `solarized`, `monokai`, `tokyo-night`, `catppuccin`, `gruvbox`, `material`, or one of the GEN-I variants: `gen-i`, `gen-i-sidebar`, `gen-i-teal`, `gen-i-charcoal`, `gen-i-tint`, `gen-i-crisp` or `gen-i-canvas`.
 
 Theme mode is CSS-only: omit `data-theme` for the system setting, or use `data-theme="light"` / `data-theme="dark"`. Auto works for every palette. The gallery's `examples.js` only demonstrates switching and interactions; it is not a library dependency.
 
@@ -45,7 +45,7 @@ For font choices and automatic Inter loading, include `fonts.css` and `fonts.js`
 <script src="fonts.js"></script>
 ```
 
-Set `data-font` on `<html>` to `inter` (default when omitted), `native-sans` (system), `native-serif`, `native-mono` (JetBrains Mono; historical option name retained for compatibility) or `gen-i` (installed Proxima Nova/Calibri). Set an explicit choice before loading `fonts.js` to avoid fetching an unused interface font. The loader honours that choice on startup; runtime choices use the same helper:
+Set `data-font` on `<html>` to `inter` (default when omitted), `native-sans` (system), `native-serif`, `native-mono` (JetBrains Mono; historical option name retained for compatibility) or `gen-i` (compatibility alias for Inter). Set an explicit choice before loading `fonts.js` to avoid fetching an unused interface font. The loader honours that choice on startup; runtime choices use the same helper:
 
 ```js
 CradleFonts.select('native-sans'); // Use the system font instead of Inter.
@@ -53,7 +53,7 @@ CradleFonts.load('mono');  // For code/pre blocks.
 CradleFonts.select('native-mono'); // Set the interface font and load it when needed.
 ```
 
-The helper de-duplicates stylesheet/preconnect links and uses the [Google Fonts CSS API](https://developers.google.com/fonts/docs/css2) with variable weights and `display=swap`. `fonts.css` owns all optional font stacks and the `--cr-mono` code font token. System fonts remain the fallback if loading fails. The core alone prefers installed Inter and falls back to system fonts without network requests. Including `fonts.js` loads Inter by default, or JetBrains Mono for an explicit `native-mono` choice. Explicit System/Serif/GEN-I choices do not fetch an interface font. The gallery and starter load Inter by default; the gallery also loads JetBrains Mono for code samples. For a CSS-only CDN setup, include a Google Fonts stylesheet for Inter with `display=swap` directly in your HTML.
+The helper de-duplicates stylesheet/preconnect links and uses the [Google Fonts CSS API](https://developers.google.com/fonts/docs/css2) with variable weights and `display=swap`. `fonts.css` owns all optional font stacks and the `--cr-mono` code font token. System fonts remain the fallback if loading fails. The core alone prefers installed Inter and falls back to system fonts without network requests. Including `fonts.js` loads Inter by default, or JetBrains Mono for an explicit `native-mono` choice. Explicit System/Serif choices do not fetch an interface font; GEN-I uses the same optional Inter loader as the default. The gallery and starter load Inter by default; the gallery also loads JetBrains Mono for code samples. For a CSS-only CDN setup, include a Google Fonts stylesheet for Inter with `display=swap` directly in your HTML.
 
 ## Components
 
@@ -131,7 +131,8 @@ Publish these files from the **same pinned library commit**, according to the fe
 | --- | --- |
 | `cradle.css` | Always: base styles, tokens and component styling |
 | `fonts.css`, `fonts.js` | Using the optional Inter/JetBrains Mono choices and CDN loader |
-| `themes.css` | Offering the optional palettes |
+| `theme-<name>.css` | Using one optional palette, such as `theme-gen-i-teal.css` |
+| `themes.css` plus all `theme-*.css` | Offering a runtime palette picker; `themes.css` only `@import`s the theme files |
 | `sort-tables.js` | Enabling client-side table sorting or the typed ordering helper |
 | `lucide.svg` | Referencing bundled Lucide icons; preserve its embedded licence |
 
@@ -378,14 +379,15 @@ The publishing allowlists now include `examples.css` (ten assets plus generated 
 
 ## Optional GEN-I theme (0.9.0)
 
-Use `data-skin="gen-i"` with `themes.css` after the core stylesheet. Light mode follows the supplied GEN-I CGP reference's digital colours exactly: teal **#005670** for primary actions/links, gray **#414141** for main text, and white **#FFFFFF** for surfaces/text on teal. The supplied reference identifies the November 2015 manual, volume A, p. 8, §3.4; current corporate approval and the original PDF were not independently verified here.
+Use `data-skin="gen-i"` with `theme-gen-i.css` after the core stylesheet. Light mode follows the supplied GEN-I CGP reference's digital colours exactly: teal **#005670** for primary actions/links, gray **#414141** for main text, and white **#FFFFFF** for surfaces/text on teal. The supplied reference identifies the November 2015 manual, volume A, p. 8, §3.4; current corporate approval and the original PDF were not independently verified here.
 
 ```html
 <html lang="sl" data-skin="gen-i" data-theme="light" data-font="gen-i">
 <head>
   <link rel="stylesheet" href="cradle.css">
-  <link rel="stylesheet" href="themes.css">
+  <link rel="stylesheet" href="theme-gen-i.css">
   <link rel="stylesheet" href="fonts.css">
+  <script src="fonts.js"></script>
 </head>
 <body class="cradle">
   <!-- Reuse ordinary Cradle components here. -->
@@ -395,10 +397,41 @@ Use `data-skin="gen-i"` with `themes.css` after the core stylesheet. Light mode 
 
 Remove `data-theme` to follow the system, or set it to `dark`. White/light surfaces, neutral borders, muted text and error states are digital application choices; they are not additional official brand colours. Dark mode is also a digital adaptation, using #78D2E2 for readable accents on deep teal surfaces. It does not represent Pantone 8201 or a metallic effect. GEN-I reuses the existing component shapes, spacing, 16px base and desktop width defaults. The gallery offers GEN-I in the palette selector and shows the original three colours plus Slovenian character samples.
 
-Typography is selected separately. Optional `data-font="gen-i"` in `fonts.css` prefers **installed Proxima Nova**, then **Calibri**, and disables synthetic bold/italic. It does not bundle or fetch either family. Applications must arrange appropriately licensed font delivery and confirm available weights and č/š/ž rendering. If neither family is available, the final generic sans-serif fallback is an explicit technical fallback, not a CGP-approved substitute; resolve the application's font choice before claiming brand-complete delivery. Set this attribute before loading optional `fonts.js` to avoid its default Inter request. Other consumers retain Inter as their default, and choosing a colour palette alone keeps their selected typography.
+Typography is selected separately. Use **Inter**, the pack's existing web font, for both GEN-I palettes. `data-font="gen-i"` remains a compatibility alias for `inter` in `fonts.css` and `fonts.js`; both selections use the same optional Google Fonts stylesheet and system fallbacks. This is an explicit web-interface adaptation, rather than the manual's print typography. Set `data-font="native-sans"` or omit `fonts.js` when network font loading is unwanted. Test č/š/ž rendering in the delivered interface. Choosing a colour palette alone keeps the application's selected typography.
 
-No GEN-I logo is bundled or recreated. Use an approved official asset, preserve its proportions and clearance, and give a linked logo a destination label. Logo delivery/clearance and font licensing remain application responsibilities; the palette alone is not a complete approved GEN-I design system.
+No GEN-I logo is bundled or recreated. Use an approved official asset, preserve its proportions and clearance, and give a linked logo a destination label. Official logo delivery and clearance remain application responsibilities; the palette alone is not a complete approved GEN-I design system.
 
 Measured palette pairs include teal/white **8.19:1**, gray/white **10.21:1**, and the light neutral border/secondary surface above **3:1**. Validate the actual app states, including icons, focus and errors, against WCAG 2.2 AA. This palette does not certify an application's accessibility or implement domain-specific review/AI workflows. Use the shared native controls, evidence and human-review patterns appropriate to the application's task.
 
-Version 0.9.0 adds this optional palette and installed-font choice. Existing consumers retain their current colours/fonts. No new deployment assets are required: the palette, font profile and gallery are part of the existing published files.
+Version 0.9.0 introduced the GEN-I palette and an installed-font profile; version 0.10.0 replaces that profile with Inter. Existing palettes retain their colours, and default Inter consumers keep their font. No new deployment assets are required: the palette, font profile and gallery are part of the existing published files.
+
+
+### GEN-I blue-sidebar alternative (0.10.0)
+
+Set `data-skin="gen-i-sidebar"` to use the official teal **#005670** for the shell sidebar and charcoal **#414141** for light-mode primary buttons, links and UI highlights. Content surfaces remain white. Both GEN-I palettes are available in the gallery.
+
+```html
+<html lang="sl" data-skin="gen-i-sidebar" data-font="inter">
+```
+
+The sidebar reuses `cr-sidebar`/`cr-nav` and scopes its colour tokens locally: white text/focus indicators, a darker teal hover surface, charcoal selection and a white inset marker. The marker provides a clear selection cue because teal/charcoal backgrounds alone have low contrast. White sidebar labels are 8.19:1 against teal; white button labels are 10.21:1 against charcoal. Dark/auto modes keep the teal sidebar and use a brighter neutral gray for main UI accents. These dark/hover/state colours are digital adaptations; no metallic colour is invented. Existing palettes and the original `gen-i` teal-highlight layout are unchanged.
+
+Version 0.10.0 adds this alternative. **Breaking for the optional `data-font="gen-i"` profile:** it now selects Inter and the optional loader fetches Inter on startup or selection. The former licensed/installed typography has been removed. Existing default Inter consumers are unaffected. `native-sans` or omitting `fonts.js` preserves a network-free setup. Existing deployment assets cover the change.
+
+### GEN-I variants (0.11.0)
+
+Seven GEN-I palettes share the classic light/dark tokens (teal **#005670**, gray **#414141**, white surfaces) and differ in shell treatment. Pick one per application; all are in the gallery's palette selector.
+
+| Skin             | Sidebar                        | Selection                         | Main accents | Other                                  |
+| ---------------- | ------------------------------ | --------------------------------- | ------------ | -------------------------------------- |
+| `gen-i`          | Pale gray-teal                 | Pale teal fill, teal text         | Teal         | Classic                                |
+| `gen-i-sidebar`  | Teal                           | Charcoal fill, white inset marker | Charcoal     | See above                              |
+| `gen-i-teal`     | Teal                           | White fill, teal text             | Teal         |                                        |
+| `gen-i-charcoal` | Charcoal #414141               | Light teal text and inset marker  | Teal         |                                        |
+| `gen-i-tint`     | Pale teal                      | Filled teal, white text           | Teal         | Teal-tinted soft surfaces              |
+| `gen-i-crisp`    | Neutral gray                   | Teal inset bar, no fill           | Teal         | Neutral grays, 4px corners             |
+| `gen-i-canvas`   | White                          | Pale teal fill, teal text         | Teal         | Soft gray work area behind white cards |
+
+Coloured sidebars scope their tokens to `.cr-sidebar`, keeping white or light-teal focus indicators readable. Tested text pairs are at least 4.5:1 and control borders at least 3:1 in light and dark modes. Sidebar, tint, crisp and canvas colours are digital adaptations, not official brand colours. `gen-i-crisp` sets `--cr-radius:4px` and rounds buttons, fields, navigation links and dialogs to 4px; `gen-i-canvas` adds `--cr-canvas` for the `.cr-main` background. Existing `gen-i` and `gen-i-sidebar` output is unchanged. Each variant is self-contained in `theme-<skin>.css`, so it does not need `theme-gen-i.css`.
+
+**Breaking in 0.11.0:** palettes moved from `themes.css` into standalone `theme-<name>.css` files. `themes.css` now only `@import`s them. Applications that publish `themes.css` must also publish the `theme-*.css` files, or link only the theme they use. Extend application asset allowlists and required-file checks accordingly. The gallery deployment allowlist (receiver and Forgejo hook) now includes all sixteen theme files. Synchronize both installed copies before pushing main.

@@ -1,0 +1,10 @@
+/* Cradle CSS palette: GEN-I tinted. Optional; load after cradle.css and set data-skin="gen-i-tint" on <html>.
+   Light mode uses the supplied GEN-I CGP RGB values (#005670, #414141, #FFFFFF); neutral/semantic colours,
+   dark mode and shell treatment are digital adaptations, not official colours. */
+:root[data-skin="gen-i-tint"] { --cr-paper:#ffffff; --cr-soft:#eef6f8; --cr-ink:#414141; --cr-muted:#52636b; --cr-faint:#5f737c; --cr-line:#7b8d94; --cr-accent:#005670; --cr-accent-soft:#e4f1f5; --cr-accent-line:#7b8d94; --cr-on-accent:#ffffff; --cr-danger:#a33a2c; --cr-danger-soft:#fdf1ef; --cr-on-danger:#ffffff; --cr-sidebar-soft:#e4f1f5; --cr-sidebar-current:#005670; --cr-sidebar-on-current:#ffffff; color-scheme:light; }
+@media (prefers-color-scheme:dark) {
+ :root[data-skin="gen-i-tint"]:not([data-theme="light"]) { --cr-paper:#10232a; --cr-soft:#18343e; --cr-ink:#edf6f8; --cr-muted:#b1c5cc; --cr-faint:#a0b6be; --cr-line:#718a94; --cr-accent:#78d2e2; --cr-accent-soft:#204957; --cr-accent-line:#718a94; --cr-on-accent:#10232a; --cr-danger:#ef8a7c; --cr-danger-soft:#382923; --cr-on-danger:#10232a; --cr-sidebar-soft:#18343e; --cr-sidebar-current:#78d2e2; --cr-sidebar-on-current:#10232a; color-scheme:dark; }
+}
+:root[data-skin="gen-i-tint"][data-theme="dark"] { --cr-paper:#10232a; --cr-soft:#18343e; --cr-ink:#edf6f8; --cr-muted:#b1c5cc; --cr-faint:#a0b6be; --cr-line:#718a94; --cr-accent:#78d2e2; --cr-accent-soft:#204957; --cr-accent-line:#718a94; --cr-on-accent:#10232a; --cr-danger:#ef8a7c; --cr-danger-soft:#382923; --cr-on-danger:#10232a; --cr-sidebar-soft:#18343e; --cr-sidebar-current:#78d2e2; --cr-sidebar-on-current:#10232a; color-scheme:dark; }
+:root[data-skin="gen-i-tint"] .cr-sidebar { --cr-soft:var(--cr-sidebar-soft); }
+:root[data-skin="gen-i-tint"] .cr-sidebar .cr-nav a[aria-current]:not([aria-current="false"]) { background:var(--cr-sidebar-current); color:var(--cr-sidebar-on-current); }

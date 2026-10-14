@@ -1,0 +1,6 @@
+/* Cradle CSS palette: Monokai. Optional; load after cradle.css and set data-skin="monokai" on <html>. */
+:root[data-skin="monokai"] { --cr-paper:#faf9f3; --cr-soft:#f0eee2; --cr-ink:#38382c; --cr-muted:#706f5d; --cr-line:#dedcc9; --cr-accent:#586e22; --cr-accent-soft:#e9f0d2; --cr-accent-line:var(--cr-line); }
+@media (prefers-color-scheme:dark) {
+ :root[data-skin="monokai"]:not([data-theme="light"]) { --cr-paper:#272822; --cr-soft:#34352e; --cr-ink:#f8f8f2; --cr-muted:#b6b6a0; --cr-line:#494b3e; --cr-accent:#a6e22e; --cr-accent-soft:#3c4824; --cr-accent-line:var(--cr-line); }
+}
+:root[data-skin="monokai"][data-theme="dark"] { --cr-paper:#272822; --cr-soft:#34352e; --cr-ink:#f8f8f2; --cr-muted:#b6b6a0; --cr-line:#494b3e; --cr-accent:#a6e22e; --cr-accent-soft:#3c4824; --cr-accent-line:var(--cr-line); }
