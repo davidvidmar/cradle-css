@@ -1,6 +1,6 @@
 # Cradle CSS
 
-A private, small CSS library extracted from Cradle. Version **0.8.1**.
+A private, small CSS library extracted from Cradle. Version **0.9.0**.
 
 Neutral surfaces, subtle borders, compact navigation, readable 16px text and restrained accent colours. Plain HTML and CSS, with no package manager, framework, build step or required JavaScript. Inter is the default font family, with system fallbacks. The optional font loader fetches Inter from Google Fonts; the core alone makes no network requests.
 
@@ -34,7 +34,7 @@ Copy `cradle.css`, `fonts.css` and `fonts.js` into the project's static assets f
 
 The base reset and native element styles apply inside `.cradle`. Components have `cr-` class names and tokens use `--cr-` to reduce collisions. Components must live inside `.cradle`; put native dialogs inside it too. Root tokens and colour-scheme apply to the document. This is intended as a project's base stylesheet, rather than a drop-in widget in an unrelated design system.
 
-Load optional `themes.css` after `cradle.css` for the additional nine palettes. Set `data-skin` on `<html>` to `cradle`, `dracula`, `one-dark`, `nord`, `solarized`, `monokai`, `tokyo-night`, `catppuccin`, `gruvbox` or `material`.
+Load optional `themes.css` after `cradle.css` for the additional ten palettes. Set `data-skin` on `<html>` to `cradle`, `dracula`, `one-dark`, `nord`, `solarized`, `monokai`, `tokyo-night`, `catppuccin`, `gruvbox`, `material` or `gen-i`.
 
 Theme mode is CSS-only: omit `data-theme` for the system setting, or use `data-theme="light"` / `data-theme="dark"`. Auto works for every palette. The gallery's `examples.js` only demonstrates switching and interactions; it is not a library dependency.
 
@@ -45,7 +45,7 @@ For font choices and automatic Inter loading, include `fonts.css` and `fonts.js`
 <script src="fonts.js"></script>
 ```
 
-Set `data-font` on `<html>` to `inter` (default when omitted), `native-sans` (system), `native-serif` or `native-mono` (JetBrains Mono; historical option name retained for compatibility). Set an explicit choice before loading `fonts.js` to avoid fetching an unused interface font. The loader honours that choice on startup; runtime choices use the same helper:
+Set `data-font` on `<html>` to `inter` (default when omitted), `native-sans` (system), `native-serif`, `native-mono` (JetBrains Mono; historical option name retained for compatibility) or `gen-i` (installed Proxima Nova/Calibri). Set an explicit choice before loading `fonts.js` to avoid fetching an unused interface font. The loader honours that choice on startup; runtime choices use the same helper:
 
 ```js
 CradleFonts.select('native-sans'); // Use the system font instead of Inter.
@@ -53,7 +53,7 @@ CradleFonts.load('mono');  // For code/pre blocks.
 CradleFonts.select('native-mono'); // Set the interface font and load it when needed.
 ```
 
-The helper de-duplicates stylesheet/preconnect links and uses the [Google Fonts CSS API](https://developers.google.com/fonts/docs/css2) with variable weights and `display=swap`. `fonts.css` owns all optional font stacks and the `--cr-mono` code font token. System fonts remain the fallback if loading fails. The core alone prefers installed Inter and falls back to system fonts without network requests. Including `fonts.js` loads Inter by default, or JetBrains Mono for an explicit `native-mono` choice. Explicit System/Serif choices do not fetch an interface font. The gallery and starter load Inter by default; the gallery also loads JetBrains Mono for code samples. For a CSS-only CDN setup, include a Google Fonts stylesheet for Inter with `display=swap` directly in your HTML.
+The helper de-duplicates stylesheet/preconnect links and uses the [Google Fonts CSS API](https://developers.google.com/fonts/docs/css2) with variable weights and `display=swap`. `fonts.css` owns all optional font stacks and the `--cr-mono` code font token. System fonts remain the fallback if loading fails. The core alone prefers installed Inter and falls back to system fonts without network requests. Including `fonts.js` loads Inter by default, or JetBrains Mono for an explicit `native-mono` choice. Explicit System/Serif/GEN-I choices do not fetch an interface font. The gallery and starter load Inter by default; the gallery also loads JetBrains Mono for code samples. For a CSS-only CDN setup, include a Google Fonts stylesheet for Inter with `display=swap` directly in your HTML.
 
 ## Components
 
@@ -102,11 +102,96 @@ Primary tokens: `--cr-paper` (page), `--cr-soft` (secondary surface), `--cr-ink`
 
 Palette rules are more specific than `:root`. To override colours for a selected palette/mode, match its selectors in your final override sheet, for example `:root[data-skin="nord"][data-theme="dark"]`. Change accent text and background together and check contrast.
 
-## AI handoff
+## Have AI build with Cradle CSS
 
-Give another coding assistant this repository and this instruction:
+Give the coding assistant access to this repository or a pinned checkout inside your application. The README explains the API, `index.html` shows the component markup, and `starter.html` is the smallest working page. The hosted gallery is a visual reference; the assistant also needs source files to implement the components. Point it at the actual checkout path in your prompt.
 
-> Use my private Cradle CSS library as this project's visual foundation. Read its README and component gallery, reuse cradle.css and the documented cr- components, and preserve the quiet layout, 16px typography, subtle borders and restrained accents. Use fonts.css/fonts.js for the default Inter interface and themes.css only if needed. Use the bundled Lucide sprite with cr-icon for interface icons; keep labels accessible and use consistent icon names for the same actions. Adapt the examples to the project's framework. Keep project-specific styles in a separate stylesheet; extend existing components before adding new ones. Use native accessible elements and check desktop/mobile and light/dark rendering.
+Copy this prompt and replace the bracketed paths and task:
+
+> Implement [the page or feature] in this application using Cradle CSS from [library checkout path]. Read that checkout's README.md, cradle.css and index.html before editing. Reuse its documented cr- components and --cr- tokens. Keep native styles inside .cradle, the readable 16px base, quiet surfaces, subtle borders and desktop width defaults; use responsive rules for phones. Adapt the component markup to this application's framework and keep application-specific overrides in an external stylesheet loaded last. Use the optional fonts.css/fonts.js for Inter and the bundled Lucide sprite for interface icons. Keep icon labels accessible and use consistent icon names. The application owns routing, data, tab/drawer state, progress updates and destructive-action confirmation. Implement the requested UI, update the runtime asset/publish rules, and verify it with Playwright at 1440px, 1920px and 390px in light/dark/auto modes, including keyboard focus, dialogs, forms and overflow. Test with the deployed application's CSP. Report the library commit, changed screens, assets included and checks performed. Follow this application's commit and deployment permissions.
+
+For future tasks, put a short version in the **application's** `AGENTS.md` (or its equivalent agent instructions):
+
+```text
+Use our pinned Cradle CSS checkout at [path] for interface work.
+Read its README and gallery before adding or changing UI.
+Reuse cr- components and --cr- tokens; keep app overrides external and small.
+Use Lucide for icons with accessible labels. Keep application behavior here.
+For upgrades, review the library diff, update runtime publishing, and explicitly
+adopt applicable new components in app markup. Record which screens use them.
+Verify with Playwright under the deployed CSP, including desktop/mobile,
+themes, keyboard focus, dialogs, form feedback and overflow.
+```
+
+### Choose the application assets
+
+Publish these files from the **same pinned library commit**, according to the features your application uses:
+
+| Asset | Include when |
+| --- | --- |
+| `cradle.css` | Always: base styles, tokens and component styling |
+| `fonts.css`, `fonts.js` | Using the optional Inter/JetBrains Mono choices and CDN loader |
+| `themes.css` | Offering the optional palettes |
+| `sort-tables.js` | Enabling client-side table sorting or the typed ordering helper |
+| `lucide.svg` | Referencing bundled Lucide icons; preserve its embedded licence |
+
+Use `starter.html` and the gallery as examples. `index.html`, `examples.css` and `examples.js` belong to the library gallery; applications implement their own pages and behavior. Keep Git metadata, instructions and machine-local files out of public assets. Use external stylesheets and same-origin sprite URLs compatible with the application's CSP.
+
+## Update the library in an application
+
+Updating the library checkout/files makes its features available. Adopting new components also requires changes to the application's markup and, where relevant, its behavior. A library push deploys the gallery on Bob; upgrading and deploying a consuming application is a separate step.
+
+1. Identify the current library commit and the target commit. Read the README release notes and review the diff for breaking changes, new assets and new components. Keep a record of the previous pin for rollback.
+2. Update to a specific approved commit using the application's existing integration method. Keep local library modifications safe and reviewable before changing its checkout.
+3. Refresh the runtime files together and update copy/build/publish allowlists for any new assets. Check the built output or container, not just the source directory.
+4. Map the new features to the application's screens, implement the applicable components, and remove obsolete overrides that mask the new styles. Keep application state and interactions in the application.
+5. Run the application and verify the upgraded screens with Playwright under its deployed CSP. Record the actual library commit and the adoption results below.
+6. Commit the application changes, including the submodule pin or vendored files, under the application's authorization rules. Rebuild and deploy the application, then check the served assets and UI. Retain the previous application/library revision for rollback.
+
+### If the application uses a Git submodule
+
+From the application repository, initialize its recorded pin first. Then fetch the library and select the reviewed target. Replace the two quoted values with the application's submodule path and a full approved commit SHA:
+
+```sh
+timeout 30s git submodule update --init --recursive
+LIBRARY_PATH='path/to/cradle-css'
+LIBRARY_COMMIT='FULL_APPROVED_COMMIT_SHA'
+timeout 10s git -C "$LIBRARY_PATH" status --short
+timeout 10s git -C "$LIBRARY_PATH" rev-parse HEAD
+timeout 30s git -C "$LIBRARY_PATH" fetch origin
+timeout 10s git -C "$LIBRARY_PATH" show --stat "$LIBRARY_COMMIT"
+# After reviewing the target and any local changes:
+timeout 10s git -C "$LIBRARY_PATH" checkout --detach "$LIBRARY_COMMIT"
+timeout 10s git diff --submodule=log -- "$LIBRARY_PATH"
+```
+
+The parent repository records the selected commit as its gitlink. Include that path in the authorized application commit together with markup, publish-rule and integration changes. New library work must be committed and pushed in the library repository before the parent can publish a gitlink to it. Initializing a submodule alone restores the parent's existing pin; it does not select a newer library version.
+
+**Cradle application:** its submodule path is `src/Cradle.Web/wwwroot/vendor/cradle-css`. Its runtime publish allowlist and required-file checks are in `src/Cradle.Web/Cradle.Web.csproj`. Update those rules when adopting a new runtime asset: for example, Lucide use needs `lucide.svg` in the published output. The gallery deployment does not update Cradle's submodule pin, publish list or UI markup.
+
+### If the application copies runtime files
+
+Check out the reviewed library commit, copy the assets listed above into the existing public asset location, and update the application's recorded source commit/version. Include newly required files and review removed files. Use the application's existing cache strategy (such as content hashes, a commit-based asset URL or revalidation) so browsers fetch the new files after deployment. Keep project overrides separate from the copied library files.
+
+## Make sure new features are used after an update
+
+Use an adoption record in the application PR or integration notes. For every new feature in the reviewed release, record the app screen, required markup/behavior, validation and whether it was adopted or skipped with a reason. Updating an existing component's CSS can change its appearance automatically; newly added opt-in components need application markup. Optional JavaScript helpers need a script import and compatible markup too.
+
+| Feature | Application adoption | Proof in the running app |
+| --- | --- | --- |
+| Lucide icons | Publish `lucide.svg`; add labelled `cr-icon` SVG references using valid symbol names | Sprite request succeeds; icons render with the intended gap/colour; controls have accessible names |
+| Sticky table headers/actions | Add `cr-table-scroll`, `cr-table-sticky` and a single trailing `cr-table-actions` column; exclude its header from sorting | Scroll both directions; headings/actions stay visible and keyboard sorting still works |
+| Breadcrumbs | Add `cr-breadcrumbs` with real route links and `aria-current="page"` | Links navigate correctly, long labels wrap, and keyboard focus remains visible |
+| Progress bars | Add labelled native `cr-progress` elements and wire real `value`/`max` updates | Trigger the operation and check waiting, partial and complete states with readable values |
+| Mixed-width cards | Use `cr-dashboard` and the appropriate span classes on its direct children | Inspect widths in a desktop container and stacking in a narrow container |
+| Destructive-action panel | Use `cr-danger-box`/danger controls and implement the application's confirmation rules | Exercise confirmation and disabled/focus states; verify the intended application action |
+| Sortable tables | Load `sort-tables.js`, configure formatted values and opt-outs as needed | Click and use Enter/Space; inspect aria-sort, actual row ordering and row actions |
+
+Check the deployed stylesheet/script/sprite responses, including status, MIME type and cache behavior, and compare their contents/hashes with the pinned files. Confirm the application build includes the assets, the page imports them, the DOM contains the expected component classes, and old overrides do not cancel the new rules. Exercise the actual feature and check computed layout, screenshots, console/CSP errors and keyboard behavior. Use Firefox for Firefox reports and Playwright WebKit for Safari reports; distinguish WebKit checks from testing the user's actual Safari.
+
+Copy this upgrade prompt for the assistant:
+
+> Upgrade this application's Cradle CSS integration from [old commit] to [approved target commit] at [checkout path]. Read the target README/gallery and the old-to-new library diff. Update the pin or copied runtime assets and the build/publish rules. Review every new feature and map it to an app screen. Implement the applicable components and interactions; record skipped features with reasons. In particular, adopt [the features/screens you want, for example Lucide icons in navigation and sticky actions in the sources table]. Verify the running app with Playwright under its deployed CSP, including desktop/mobile, themes, keyboard focus, dialogs, forms, overflow and real feature interactions. Report the target commit, assets, screens, adoption record and test evidence. After an authorized app deployment, verify the served asset versions and the same interactions there.
 
 ## Repository and maintenance
 
@@ -118,7 +203,7 @@ git clone ssh://git@git.home.vidmar.net:2222/david/cradle-css.git
 
 Commit the CSS, examples and README together. Applications should copy from a recorded commit, or vendor a pinned checkout through their existing build process. Keep the library version pinned; its upgrades should be deliberate and reviewable. Optional Inter uses the Google Fonts CDN.
 
-The Cradle application still owns its existing styles. This extraction does not change its CSS imports. After the separate repository exists, adopting the library in Cradle is a separate integration step with visual regression checks.
+The Cradle application consumes a pinned submodule of this repository and owns its application-specific styles and behavior. Updating the library or deploying its gallery does not update the application pin or adopt new components; use the application update/adoption workflow above.
 
 This initial library consolidates duplicate controls and theme overrides, removes app IDs and backend dependencies, prefixes component names and tokens, makes fonts/palettes optional, and fixes minimum card widths on phones. It intentionally remains a small source library; there is no generated/minified copy to keep synchronized. Keep changes focused, update the examples, verify rendering, and record breaking changes before adoption. Use Playwright for browser QA, including desktop/mobile, light/dark/auto, keyboard focus, dialogs, form feedback and overflow. When adding gallery sections, check that every mobile navigation link stays visible. Keep temporary tests/screenshots outside the repository, bound commands with explicit timeouts, and stop temporary servers.
 
@@ -289,3 +374,31 @@ The installed copies were synchronized for the 0.8.0 release. Before any future 
 Version 0.8.1 moves all gallery presentation into external `examples.css` so Cradle's `style-src` policy can apply it. The catalogue now uses a three-column desktop/two-column mobile grid, with each row placing its 24px icon in a separate grid track and a 20px gap before a 12px name. The same sheet owns mobile navigation wrapping, search layout and sticky-demo spacing/width. Do not add inline style blocks or style attributes to the gallery: Bob's policy rejects them. Validate the served gallery with Bob's CSP in Playwright Firefox, Chromium and WebKit. `examples.css` is for the gallery only; application consumers still use core CSS and optional runtime assets.
 
 The publishing allowlists now include `examples.css` (ten assets plus generated version.txt). Both installed deployment scripts were synchronized for 0.8.1. Synchronize them again when the allowlists change, and verify the stylesheet hash on every deployment. Keep this external sheet linked from index.html and included in future gallery releases.
+
+
+## Optional GEN-I theme (0.9.0)
+
+Use `data-skin="gen-i"` with `themes.css` after the core stylesheet. Light mode follows the supplied GEN-I CGP reference's digital colours exactly: teal **#005670** for primary actions/links, gray **#414141** for main text, and white **#FFFFFF** for surfaces/text on teal. The supplied reference identifies the November 2015 manual, volume A, p. 8, §3.4; current corporate approval and the original PDF were not independently verified here.
+
+```html
+<html lang="sl" data-skin="gen-i" data-theme="light" data-font="gen-i">
+<head>
+  <link rel="stylesheet" href="cradle.css">
+  <link rel="stylesheet" href="themes.css">
+  <link rel="stylesheet" href="fonts.css">
+</head>
+<body class="cradle">
+  <!-- Reuse ordinary Cradle components here. -->
+</body>
+</html>
+```
+
+Remove `data-theme` to follow the system, or set it to `dark`. White/light surfaces, neutral borders, muted text and error states are digital application choices; they are not additional official brand colours. Dark mode is also a digital adaptation, using #78D2E2 for readable accents on deep teal surfaces. It does not represent Pantone 8201 or a metallic effect. GEN-I reuses the existing component shapes, spacing, 16px base and desktop width defaults. The gallery offers GEN-I in the palette selector and shows the original three colours plus Slovenian character samples.
+
+Typography is selected separately. Optional `data-font="gen-i"` in `fonts.css` prefers **installed Proxima Nova**, then **Calibri**, and disables synthetic bold/italic. It does not bundle or fetch either family. Applications must arrange appropriately licensed font delivery and confirm available weights and č/š/ž rendering. If neither family is available, the final generic sans-serif fallback is an explicit technical fallback, not a CGP-approved substitute; resolve the application's font choice before claiming brand-complete delivery. Set this attribute before loading optional `fonts.js` to avoid its default Inter request. Other consumers retain Inter as their default, and choosing a colour palette alone keeps their selected typography.
+
+No GEN-I logo is bundled or recreated. Use an approved official asset, preserve its proportions and clearance, and give a linked logo a destination label. Logo delivery/clearance and font licensing remain application responsibilities; the palette alone is not a complete approved GEN-I design system.
+
+Measured palette pairs include teal/white **8.19:1**, gray/white **10.21:1**, and the light neutral border/secondary surface above **3:1**. Validate the actual app states, including icons, focus and errors, against WCAG 2.2 AA. This palette does not certify an application's accessibility or implement domain-specific review/AI workflows. Use the shared native controls, evidence and human-review patterns appropriate to the application's task.
+
+Version 0.9.0 adds this optional palette and installed-font choice. Existing consumers retain their current colours/fonts. No new deployment assets are required: the palette, font profile and gallery are part of the existing published files.

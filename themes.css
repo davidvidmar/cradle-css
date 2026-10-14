@@ -28,3 +28,12 @@
 :root[data-skin="catppuccin"][data-theme="dark"] { --cr-paper:#1e1e2e;--cr-soft:#313244;--cr-ink:#cdd6f4;--cr-muted:#a6adc8;--cr-line:#45475a;--cr-accent:#cba6f7;--cr-accent-soft:#453357;--cr-accent-line:var(--cr-line) }
 :root[data-skin="gruvbox"][data-theme="dark"] { --cr-paper:#282828;--cr-soft:#3c3836;--cr-ink:#ebdbb2;--cr-muted:#bdae93;--cr-line:#665c54;--cr-accent:#b8bb26;--cr-accent-soft:#454622;--cr-accent-line:var(--cr-line) }
 :root[data-skin="material"][data-theme="dark"] { --cr-paper:#263238;--cr-soft:#2e3c43;--cr-ink:#e5eef1;--cr-muted:#a4bbc5;--cr-line:#455a64;--cr-accent:#80cbc4;--cr-accent-soft:#304e51;--cr-accent-line:var(--cr-line) }
+
+
+/* GEN-I: supplied CGP RGB values in light mode. Neutral/semantic colours and
+   the accessible dark mode are application adaptations, not official colours. */
+:root[data-skin="gen-i"] { --cr-paper:#ffffff;--cr-soft:#f4f7f8;--cr-ink:#414141;--cr-muted:#52636b;--cr-faint:#5f737c;--cr-line:#7b8d94;--cr-accent:#005670;--cr-accent-soft:#e4f1f5;--cr-accent-line:#7b8d94;--cr-on-accent:#ffffff;--cr-danger:#a33a2c;--cr-danger-soft:#fdf1ef;--cr-on-danger:#ffffff; color-scheme:light; }
+@media (prefers-color-scheme:dark) {
+ :root[data-skin="gen-i"]:not([data-theme="light"]) { --cr-paper:#10232a;--cr-soft:#18343e;--cr-ink:#edf6f8;--cr-muted:#b1c5cc;--cr-faint:#a0b6be;--cr-line:#718a94;--cr-accent:#78d2e2;--cr-accent-soft:#204957;--cr-accent-line:#718a94;--cr-on-accent:#10232a;--cr-danger:#ef8a7c;--cr-danger-soft:#382923;--cr-on-danger:#10232a; color-scheme:dark; }
+}
+:root[data-skin="gen-i"][data-theme="dark"] { --cr-paper:#10232a;--cr-soft:#18343e;--cr-ink:#edf6f8;--cr-muted:#b1c5cc;--cr-faint:#a0b6be;--cr-line:#718a94;--cr-accent:#78d2e2;--cr-accent-soft:#204957;--cr-accent-line:#718a94;--cr-on-accent:#10232a;--cr-danger:#ef8a7c;--cr-danger-soft:#382923;--cr-on-danger:#10232a; color-scheme:dark; }
