@@ -1,6 +1,6 @@
 # Cradle CSS
 
-A private, small CSS library extracted from Cradle. Version **0.16.0**.
+A private, small CSS library extracted from Cradle. Version **0.16.1**.
 
 Neutral surfaces, subtle borders, compact navigation, readable 16px text and restrained accent colours. Plain HTML and CSS, with no package manager, framework, build step or required JavaScript. Inter is the default font family, with system fallbacks. Optional `fonts.css` self-hosts Inter, Manrope and JetBrains Mono; the core alone makes no network requests.
 
@@ -36,7 +36,7 @@ The base reset and native element styles apply inside `.cradle`. Components have
 
 Each optional palette is a standalone file, `theme-<name>.css`. Load the one you use after `cradle.css`, for example `theme-gen-i.css` or `theme-nord.css`. Set `data-skin` on `<html>` to `cradle`, `dracula`, `one-dark`, `nord`, `solarized`, `monokai`, `tokyo-night`, `catppuccin`, `gruvbox`, `material`, `gen-i` or `gen-i-portal`.
 
-**Palette pickers: load only the selected palette.** Do not link `themes.css` in an application; it `@import`s every palette, so each page downloads all 11 files. Include `themes.js` instead and call `CradleThemes.select(skin)` (from settings, a cache or a picker). It fetches just `theme-<skin>.css` from the folder next to `themes.js`, switches `data-skin` after the file has loaded (no unstyled flash), removes the previous palette, and treats `cradle` as the built-in default with nothing to load. It also applies an existing `data-skin` on `<html>` at startup. Unknown names fall back to `cradle`; the name is validated before it forms a URL. Publish `themes.js` and the `theme-*.css` files you offer; `themes.css` is kept only for demos that want everything at once.
+**Palette pickers: load only the selected palette.** Do not link `themes.css` in an application; it `@import`s every palette, so each page downloads all 11 files. Include `themes.js` instead and call `CradleThemes.select(skin)` (from settings, a cache or a picker). It fetches just `theme-<skin>.css` from the folder next to `themes.js`, switches `data-skin` after the file has loaded (no unstyled flash), removes the previous palette, and treats `cradle` as the built-in default with nothing to load. It also applies an existing `data-skin` on `<html>` at startup. Unknown names, including names whose file is missing (such as removed palettes), fall back to `cradle` and drop the previous palette file; the name is validated before it forms a URL. Publish `themes.js` and the `theme-*.css` files you offer; `themes.css` is kept only for demos that want everything at once.
 
 ```html
 <script src="/vendor/cradle-css/themes.js"></script>
@@ -274,7 +274,7 @@ Version 0.2.2 exposes layout widths as tokens: `--cr-container-width`, `--cr-for
 
 Version 0.3.0 (breaking): the default `--cr-container-width` grows from 1180px to 1440px so layouts target laptop and 24" displays. Set `--cr-container-width: 1180px` to keep the previous width. Also fixes a missing semicolon in the dark palette that left `--cr-faint` unset and `--cr-accent-line` invalid in dark mode.
 
-Version 0.4.0 (breaking): Inter becomes the default interface family. The optional `fonts.js` loader fetches it automatically unless `data-font` explicitly selects another font. Gallery and starter use Inter by default. To restore the previous interface, include `fonts.css` and set `data-font="native-sans"` on `<html>` before the loader runs, or override `--cr-font` in your project stylesheet. The core still has no required JavaScript or CDN dependency.
+Version 0.4.0 (breaking): Inter becomes the default interface family. At that release the optional `fonts.js` loader fetched it from the CDN (self-hosted since 0.15.0) unless `data-font` explicitly selects another font. Gallery and starter use Inter by default. To restore the previous interface, include `fonts.css` and set `data-font="native-sans"` on `<html>` before the loader runs, or override `--cr-font` in your project stylesheet. The core still has no required JavaScript or CDN dependency.
 
 Version 0.4.1 aligns native input/select minimum heights and gives form textareas a configurable minimum height. The gallery Description field now starts with four rows.
 
@@ -415,7 +415,7 @@ Version 0.9.0 introduced the GEN-I palette and an installed-font profile; versio
 
 ### GEN-I palettes
 
-Two GEN-I palettes remain: `gen-i` (classic: pale gray-teal sidebar, white surfaces, teal actions) and `gen-i-portal` (below). **Breaking in 0.16.0:** the other eight candidates (`gen-i-sidebar`, `gen-i-teal`, `gen-i-charcoal`, `gen-i-tint`, `gen-i-crisp`, `gen-i-canvas`, `gen-i-lagoon`, `gen-i-midnight`) were removed after a palette was chosen; an application that stored one of those names must map it to `gen-i` or `gen-i-portal`. Version 0.10.0 made the `data-font="gen-i"` profile select Inter; that remains.
+Two GEN-I palettes remain: `gen-i` (classic: pale gray-teal sidebar, white surfaces, teal actions) and `gen-i-portal` (below). **Breaking in 0.16.0:** the other eight candidates (`gen-i-sidebar`, `gen-i-teal`, `gen-i-charcoal`, `gen-i-tint`, `gen-i-crisp`, `gen-i-canvas`, `gen-i-lagoon`, `gen-i-midnight`) were removed after a palette was chosen; an application that stored one of those names must map it to `gen-i` or `gen-i-portal`.
 
 Palettes add `--cr-canvas` and scope coloured-sidebar tokens to `.cr-sidebar`, keeping white focus indicators readable. Tested text pairs are at least 4.5:1 and control borders at least 3:1 in light and dark modes. Colours beyond the supplied brand values are digital adaptations.
 
@@ -438,3 +438,7 @@ Inter (normal and italic), Manrope and JetBrains Mono (normal and italic) are no
 `fonts.js` no longer loads anything and no longer adds preconnect/stylesheet links; it keeps `CradleFonts.select(name)` and a no-op `CradleFonts.load()` for compatibility. Font-family names are unchanged, so existing `data-font` values work.
 
 **Breaking for consumers:** `data-font="gen-i"` (the old Inter alias) is removed; use `inter`. Publish the ten `font-*.woff2` files next to `fonts.css` (the Cradle `.csproj` runtime allowlist and required-file checks need them, with a font MIME type such as `font/woff2`). Their CSP needs `font-src 'self'`, and `fonts.googleapis.com`/`fonts.gstatic.com` can be dropped from `style-src`/`font-src`. Without the files the stacks fall back to installed Inter and system fonts. Gallery deployment allowlists now cover 39 assets plus generated `version.txt`; synchronize both installed deployment scripts before an authorized main push.
+
+### 0.16.1
+
+`CradleThemes.select()` now handles a palette file that fails to load (for example a stored name of a palette removed in 0.16.0): it sets `data-skin="cradle"` and removes the previously loaded palette file, as documented. Rapid switching is also safe: only the latest selection applies, and every other palette link (including slower earlier requests) is removed. Previously a missing file kept the old `data-skin` value, and either case could leave orphaned stylesheets. Documentation fixes only otherwise; no asset changes.

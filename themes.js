@@ -2,19 +2,31 @@
 (() => {
   const base = document.currentScript ? new URL('.', document.currentScript.src).href : '';
   const known = /^[a-z0-9-]+$/;
-  const ready = Promise.resolve();
+  let latest = 0;
+  // Keep only the given palette link (or none); earlier or abandoned links are dropped.
+  const prune = keep => document.querySelectorAll('link[data-cr-theme]').forEach(link => { if (link !== keep) link.remove(); });
   function select(skin) {
     const root = document.documentElement;
-    const old = document.getElementById('cr-theme');
-    if (!skin || skin === 'cradle' || !known.test(skin)) { root.dataset.skin = 'cradle'; old?.remove(); return ready; }
-    if (old?.dataset.skin === skin) { root.dataset.skin = skin; return ready; }
+    const request = ++latest;
+    if (!skin || skin === 'cradle' || !known.test(skin)) { root.dataset.skin = 'cradle'; prune(null); return Promise.resolve(); }
+    const current = document.querySelector(`link[data-cr-theme="${skin}"][data-loaded]`);
+    if (current) { root.dataset.skin = skin; prune(current); return Promise.resolve(); }
     return new Promise(resolve => {
-      const link = document.createElement('link'); link.id = 'cr-theme'; link.rel = 'stylesheet'; link.dataset.skin = skin;
+      const link = document.createElement('link'); link.rel = 'stylesheet'; link.dataset.crTheme = skin;
       link.href = `${base}theme-${skin}.css`;
       // Switch the attribute only once the new file applies, then drop the previous one: no unstyled flash.
-      const done = () => { root.dataset.skin = skin; old?.remove(); resolve(); };
-      link.onload = done; link.onerror = () => { link.remove(); resolve(); };
-      old?.removeAttribute('id'); document.head.append(link);
+      // A newer selection wins; a missing file (e.g. a removed palette) falls back to the built-in default.
+      link.onload = () => {
+        link.dataset.loaded = '';
+        if (request === latest) { root.dataset.skin = skin; prune(link); } else link.remove();
+        resolve();
+      };
+      link.onerror = () => {
+        link.remove();
+        if (request === latest) { root.dataset.skin = 'cradle'; prune(null); }
+        resolve();
+      };
+      document.head.append(link);
     });
   }
   window.CradleThemes = { select };
