@@ -1,0 +1,18 @@
+/* Cradle CSS palette: GEN-I Portal. Optional; load after cradle.css and set data-skin="gen-i-portal" on <html>.
+   User-specified light sidebar #E5ECEB, primary action #15BFAC and white canvas.
+   Supporting states and dark colours are digital adaptations, not official brand colours. */
+:root[data-skin="gen-i-portal"] { --cr-paper:#ffffff; --cr-soft:#f1f6f5; --cr-ink:#414141; --cr-muted:#52636b; --cr-faint:#52636b; --cr-line:#6b7f86; --cr-accent:#00695e; --cr-accent-soft:#d9f2ee; --cr-accent-line:#6b7f86; --cr-on-accent:#ffffff; --cr-danger:#a33a2c; --cr-danger-soft:#fdf1ef; --cr-on-danger:#ffffff; --cr-sidebar-soft:#e5eceb; --cr-sidebar-current:#15bfac; --cr-sidebar-on-current:#073d36; --cr-canvas:#ffffff; --cr-portal-action:#15bfac; --cr-portal-on-action:#073d36; color-scheme:light; }
+@media (prefers-color-scheme:dark) {
+ :root[data-skin="gen-i-portal"]:not([data-theme="light"]) { --cr-paper:#10232a; --cr-soft:#18343e; --cr-ink:#edf6f8; --cr-muted:#b1c5cc; --cr-faint:#a0b6be; --cr-line:#718a94; --cr-accent:#78d2e2; --cr-accent-soft:#204957; --cr-accent-line:#718a94; --cr-on-accent:#10232a; --cr-danger:#ef8a7c; --cr-danger-soft:#382923; --cr-on-danger:#10232a; --cr-sidebar-soft:#203b39; --cr-sidebar-current:#15bfac; --cr-sidebar-on-current:#073d36; --cr-canvas:#10232a; --cr-portal-action:#15bfac; --cr-portal-on-action:#073d36; color-scheme:dark; }
+}
+:root[data-skin="gen-i-portal"][data-theme="dark"] { --cr-paper:#10232a; --cr-soft:#18343e; --cr-ink:#edf6f8; --cr-muted:#b1c5cc; --cr-faint:#a0b6be; --cr-line:#718a94; --cr-accent:#78d2e2; --cr-accent-soft:#204957; --cr-accent-line:#718a94; --cr-on-accent:#10232a; --cr-danger:#ef8a7c; --cr-danger-soft:#382923; --cr-on-danger:#10232a; --cr-sidebar-soft:#203b39; --cr-sidebar-current:#15bfac; --cr-sidebar-on-current:#073d36; --cr-canvas:#10232a; --cr-portal-action:#15bfac; --cr-portal-on-action:#073d36; color-scheme:dark; }
+:root[data-skin="gen-i-portal"] .cr-sidebar { --cr-soft:var(--cr-sidebar-soft); }
+:root[data-skin="gen-i-portal"] .cr-sidebar .cr-nav a[aria-current]:not([aria-current="false"]) { background:var(--cr-sidebar-current); color:var(--cr-sidebar-on-current); }
+
+:root[data-skin="gen-i-portal"] .cr-main { background:var(--cr-canvas); }
+/* Keep link/focus accent readable; the bright action fill uses its own tokens. */
+:root[data-skin="gen-i-portal"] .cr-button.cr-primary {
+ background:var(--cr-portal-action); border-color:var(--cr-accent); color:var(--cr-portal-on-action);
+}
+:root[data-skin="gen-i-portal"] .cr-button.cr-primary:hover:not(:disabled) { background:var(--cr-portal-action); border-color:var(--cr-accent); }
+:root[data-skin="gen-i-portal"] .cr-sidebar .cr-nav a[aria-current]:not([aria-current="false"]) { box-shadow:inset 4px 0 var(--cr-sidebar-on-current); }
