@@ -1,6 +1,6 @@
 /* Optional CDN font loading shared by applications and the gallery. */
 (() => {
-  const families = { inter: 'Inter:wght@100..900', mono: 'JetBrains+Mono:ital,wght@0,100..800;1,100..800' };
+  const families = { inter: 'Inter:wght@100..900', manrope: 'Manrope:wght@200..800', mono: 'JetBrains+Mono:ital,wght@0,100..800;1,100..800' };
   function load(name) {
     if (!families[name] || document.getElementById(`cr-font-${name}`)) return;
     if (!document.getElementById('cr-font-connect')) {
@@ -17,11 +17,13 @@
   function select(name) {
     document.documentElement.dataset.font = name;
     if (name === 'inter' || name === 'gen-i') load('inter');
+    if (name === 'manrope') load('manrope');
     if (name === 'native-mono') load('mono');
   }
   window.CradleFonts = { load, select };
   // Honour an explicit interface choice; otherwise load the default Inter family.
   const initial = document.documentElement.dataset.font || 'inter';
   if (initial === 'inter' || initial === 'gen-i') load('inter');
+  if (initial === 'manrope') load('manrope');
   if (initial === 'native-mono') load('mono');
 })();

@@ -1,6 +1,6 @@
 # Cradle CSS
 
-A private, small CSS library extracted from Cradle. Version **0.13.0**.
+A private, small CSS library extracted from Cradle. Version **0.14.0**.
 
 Neutral surfaces, subtle borders, compact navigation, readable 16px text and restrained accent colours. Plain HTML and CSS, with no package manager, framework, build step or required JavaScript. Inter is the default font family, with system fallbacks. The optional font loader fetches Inter from Google Fonts; the core alone makes no network requests.
 
@@ -45,7 +45,7 @@ For font choices and automatic Inter loading, include `fonts.css` and `fonts.js`
 <script src="fonts.js"></script>
 ```
 
-Set `data-font` on `<html>` to `inter` (default when omitted), `native-sans` (system), `native-serif`, `native-mono` (JetBrains Mono; historical option name retained for compatibility) or `gen-i` (compatibility alias for Inter). Set an explicit choice before loading `fonts.js` to avoid fetching an unused interface font. The loader honours that choice on startup; runtime choices use the same helper:
+Set `data-font` on `<html>` to `inter` (default when omitted), `manrope`, `native-sans` (system), `native-serif`, `native-mono` (JetBrains Mono; historical option name retained for compatibility) or `gen-i` (compatibility alias for Inter). Set an explicit choice before loading `fonts.js` to avoid fetching an unused interface font. The loader honours that choice on startup; runtime choices use the same helper:
 
 ```js
 CradleFonts.select('native-sans'); // Use the system font instead of Inter.
@@ -458,3 +458,7 @@ Load `theme-gen-i-portal.css` after `cradle.css` and set `data-skin="gen-i-porta
 Primary button and selected-navigation labels are deep teal `#073D36`; links and focus use darker teal `#00695E` for contrast on white. Secondary/quiet and destructive controls retain their semantic treatments. Primary buttons have a contrasting border and inherit the shared hover brightness adjustment. Dark and system-auto modes use matching deep teal surfaces with the same turquoise primary actions. Supporting colours are digital adaptations. Typography stays independent.
 
 The standalone palette adds `--cr-portal-action` (turquoise primary fill) and `--cr-portal-on-action` (deep teal label), separating the requested fill from the text/focus accent. It reuses `--cr-canvas` and the existing sidebar tokens. `themes.css` imports the file; publish it when offering the complete picker. Repository deployment allowlists include 29 assets plus generated `version.txt`; synchronize both installed deployment scripts before an authorized main push.
+
+### Manrope (0.14.0)
+
+Optional `data-font="manrope"` selects Manrope (variable weights 200-800, Latin and Latin Extended, so č/š/ž render). `fonts.js` loads it from the Google Fonts CDN on startup or through `CradleFonts.select('manrope')`, de-duplicated like the other families; the stack falls back to Inter, then system fonts. Inter stays the default and font choice remains independent of palettes. No new assets or deployment allowlist changes.
