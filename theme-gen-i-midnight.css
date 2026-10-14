@@ -1,0 +1,18 @@
+/* Cradle CSS palette: GEN-I Midnight. Optional; load after cradle.css and set data-skin="gen-i-midnight" on <html>.
+   GEN-I Midnight: charcoal sidebar, bright teal selection and a deep teal workspace in dark mode.
+   Colours beyond the original teal/gray/white are digital adaptations, not official brand colours. */
+:root[data-skin="gen-i-midnight"] { --cr-paper:#ffffff; --cr-soft:#e1edf0; --cr-ink:#414141; --cr-muted:#52636b; --cr-faint:#52636b; --cr-line:#73868d; --cr-accent:#005670; --cr-accent-soft:#c7eaf1; --cr-accent-line:#73868d; --cr-on-accent:#ffffff; --cr-danger:#a33a2c; --cr-danger-soft:#fdf1ef; --cr-on-danger:#ffffff; --cr-canvas:#d1e3e8; color-scheme:light; }
+@media (prefers-color-scheme:dark) {
+ :root[data-skin="gen-i-midnight"]:not([data-theme="light"]) { --cr-paper:#17282e; --cr-soft:#243c45; --cr-ink:#edf6f8; --cr-muted:#bdcdd2; --cr-faint:#aebfc6; --cr-line:#8197a0; --cr-accent:#78d2e2; --cr-accent-soft:#204957; --cr-accent-line:#8197a0; --cr-on-accent:#17282e; --cr-danger:#ef8a7c; --cr-danger-soft:#382923; --cr-on-danger:#10232a; --cr-canvas:#0b1b21; color-scheme:dark; }
+}
+:root[data-skin="gen-i-midnight"][data-theme="dark"] { --cr-paper:#17282e; --cr-soft:#243c45; --cr-ink:#edf6f8; --cr-muted:#bdcdd2; --cr-faint:#aebfc6; --cr-line:#8197a0; --cr-accent:#78d2e2; --cr-accent-soft:#204957; --cr-accent-line:#8197a0; --cr-on-accent:#17282e; --cr-danger:#ef8a7c; --cr-danger-soft:#382923; --cr-on-danger:#10232a; --cr-canvas:#0b1b21; color-scheme:dark; }
+
+:root[data-skin="gen-i-midnight"] .cr-main { background:var(--cr-canvas); }
+:root[data-skin="gen-i-midnight"] .cr-sidebar {
+ --cr-soft:#414141; --cr-paper:#505050; --cr-ink:#ffffff; --cr-muted:#e0e7e9; --cr-faint:#cad6db; --cr-line:#9aaeb5;
+ --cr-accent:#78d2e2; --cr-accent-soft:#505050; --cr-accent-line:#9aaeb5; --cr-on-accent:#414141;
+ --cr-danger:#ffc2b4; --cr-danger-soft:#60342f; --cr-on-danger:#ffffff;
+ color-scheme:dark;
+}
+:root[data-skin="gen-i-midnight"] .cr-sidebar .cr-nav a[aria-current]:not([aria-current="false"]) { background:#78d2e2; color:#173d49; box-shadow:inset 4px 0 #173d49; }
+:root[data-skin="gen-i-midnight"] .cr-metric { border-top:3px solid var(--cr-accent); }

@@ -1,6 +1,6 @@
 # Cradle CSS
 
-A private, small CSS library extracted from Cradle. Version **0.11.0**.
+A private, small CSS library extracted from Cradle. Version **0.12.0**.
 
 Neutral surfaces, subtle borders, compact navigation, readable 16px text and restrained accent colours. Plain HTML and CSS, with no package manager, framework, build step or required JavaScript. Inter is the default font family, with system fallbacks. The optional font loader fetches Inter from Google Fonts; the core alone makes no network requests.
 
@@ -34,7 +34,7 @@ Copy `cradle.css`, `fonts.css` and `fonts.js` into the project's static assets f
 
 The base reset and native element styles apply inside `.cradle`. Components have `cr-` class names and tokens use `--cr-` to reduce collisions. Components must live inside `.cradle`; put native dialogs inside it too. Root tokens and colour-scheme apply to the document. This is intended as a project's base stylesheet, rather than a drop-in widget in an unrelated design system.
 
-Each optional palette is a standalone file, `theme-<name>.css`. Load the one you use after `cradle.css`, for example `theme-gen-i.css` or `theme-nord.css`. `themes.css` imports every theme file for palette pickers; publish the imported files beside it. Set `data-skin` on `<html>` to `cradle`, `dracula`, `one-dark`, `nord`, `solarized`, `monokai`, `tokyo-night`, `catppuccin`, `gruvbox`, `material`, or one of the GEN-I variants: `gen-i`, `gen-i-sidebar`, `gen-i-teal`, `gen-i-charcoal`, `gen-i-tint`, `gen-i-crisp` or `gen-i-canvas`.
+Each optional palette is a standalone file, `theme-<name>.css`. Load the one you use after `cradle.css`, for example `theme-gen-i.css` or `theme-nord.css`. `themes.css` imports every theme file for palette pickers; publish the imported files beside it. Set `data-skin` on `<html>` to `cradle`, `dracula`, `one-dark`, `nord`, `solarized`, `monokai`, `tokyo-night`, `catppuccin`, `gruvbox`, `material`, or one of the GEN-I variants: `gen-i`, `gen-i-sidebar`, `gen-i-teal`, `gen-i-charcoal`, `gen-i-tint`, `gen-i-crisp`, `gen-i-canvas`, `gen-i-lagoon` or `gen-i-midnight`.
 
 Theme mode is CSS-only: omit `data-theme` for the system setting, or use `data-theme="light"` / `data-theme="dark"`. Auto works for every palette. The gallery's `examples.js` only demonstrates switching and interactions; it is not a library dependency.
 
@@ -435,3 +435,17 @@ Seven GEN-I palettes share the classic light/dark tokens (teal **#005670**, gray
 Coloured sidebars scope their tokens to `.cr-sidebar`, keeping white or light-teal focus indicators readable. Tested text pairs are at least 4.5:1 and control borders at least 3:1 in light and dark modes. Sidebar, tint, crisp and canvas colours are digital adaptations, not official brand colours. `gen-i-crisp` sets `--cr-radius:4px` and rounds buttons, fields, navigation links and dialogs to 4px; `gen-i-canvas` adds `--cr-canvas` for the `.cr-main` background. Existing `gen-i` and `gen-i-sidebar` output is unchanged. Each variant is self-contained in `theme-<skin>.css`, so it does not need `theme-gen-i.css`.
 
 **Breaking in 0.11.0:** palettes moved from `themes.css` into standalone `theme-<name>.css` files. `themes.css` now only `@import`s them. Applications that publish `themes.css` must also publish the `theme-*.css` files, or link only the theme they use. Extend application asset allowlists and required-file checks accordingly. The gallery deployment allowlist (receiver and Forgejo hook) now includes all sixteen theme files. Synchronize both installed copies before pushing main.
+
+
+### Bolder GEN-I variants (0.12.0)
+
+Two additional optional palettes explore stronger colour treatments without changing component sizing or the existing themes:
+
+| GEN-I variant / skin | Sidebar | Selection | Workspace and highlights |
+| --- | --- | --- | --- |
+| GEN-I Lagoon · `gen-i-lagoon` | Bright cyan #78D2E2, deep teal labels | Deep teal #005670, white text and inset marker | Teal-tinted canvas, teal soft surfaces and accent-edged metrics |
+| GEN-I Midnight · `gen-i-midnight` | Charcoal #414141, white labels | Bright teal #78D2E2, deep teal text and inset marker | Teal-gray light canvas, deep teal dark canvas and accent-edged metrics |
+
+Load `theme-gen-i-lagoon.css` or `theme-gen-i-midnight.css` after `cradle.css` and set the matching `data-skin`. Each file works independently and supports light, dark and system-auto modes. Canvas colour uses `--cr-canvas`; sidebar tokens are scoped locally. These colours are independent digital adaptations, not additional official GEN-I colours. Typography remains a separate choice.
+
+Both files are imported by `themes.css` and included in the repository deployment allowlists (28 assets plus generated `version.txt`). Before an authorized main push, synchronize the installed Forgejo hook and Bob receiver with the updated repository scripts. Application consumers offering all palettes must publish the two new files as well.
