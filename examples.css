@@ -27,10 +27,4 @@
 .cr-gen-i-white { background:#ffffff; }
 
 .cr-gen-i-note { display:none; }
-:root[data-skin="gen-i"] [data-variant="gen-i"], :root[data-skin="gen-i-sidebar"] [data-variant="gen-i-sidebar"],
-:root[data-skin="gen-i-teal"] [data-variant="gen-i-teal"], :root[data-skin="gen-i-charcoal"] [data-variant="gen-i-charcoal"],
-:root[data-skin="gen-i-tint"] [data-variant="gen-i-tint"], :root[data-skin="gen-i-crisp"] [data-variant="gen-i-crisp"],
-:root[data-skin="gen-i-canvas"] [data-variant="gen-i-canvas"] { display:block; }
-:root[data-skin="gen-i-lagoon"] [data-variant="gen-i-lagoon"] { display:block; }
-:root[data-skin="gen-i-midnight"] [data-variant="gen-i-midnight"] { display:block; }
-:root[data-skin="gen-i-portal"] [data-variant="gen-i-portal"] { display:block; }
+:root[data-skin="gen-i"] [data-variant="gen-i"], :root[data-skin="gen-i-portal"] [data-variant="gen-i-portal"] { display:block; }

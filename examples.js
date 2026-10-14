@@ -5,7 +5,7 @@ document.querySelector('#theme').addEventListener('change', event => {
   else root.dataset.theme = event.target.value;
 });
 document.querySelector('#skin').addEventListener('change', event => {
-  root.dataset.skin = event.target.value;
+  window.CradleThemes.select(event.target.value);
 });
 document.querySelector('#font').addEventListener('change', event => {
   window.CradleFonts.select(event.target.value);

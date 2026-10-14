@@ -82,7 +82,7 @@ class GalleryDeployTests(unittest.TestCase):
         themes = sorted(path.name for path in root.glob('theme-*.css'))
         imports = sorted(re.findall(r'@import url\("(theme-[\w-]+\.css)"\)', (root / 'themes.css').read_text()))
         hook = re.search(r'assets=\(([^)]*)\)', (root / 'scripts/forgejo-post-receive.sh').read_text())[1].split()
-        self.assertGreaterEqual(len(themes), 16)
+        self.assertGreaterEqual(len(themes), 11)
         self.assertEqual(imports, themes)
         for name in themes:
             self.assertIn(name, gallery.ASSETS)

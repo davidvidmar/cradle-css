@@ -1,6 +1,6 @@
 # Cradle CSS
 
-A private, small CSS library extracted from Cradle. Version **0.15.0**.
+A private, small CSS library extracted from Cradle. Version **0.16.0**.
 
 Neutral surfaces, subtle borders, compact navigation, readable 16px text and restrained accent colours. Plain HTML and CSS, with no package manager, framework, build step or required JavaScript. Inter is the default font family, with system fallbacks. Optional `fonts.css` self-hosts Inter, Manrope and JetBrains Mono; the core alone makes no network requests.
 
@@ -34,7 +34,14 @@ Copy `cradle.css`, `fonts.css`, the ten `font-*.woff2` files and `fonts.js` into
 
 The base reset and native element styles apply inside `.cradle`. Components have `cr-` class names and tokens use `--cr-` to reduce collisions. Components must live inside `.cradle`; put native dialogs inside it too. Root tokens and colour-scheme apply to the document. This is intended as a project's base stylesheet, rather than a drop-in widget in an unrelated design system.
 
-Each optional palette is a standalone file, `theme-<name>.css`. Load the one you use after `cradle.css`, for example `theme-gen-i.css` or `theme-nord.css`. `themes.css` imports every theme file for palette pickers; publish the imported files beside it. Set `data-skin` on `<html>` to `cradle`, `dracula`, `one-dark`, `nord`, `solarized`, `monokai`, `tokyo-night`, `catppuccin`, `gruvbox`, `material`, or one of the GEN-I variants: `gen-i`, `gen-i-sidebar`, `gen-i-teal`, `gen-i-charcoal`, `gen-i-tint`, `gen-i-crisp`, `gen-i-canvas`, `gen-i-lagoon`, `gen-i-midnight` or `gen-i-portal`.
+Each optional palette is a standalone file, `theme-<name>.css`. Load the one you use after `cradle.css`, for example `theme-gen-i.css` or `theme-nord.css`. Set `data-skin` on `<html>` to `cradle`, `dracula`, `one-dark`, `nord`, `solarized`, `monokai`, `tokyo-night`, `catppuccin`, `gruvbox`, `material`, `gen-i` or `gen-i-portal`.
+
+**Palette pickers: load only the selected palette.** Do not link `themes.css` in an application; it `@import`s every palette, so each page downloads all 11 files. Include `themes.js` instead and call `CradleThemes.select(skin)` (from settings, a cache or a picker). It fetches just `theme-<skin>.css` from the folder next to `themes.js`, switches `data-skin` after the file has loaded (no unstyled flash), removes the previous palette, and treats `cradle` as the built-in default with nothing to load. It also applies an existing `data-skin` on `<html>` at startup. Unknown names fall back to `cradle`; the name is validated before it forms a URL. Publish `themes.js` and the `theme-*.css` files you offer; `themes.css` is kept only for demos that want everything at once.
+
+```html
+<script src="/vendor/cradle-css/themes.js"></script>
+<script>CradleThemes.select("gen-i-portal")</script>
+```
 
 Theme mode is CSS-only: omit `data-theme` for the system setting, or use `data-theme="light"` / `data-theme="dark"`. Auto works for every palette. The gallery's `examples.js` only demonstrates switching and interactions; it is not a library dependency.
 
@@ -130,8 +137,9 @@ Publish these files from the **same pinned library commit**, according to the fe
 | --- | --- |
 | `cradle.css` | Always: base styles, tokens and component styling |
 | `fonts.css`, `fonts.js` | Using the optional Inter/JetBrains Mono choices and self-hosted font files |
-| `theme-<name>.css` | Using one optional palette, such as `theme-gen-i-teal.css` |
-| `themes.css` plus all `theme-*.css` | Offering a runtime palette picker; `themes.css` only `@import`s the theme files |
+| `theme-<name>.css` | Using one fixed optional palette, such as `theme-gen-i.css` |
+| `themes.js` plus the `theme-*.css` files offered | Offering a runtime palette picker: it loads only the selected file |
+| `themes.css` | Not for applications: imports every palette. Demos only |
 | `sort-tables.js` | Enabling client-side table sorting or the typed ordering helper |
 | `lucide.svg` | Referencing bundled Lucide icons; preserve its embedded licence |
 
@@ -405,50 +413,11 @@ Measured palette pairs include teal/white **8.19:1**, gray/white **10.21:1**, an
 Version 0.9.0 introduced the GEN-I palette and an installed-font profile; version 0.10.0 replaces that profile with Inter. Existing palettes retain their colours, and default Inter consumers keep their font. No new deployment assets are required: the palette, font profile and gallery are part of the existing published files.
 
 
-### GEN-I blue-sidebar alternative (0.10.0)
+### GEN-I palettes
 
-Set `data-skin="gen-i-sidebar"` to use the official teal **#005670** for the shell sidebar and charcoal **#414141** for light-mode primary buttons, links and UI highlights. Content surfaces remain white. Both GEN-I palettes are available in the gallery.
+Two GEN-I palettes remain: `gen-i` (classic: pale gray-teal sidebar, white surfaces, teal actions) and `gen-i-portal` (below). **Breaking in 0.16.0:** the other eight candidates (`gen-i-sidebar`, `gen-i-teal`, `gen-i-charcoal`, `gen-i-tint`, `gen-i-crisp`, `gen-i-canvas`, `gen-i-lagoon`, `gen-i-midnight`) were removed after a palette was chosen; an application that stored one of those names must map it to `gen-i` or `gen-i-portal`. Version 0.10.0 made the `data-font="gen-i"` profile select Inter; that remains.
 
-```html
-<html lang="sl" data-skin="gen-i-sidebar" data-font="inter">
-```
-
-The sidebar reuses `cr-sidebar`/`cr-nav` and scopes its colour tokens locally: white text/focus indicators, a darker teal hover surface, charcoal selection and a white inset marker. The marker provides a clear selection cue because teal/charcoal backgrounds alone have low contrast. White sidebar labels are 8.19:1 against teal; white button labels are 10.21:1 against charcoal. Dark/auto modes keep the teal sidebar and use a brighter neutral gray for main UI accents. These dark/hover/state colours are digital adaptations; no metallic colour is invented. Existing palettes and the original `gen-i` teal-highlight layout are unchanged.
-
-Version 0.10.0 adds this alternative. **Breaking for the optional `data-font="gen-i"` profile:** it now selects Inter and the optional loader fetches Inter on startup or selection. The former licensed/installed typography has been removed. Existing default Inter consumers are unaffected. `native-sans` or omitting `fonts.js` preserves a network-free setup. Existing deployment assets cover the change.
-
-### GEN-I variants (0.11.0)
-
-Seven GEN-I palettes share the classic light/dark tokens (teal **#005670**, gray **#414141**, white surfaces) and differ in shell treatment. Pick one per application; all are in the gallery's palette selector.
-
-| Skin             | Sidebar                        | Selection                         | Main accents | Other                                  |
-| ---------------- | ------------------------------ | --------------------------------- | ------------ | -------------------------------------- |
-| `gen-i`          | Pale gray-teal                 | Pale teal fill, teal text         | Teal         | Classic                                |
-| `gen-i-sidebar`  | Teal                           | Charcoal fill, white inset marker | Charcoal     | See above                              |
-| `gen-i-teal`     | Teal                           | White fill, teal text             | Teal         |                                        |
-| `gen-i-charcoal` | Charcoal #414141               | Light teal text and inset marker  | Teal         |                                        |
-| `gen-i-tint`     | Pale teal                      | Filled teal, white text           | Teal         | Teal-tinted soft surfaces              |
-| `gen-i-crisp`    | Neutral gray                   | Teal inset bar, no fill           | Teal         | Neutral grays, 4px corners             |
-| `gen-i-canvas`   | White                          | Pale teal fill, teal text         | Teal         | Soft gray work area behind white cards |
-
-Coloured sidebars scope their tokens to `.cr-sidebar`, keeping white or light-teal focus indicators readable. Tested text pairs are at least 4.5:1 and control borders at least 3:1 in light and dark modes. Sidebar, tint, crisp and canvas colours are digital adaptations, not official brand colours. `gen-i-crisp` sets `--cr-radius:4px` and rounds buttons, fields, navigation links and dialogs to 4px; `gen-i-canvas` adds `--cr-canvas` for the `.cr-main` background. Existing `gen-i` and `gen-i-sidebar` output is unchanged. Each variant is self-contained in `theme-<skin>.css`, so it does not need `theme-gen-i.css`.
-
-**Breaking in 0.11.0:** palettes moved from `themes.css` into standalone `theme-<name>.css` files. `themes.css` now only `@import`s them. Applications that publish `themes.css` must also publish the `theme-*.css` files, or link only the theme they use. Extend application asset allowlists and required-file checks accordingly. The gallery deployment allowlist (receiver and Forgejo hook) now includes all sixteen theme files. Synchronize both installed copies before pushing main.
-
-
-### Bolder GEN-I variants (0.12.0)
-
-Two additional optional palettes explore stronger colour treatments without changing component sizing or the existing themes:
-
-| GEN-I variant / skin | Sidebar | Selection | Workspace and highlights |
-| --- | --- | --- | --- |
-| GEN-I Lagoon · `gen-i-lagoon` | Bright cyan #78D2E2, deep teal labels | Deep teal #005670, white text and inset marker | Teal-tinted canvas, teal soft surfaces and accent-edged metrics |
-| GEN-I Midnight · `gen-i-midnight` | Charcoal #414141, white labels | Bright teal #78D2E2, deep teal text and inset marker | Teal-gray light canvas, deep teal dark canvas and accent-edged metrics |
-
-Load `theme-gen-i-lagoon.css` or `theme-gen-i-midnight.css` after `cradle.css` and set the matching `data-skin`. Each file works independently and supports light, dark and system-auto modes. Canvas colour uses `--cr-canvas`; sidebar tokens are scoped locally. These colours are independent digital adaptations, not additional official GEN-I colours. Typography remains a separate choice.
-
-Both files are imported by `themes.css` and included in the repository deployment allowlists (28 assets plus generated `version.txt`). Before an authorized main push, synchronize the installed Forgejo hook and Bob receiver with the updated repository scripts. Application consumers offering all palettes must publish the two new files as well.
-
+Palettes add `--cr-canvas` and scope coloured-sidebar tokens to `.cr-sidebar`, keeping white focus indicators readable. Tested text pairs are at least 4.5:1 and control borders at least 3:1 in light and dark modes. Colours beyond the supplied brand values are digital adaptations.
 
 ### GEN-I Portal (0.13.0)
 
@@ -456,7 +425,7 @@ Load `theme-gen-i-portal.css` after `cradle.css` and set `data-skin="gen-i-porta
 
 Primary button and selected-navigation labels are deep teal `#073D36`; links and focus use darker teal `#00695E` for contrast on white. Secondary/quiet and destructive controls retain their semantic treatments. Primary buttons have a contrasting border and inherit the shared hover brightness adjustment. Dark and system-auto modes use matching deep teal surfaces with the same turquoise primary actions. Supporting colours are digital adaptations. Typography stays independent.
 
-The standalone palette adds `--cr-portal-action` (turquoise primary fill) and `--cr-portal-on-action` (deep teal label), separating the requested fill from the text/focus accent. It reuses `--cr-canvas` and the existing sidebar tokens. `themes.css` imports the file; publish it when offering the complete picker. Repository deployment allowlists include 29 assets plus generated `version.txt`; synchronize both installed deployment scripts before an authorized main push.
+The standalone palette adds `--cr-portal-action` (turquoise primary fill) and `--cr-portal-on-action` (deep teal label), separating the requested fill from the text/focus accent. It reuses `--cr-canvas` and the existing sidebar tokens. The gallery loads it through `themes.js`. Repository deployment allowlists include 29 assets plus generated `version.txt`; synchronize both installed deployment scripts before an authorized main push.
 
 ### Manrope (0.14.0)
 
