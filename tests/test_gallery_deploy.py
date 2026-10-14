@@ -89,6 +89,15 @@ class GalleryDeployTests(unittest.TestCase):
             self.assertIn(name, hook)
         self.assertEqual(sorted(hook), sorted(gallery.ASSETS))
 
+    def test_every_font_file_is_referenced_and_published(self):
+        root = Path(__file__).parents[1]
+        referenced = sorted(set(re.findall(r'url\("(font-[\w-]+\.woff2)"\)', (root / 'fonts.css').read_text())))
+        hook = re.search(r'assets=\(([^)]*)\)', (root / 'scripts/forgejo-post-receive.sh').read_text())[1].split()
+        self.assertEqual(referenced, sorted(path.name for path in root.glob('font-*.woff2')))
+        for name in referenced:
+            self.assertIn(name, gallery.ASSETS)
+            self.assertIn(name, hook)
+
     def test_real_gallery_bundle_fits_receiver_limits(self):
         root = Path(__file__).parents[1]
         files = {name: (root / name).read_bytes() for name in gallery.ASSETS}

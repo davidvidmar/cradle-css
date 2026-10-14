@@ -5,7 +5,7 @@ Private CSS library extracted from Cradle. Read README.md before changing compon
 - Keep the quiet Cradle style, readable 16px base, restrained accents and subtle borders.
 - Keep the core framework-free: no required JavaScript, build tools, remote fonts or CDN dependencies.
 - Use cr- component classes and --cr- tokens. Keep native element rules scoped inside .cradle.
-- Keep palettes and CDN font loading optional; Inter is the default family with system fallbacks. Load Inter and JetBrains Mono from Google Fonts CDN; do not bundle or self-host font files.
+- Keep palettes and fonts optional; Inter is the default family with system fallbacks. Self-host Inter, Manrope and JetBrains Mono as flat variable woff2 files (latin + latin-ext) declared in fonts.css; do not use font CDNs. 2026-10-14: user replaced the earlier CDN rule.
 - Prefer tokens and existing components to duplicate rules or new variants.
 - Update the gallery and README when components change. Record breaking changes and bump the documented version when appropriate.
 - Default sizes target a laptop screen (~1440px) or a 24" monitor (1920px), not narrower displays. Do not shrink default layout widths for smaller screens; mobile is handled by responsive rules.

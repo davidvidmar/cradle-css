@@ -1,29 +1,6 @@
-/* Optional CDN font loading shared by applications and the gallery. */
+/* Optional font selection helper. Fonts are self-hosted by fonts.css; no network loader is needed. */
 (() => {
-  const families = { inter: 'Inter:wght@100..900', manrope: 'Manrope:wght@200..800', mono: 'JetBrains+Mono:ital,wght@0,100..800;1,100..800' };
-  function load(name) {
-    if (!families[name] || document.getElementById(`cr-font-${name}`)) return;
-    if (!document.getElementById('cr-font-connect')) {
-      for (const [host, id] of [['fonts.googleapis.com', 'cr-font-connect'], ['fonts.gstatic.com', 'cr-font-files']]) {
-        const link = document.createElement('link'); link.id = id; link.rel = 'preconnect'; link.href = `https://${host}`;
-        if (host.includes('gstatic')) link.crossOrigin = 'anonymous';
-        document.head.append(link);
-      }
-    }
-    const link = document.createElement('link'); link.id = `cr-font-${name}`; link.rel = 'stylesheet';
-    link.href = `https://fonts.googleapis.com/css2?family=${families[name]}&display=swap`;
-    document.head.append(link);
-  }
-  function select(name) {
-    document.documentElement.dataset.font = name;
-    if (name === 'inter' || name === 'gen-i') load('inter');
-    if (name === 'manrope') load('manrope');
-    if (name === 'native-mono') load('mono');
-  }
-  window.CradleFonts = { load, select };
-  // Honour an explicit interface choice; otherwise load the default Inter family.
-  const initial = document.documentElement.dataset.font || 'inter';
-  if (initial === 'inter' || initial === 'gen-i') load('inter');
-  if (initial === 'manrope') load('manrope');
-  if (initial === 'native-mono') load('mono');
+  const select = name => { document.documentElement.dataset.font = name; };
+  // Kept for compatibility with earlier CDN-based releases: font files load on demand from fonts.css.
+  window.CradleFonts = { load() {}, select };
 })();

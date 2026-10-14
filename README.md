@@ -1,8 +1,8 @@
 # Cradle CSS
 
-A private, small CSS library extracted from Cradle. Version **0.14.0**.
+A private, small CSS library extracted from Cradle. Version **0.15.0**.
 
-Neutral surfaces, subtle borders, compact navigation, readable 16px text and restrained accent colours. Plain HTML and CSS, with no package manager, framework, build step or required JavaScript. Inter is the default font family, with system fallbacks. The optional font loader fetches Inter from Google Fonts; the core alone makes no network requests.
+Neutral surfaces, subtle borders, compact navigation, readable 16px text and restrained accent colours. Plain HTML and CSS, with no package manager, framework, build step or required JavaScript. Inter is the default font family, with system fallbacks. Optional `fonts.css` self-hosts Inter, Manrope and JetBrains Mono; the core alone makes no network requests.
 
 ## Preview
 
@@ -18,7 +18,7 @@ Run from the repository root, open `http://127.0.0.1:9963/`, and stop with Ctrl+
 
 ## Use in another project
 
-Copy `cradle.css`, `fonts.css` and `fonts.js` into the project's static assets for the default Inter interface:
+Copy `cradle.css`, `fonts.css`, the ten `font-*.woff2` files and `fonts.js` into the project's static assets for the default Inter interface:
 
 ```html
 <link rel="stylesheet" href="/css/cradle.css">
@@ -38,22 +38,21 @@ Each optional palette is a standalone file, `theme-<name>.css`. Load the one you
 
 Theme mode is CSS-only: omit `data-theme` for the system setting, or use `data-theme="light"` / `data-theme="dark"`. Auto works for every palette. The gallery's `examples.js` only demonstrates switching and interactions; it is not a library dependency.
 
-For font choices and automatic Inter loading, include `fonts.css` and `fonts.js` after the core CSS. Omit both to use the core with installed fonts and system fallbacks. Fonts stay on the CDN; no font binaries are bundled.
+For font choices and the default Inter, include `fonts.css` and `fonts.js` after the core CSS. Omit both to use the core with installed fonts and system fallbacks. Fonts are self-hosted: `fonts.css` references flat `font-*.woff2` files that must be published beside it. No CDN is used.
 
 ```html
 <link rel="stylesheet" href="fonts.css">
 <script src="fonts.js"></script>
 ```
 
-Set `data-font` on `<html>` to `inter` (default when omitted), `manrope`, `native-sans` (system), `native-serif`, `native-mono` (JetBrains Mono; historical option name retained for compatibility) or `gen-i` (compatibility alias for Inter). Set an explicit choice before loading `fonts.js` to avoid fetching an unused interface font. The loader honours that choice on startup; runtime choices use the same helper:
+Set `data-font` on `<html>` to `inter` (default when omitted), `manrope`, `native-sans` (system), `native-serif`, `native-mono` (JetBrains Mono; historical option name retained for compatibility). Set an explicit choice before loading `fonts.js` to avoid fetching an unused interface font. The loader honours that choice on startup; runtime choices use the same helper:
 
 ```js
 CradleFonts.select('native-sans'); // Use the system font instead of Inter.
-CradleFonts.load('mono');  // For code/pre blocks.
-CradleFonts.select('native-mono'); // Set the interface font and load it when needed.
+CradleFonts.select('native-mono'); // Set the interface font (JetBrains Mono).
 ```
 
-The helper de-duplicates stylesheet/preconnect links and uses the [Google Fonts CSS API](https://developers.google.com/fonts/docs/css2) with variable weights and `display=swap`. `fonts.css` owns all optional font stacks and the `--cr-mono` code font token. System fonts remain the fallback if loading fails. The core alone prefers installed Inter and falls back to system fonts without network requests. Including `fonts.js` loads Inter by default, or JetBrains Mono for an explicit `native-mono` choice. Explicit System/Serif choices do not fetch an interface font; GEN-I uses the same optional Inter loader as the default. The gallery and starter load Inter by default; the gallery also loads JetBrains Mono for code samples. For a CSS-only CDN setup, include a Google Fonts stylesheet for Inter with `display=swap` directly in your HTML.
+`fonts.css` owns all `@font-face` rules, optional font stacks and the `--cr-mono` code font token. Font files load on demand with `display=swap`; installed/system fonts remain the fallback if a file is missing. The core alone prefers installed Inter and makes no network requests. Explicit System/Serif choices never download an interface font. The gallery and starter use the self-hosted Inter by default; the gallery also uses JetBrains Mono for code samples. For consumers without `fonts.css`, use installed fonts or add your own `@font-face` rules.
 
 ## Components
 
@@ -130,7 +129,7 @@ Publish these files from the **same pinned library commit**, according to the fe
 | Asset | Include when |
 | --- | --- |
 | `cradle.css` | Always: base styles, tokens and component styling |
-| `fonts.css`, `fonts.js` | Using the optional Inter/JetBrains Mono choices and CDN loader |
+| `fonts.css`, `fonts.js` | Using the optional Inter/JetBrains Mono choices and self-hosted font files |
 | `theme-<name>.css` | Using one optional palette, such as `theme-gen-i-teal.css` |
 | `themes.css` plus all `theme-*.css` | Offering a runtime palette picker; `themes.css` only `@import`s the theme files |
 | `sort-tables.js` | Enabling client-side table sorting or the typed ordering helper |
@@ -202,13 +201,13 @@ The private repository is [david/cradle-css](https://git.v51.si/david/cradle-css
 git clone ssh://git@git.home.vidmar.net:2222/david/cradle-css.git
 ```
 
-Commit the CSS, examples and README together. Applications should copy from a recorded commit, or vendor a pinned checkout through their existing build process. Keep the library version pinned; its upgrades should be deliberate and reviewable. Optional Inter uses the Google Fonts CDN.
+Commit the CSS, examples and README together. Applications should copy from a recorded commit, or vendor a pinned checkout through their existing build process. Keep the library version pinned; its upgrades should be deliberate and reviewable. Optional fonts are self-hosted woff2 files.
 
 The Cradle application consumes a pinned submodule of this repository and owns its application-specific styles and behavior. Updating the library or deploying its gallery does not update the application pin or adopt new components; use the application update/adoption workflow above.
 
 This initial library consolidates duplicate controls and theme overrides, removes app IDs and backend dependencies, prefixes component names and tokens, makes fonts/palettes optional, and fixes minimum card widths on phones. It intentionally remains a small source library; there is no generated/minified copy to keep synchronized. Keep changes focused, update the examples, verify rendering, and record breaking changes before adoption. Use Playwright for browser QA, including desktop/mobile, light/dark/auto, keyboard focus, dialogs, form feedback and overflow. When adding gallery sections, check that every mobile navigation link stays visible. Keep temporary tests/screenshots outside the repository, bound commands with explicit timeouts, and stop temporary servers.
 
-For private use. Inter is requested from Google Fonts rather than redistributed here.
+For private use. Inter, Manrope and JetBrains Mono are redistributed as self-hosted variable woff2 files under the SIL Open Font License 1.1; see `FONTS-LICENSE`.
 
 
 ## Hosted gallery on Bob
@@ -382,7 +381,7 @@ The publishing allowlists now include `examples.css` (ten assets plus generated 
 Use `data-skin="gen-i"` with `theme-gen-i.css` after the core stylesheet. Light mode follows the supplied GEN-I CGP reference's digital colours exactly: teal **#005670** for primary actions/links, gray **#414141** for main text, and white **#FFFFFF** for surfaces/text on teal. The supplied reference identifies the November 2015 manual, volume A, p. 8, §3.4; current corporate approval and the original PDF were not independently verified here.
 
 ```html
-<html lang="sl" data-skin="gen-i" data-theme="light" data-font="gen-i">
+<html lang="sl" data-skin="gen-i" data-theme="light" data-font="inter">
 <head>
   <link rel="stylesheet" href="cradle.css">
   <link rel="stylesheet" href="theme-gen-i.css">
@@ -397,7 +396,7 @@ Use `data-skin="gen-i"` with `theme-gen-i.css` after the core stylesheet. Light 
 
 Remove `data-theme` to follow the system, or set it to `dark`. White/light surfaces, neutral borders, muted text and error states are digital application choices; they are not additional official brand colours. Dark mode is also a digital adaptation, using #78D2E2 for readable accents on deep teal surfaces. It does not represent Pantone 8201 or a metallic effect. GEN-I reuses the existing component shapes, spacing, 16px base and desktop width defaults. The gallery offers GEN-I in the palette selector and shows the original three colours plus Slovenian character samples.
 
-Typography is selected separately. Use **Inter**, the pack's existing web font, for both GEN-I palettes. `data-font="gen-i"` remains a compatibility alias for `inter` in `fonts.css` and `fonts.js`; both selections use the same optional Google Fonts stylesheet and system fallbacks. This is an explicit web-interface adaptation, rather than the manual's print typography. Set `data-font="native-sans"` or omit `fonts.js` when network font loading is unwanted. Test č/š/ž rendering in the delivered interface. Choosing a colour palette alone keeps the application's selected typography.
+Typography is selected separately. Use **Inter**, the pack's existing web font, for both GEN-I palettes. The former `data-font="gen-i"` alias was removed in 0.15.0; use `inter`. This is an explicit web-interface adaptation, rather than the manual's print typography. Set `data-font="native-sans"` or omit `fonts.css` to use system fonts. Test č/š/ž rendering in the delivered interface. Choosing a colour palette alone keeps the application's selected typography.
 
 No GEN-I logo is bundled or recreated. Use an approved official asset, preserve its proportions and clearance, and give a linked logo a destination label. Official logo delivery and clearance remain application responsibilities; the palette alone is not a complete approved GEN-I design system.
 
@@ -461,4 +460,12 @@ The standalone palette adds `--cr-portal-action` (turquoise primary fill) and `-
 
 ### Manrope (0.14.0)
 
-Optional `data-font="manrope"` selects Manrope (variable weights 200-800, Latin and Latin Extended, so č/š/ž render). `fonts.js` loads it from the Google Fonts CDN on startup or through `CradleFonts.select('manrope')`, de-duplicated like the other families; the stack falls back to Inter, then system fonts. Inter stays the default and font choice remains independent of palettes. No new assets or deployment allowlist changes.
+Optional `data-font="manrope"` selects Manrope (variable weights 200-800, Latin and Latin Extended, so č/š/ž render). `fonts.css` serves it from a local file, selected by `data-font` or `CradleFonts.select('manrope')`; the stack falls back to Inter, then system fonts. Inter stays the default and font choice remains independent of palettes. See 0.15.0 for the self-hosted delivery.
+
+### Self-hosted fonts (0.15.0, breaking)
+
+Inter (normal and italic), Manrope and JetBrains Mono (normal and italic) are now served from this library, replacing the Google Fonts CDN. Files are variable woff2 subsets from `@fontsource-variable` 5.3.0, Latin and Latin Extended (Slovenian č/š/ž are in Latin Extended), about 430 KB in ten flat `font-*.woff2` files declared in `fonts.css`. Browsers download a file only when a glyph needs it, with `font-display: swap`. Licences: SIL OFL 1.1 in `FONTS-LICENSE`.
+
+`fonts.js` no longer loads anything and no longer adds preconnect/stylesheet links; it keeps `CradleFonts.select(name)` and a no-op `CradleFonts.load()` for compatibility. Font-family names are unchanged, so existing `data-font` values work.
+
+**Breaking for consumers:** `data-font="gen-i"` (the old Inter alias) is removed; use `inter`. Publish the ten `font-*.woff2` files next to `fonts.css` (the Cradle `.csproj` runtime allowlist and required-file checks need them, with a font MIME type such as `font/woff2`). Their CSP needs `font-src 'self'`, and `fonts.googleapis.com`/`fonts.gstatic.com` can be dropped from `style-src`/`font-src`. Without the files the stacks fall back to installed Inter and system fonts. Gallery deployment allowlists now cover 39 assets plus generated `version.txt`; synchronize both installed deployment scripts before an authorized main push.

@@ -17,7 +17,8 @@ import time
 import urllib.request
 
 ASSETS = ('index.html', 'starter.html', 'cradle.css', 'themes.css', 'fonts.css', 'fonts.js', 'examples.js', 'sort-tables.js', 'lucide.svg', 'examples.css',
-          'theme-dracula.css', 'theme-one-dark.css', 'theme-nord.css', 'theme-solarized.css', 'theme-monokai.css', 'theme-tokyo-night.css', 'theme-catppuccin.css', 'theme-gruvbox.css', 'theme-material.css', 'theme-gen-i.css', 'theme-gen-i-sidebar.css', 'theme-gen-i-teal.css', 'theme-gen-i-charcoal.css', 'theme-gen-i-tint.css', 'theme-gen-i-crisp.css', 'theme-gen-i-lagoon.css', 'theme-gen-i-midnight.css', 'theme-gen-i-canvas.css', 'theme-gen-i-portal.css')
+          'theme-dracula.css', 'theme-one-dark.css', 'theme-nord.css', 'theme-solarized.css', 'theme-monokai.css', 'theme-tokyo-night.css', 'theme-catppuccin.css', 'theme-gruvbox.css', 'theme-material.css', 'theme-gen-i.css', 'theme-gen-i-sidebar.css', 'theme-gen-i-teal.css', 'theme-gen-i-charcoal.css', 'theme-gen-i-tint.css', 'theme-gen-i-crisp.css', 'theme-gen-i-lagoon.css', 'theme-gen-i-midnight.css', 'theme-gen-i-canvas.css', 'theme-gen-i-portal.css',
+          'font-inter-italic-latin-ext.woff2', 'font-inter-italic-latin.woff2', 'font-inter-latin-ext.woff2', 'font-inter-latin.woff2', 'font-jetbrains-mono-italic-latin-ext.woff2', 'font-jetbrains-mono-italic-latin.woff2', 'font-jetbrains-mono-latin-ext.woff2', 'font-jetbrains-mono-latin.woff2', 'font-manrope-latin-ext.woff2', 'font-manrope-latin.woff2')
 STACK = Path('/home/david/app-dev')
 ROOT = STACK / 'config/cradle-css'
 COMPOSE = STACK / 'docker-compose.yml'
