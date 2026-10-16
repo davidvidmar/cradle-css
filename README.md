@@ -1,6 +1,6 @@
 # Cradle CSS
 
-A private, small CSS library extracted from Cradle. Version **0.16.1**.
+A private, small CSS library extracted from Cradle. Version **0.17.0**.
 
 Neutral surfaces, subtle borders, compact navigation, readable 16px text and restrained accent colours. Plain HTML and CSS, with no package manager, framework, build step or required JavaScript. Inter is the default font family, with system fallbacks. Optional `fonts.css` self-hosts Inter, Manrope and JetBrains Mono; the core alone makes no network requests.
 
@@ -36,9 +36,9 @@ Copy `cradle.css`, `fonts.css`, the ten `font-*.woff2` files and `fonts.js` into
 
 The base reset and native element styles apply inside `.cradle`. Components have `cr-` class names and tokens use `--cr-` to reduce collisions. Components must live inside `.cradle`; put native dialogs inside it too. Root tokens and colour-scheme apply to the document. This is intended as a project's base stylesheet, rather than a drop-in widget in an unrelated design system.
 
-Each optional palette is a standalone file, `theme-<name>.css`. Load the one you use after `cradle.css`, for example `theme-gen-i.css` or `theme-nord.css`. Set `data-skin` on `<html>` to `cradle`, `dracula`, `one-dark`, `nord`, `solarized`, `monokai`, `tokyo-night`, `catppuccin`, `gruvbox`, `material`, `gen-i` or `gen-i-portal`.
+Each optional palette is a standalone file, `theme-<name>.css`. Load the one you use after `cradle.css`, for example `theme-gen-i.css` or `theme-nord.css`. Set `data-skin` on `<html>` to `cradle`, `dracula`, `one-dark`, `nord`, `solarized`, `monokai`, `tokyo-night`, `catppuccin`, `gruvbox`, `material`, `gen-i`, `gen-i-portal` or `gen-i-lagoon`.
 
-**Palette pickers: load only the selected palette.** Do not link `themes.css` in an application; it `@import`s every palette, so each page downloads all 11 files. Include `themes.js` instead and call `CradleThemes.select(skin)` (from settings, a cache or a picker). It fetches just `theme-<skin>.css` from the folder next to `themes.js`, switches `data-skin` after the file has loaded (no unstyled flash), removes the previous palette, and treats `cradle` as the built-in default with nothing to load. It also applies an existing `data-skin` on `<html>` at startup. Unknown names, including names whose file is missing (such as removed palettes), fall back to `cradle` and drop the previous palette file; the name is validated before it forms a URL. Publish `themes.js` and the `theme-*.css` files you offer; `themes.css` is kept only for demos that want everything at once.
+**Palette pickers: load only the selected palette.** Do not link `themes.css` in an application; it `@import`s every palette, so each page downloads all 12 files. Include `themes.js` instead and call `CradleThemes.select(skin)` (from settings, a cache or a picker). It fetches just `theme-<skin>.css` from the folder next to `themes.js`, switches `data-skin` after the file has loaded (no unstyled flash), removes the previous palette, and treats `cradle` as the built-in default with nothing to load. It also applies an existing `data-skin` on `<html>` at startup. Unknown names, including names whose file is missing (such as removed palettes), fall back to `cradle` and drop the previous palette file; the name is validated before it forms a URL. Publish `themes.js` and the `theme-*.css` files you offer; `themes.css` is kept only for demos that want everything at once.
 
 ```html
 <script src="/vendor/cradle-css/themes.js"></script>
@@ -406,7 +406,7 @@ Use `data-skin="gen-i"` with `theme-gen-i.css` after the core stylesheet. Light 
 
 Remove `data-theme` to follow the system, or set it to `dark`. White/light surfaces, neutral borders, muted text and error states are digital application choices; they are not additional official brand colours. Dark mode is also a digital adaptation, using #78D2E2 for readable accents on deep teal surfaces. It does not represent Pantone 8201 or a metallic effect. GEN-I reuses the existing component shapes, spacing, 16px base and desktop width defaults. The gallery offers GEN-I in the palette selector and shows the original three colours plus Slovenian character samples.
 
-Typography is selected separately. Use **Inter**, the pack's existing web font, for both GEN-I palettes. The former `data-font="gen-i"` alias was removed in 0.15.0; use `inter`. This is an explicit web-interface adaptation, rather than the manual's print typography. Set `data-font="native-sans"` or omit `fonts.css` to use system fonts. Test č/š/ž rendering in the delivered interface. Choosing a colour palette alone keeps the application's selected typography.
+Typography is selected separately. Use **Inter**, the pack's existing web font, for all GEN-I palettes. The former `data-font="gen-i"` alias was removed in 0.15.0; use `inter`. This is an explicit web-interface adaptation, rather than the manual's print typography. Set `data-font="native-sans"` or omit `fonts.css` to use system fonts. Test č/š/ž rendering in the delivered interface. Choosing a colour palette alone keeps the application's selected typography.
 
 No GEN-I logo is bundled or recreated. Use an approved official asset, preserve its proportions and clearance, and give a linked logo a destination label. Official logo delivery and clearance remain application responsibilities; the palette alone is not a complete approved GEN-I design system.
 
@@ -417,7 +417,7 @@ Version 0.9.0 introduced the GEN-I palette and an installed-font profile; versio
 
 ### GEN-I palettes
 
-Two GEN-I palettes remain: `gen-i` (classic: pale gray-teal sidebar, white surfaces, teal actions) and `gen-i-portal` (below). **Breaking in 0.16.0:** the other eight candidates (`gen-i-sidebar`, `gen-i-teal`, `gen-i-charcoal`, `gen-i-tint`, `gen-i-crisp`, `gen-i-canvas`, `gen-i-lagoon`, `gen-i-midnight`) were removed after a palette was chosen; an application that stored one of those names must map it to `gen-i` or `gen-i-portal`.
+Three GEN-I palettes are available: `gen-i` (classic: pale gray-teal sidebar, white surfaces, teal actions), `gen-i-portal` (below) and `gen-i-lagoon` (restored in 0.17.0). **Breaking in 0.16.0:** the other eight candidates (`gen-i-sidebar`, `gen-i-teal`, `gen-i-charcoal`, `gen-i-tint`, `gen-i-crisp`, `gen-i-canvas`, `gen-i-lagoon`, `gen-i-midnight`) were removed after a palette was chosen; an application that stored one of those names must map it to an available palette. `gen-i-lagoon` is available again as of 0.17.0.
 
 Palettes add `--cr-canvas` and scope coloured-sidebar tokens to `.cr-sidebar`, keeping white focus indicators readable. Tested text pairs are at least 4.5:1 and control borders at least 3:1 in light and dark modes. Colours beyond the supplied brand values are digital adaptations.
 
@@ -444,3 +444,9 @@ Inter (normal and italic), Manrope and JetBrains Mono (normal and italic) are no
 ### 0.16.1
 
 `CradleThemes.select()` now handles a palette file that fails to load (for example a stored name of a palette removed in 0.16.0): it sets `data-skin="cradle"` and removes the previously loaded palette file, as documented. Rapid switching is also safe: only the latest selection applies, and every other palette link (including slower earlier requests) is removed. Previously a missing file kept the old `data-skin` value, and either case could leave orphaned stylesheets. Documentation fixes only otherwise; no asset changes.
+
+### GEN-I Lagoon restored (0.17.0)
+
+GEN-I Lagoon returns unchanged from the last revision before its removal in 0.16.0 (`d9bbf6f^`, originally added in `1fc4f48`). Use `data-skin="gen-i-lagoon"` with standalone `theme-gen-i-lagoon.css` after the core stylesheet, or call `CradleThemes.select('gen-i-lagoon')` with the optional loader. It has a cyan `#78D2E2` sidebar, deep teal selection with a white inset marker, a teal-tinted workspace and accent edges on metrics. Light, dark and system-auto modes are supported; typography stays independent and self-hosted. Supporting colours are digital adaptations.
+
+The gallery selector and demo `themes.css` index include Lagoon again. Publish `theme-gen-i-lagoon.css` when offering it in an application. Both repository deployment allowlists include the restored file (33 assets plus generated `version.txt`); synchronize the installed Forgejo hook and Bob receiver before an authorized main push.
