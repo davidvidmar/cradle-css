@@ -16,7 +16,7 @@ Private CSS library extracted from Cradle. Read README.md before changing compon
 
 - Configuration card collections sort by display name (locale-aware, case-insensitive natural order). Disabled cards retain their alphabetical position and wrap only the title in native `<s>`; keep details readable and editing available. Applications own sorting and enabled state; core CSS needs no JavaScript.
 
-- Configuration editors use unnumbered sections; display name first/wider, ID/address second, Enabled below. Rare optional settings use closed details. One persistent footer holds optional Delete left, cr-dialog-status feedback, Cancel, and one primary Save right. No duplicate section saves. Section actions use type=button; application owns state and save-close behavior.
+- Configuration editors use unnumbered sections; display name first/wider, ID/address second, Enabled below. Rare optional settings use closed details. One persistent footer holds optional Delete left, cr-dialog-status feedback, Cancel, and one primary Save right. At mobile widths nonempty footer feedback gets its own row above normal-height buttons. No duplicate section saves. Section actions use type=button; application owns state and save-close behavior.
 
 ## Library decisions
 
