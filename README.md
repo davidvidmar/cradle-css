@@ -1,6 +1,6 @@
 # Cradle CSS
 
-A private, small CSS library extracted from Cradle. Version **0.17.2**.
+A private, small CSS library extracted from Cradle. Version **0.18.0**.
 
 Neutral surfaces, subtle borders, compact navigation, readable 16px text and restrained accent colours. Plain HTML and CSS, with no package manager, framework, build step or required JavaScript. Inter is the default font family, with system fallbacks. Optional `fonts.css` self-hosts Inter, Manrope and JetBrains Mono; the core alone makes no network requests.
 
@@ -121,7 +121,7 @@ Load project overrides last. Keep overrides small and use tokens first:
 }
 ```
 
-Primary tokens: `--cr-paper` (page), `--cr-soft` (secondary surface), `--cr-ink`, `--cr-muted`, `--cr-faint`, `--cr-line`, `--cr-accent`, `--cr-accent-soft`, `--cr-accent-line`, `--cr-on-accent`, `--cr-danger`, `--cr-danger-soft`, `--cr-on-danger`, `--cr-font`, `--cr-font-size`, `--cr-control-height` (46px), `--cr-textarea-min-height` (120px), `--cr-radius`, `--cr-sidebar`, `--cr-container-width` (1440px), `--cr-form-width` (860px), `--cr-prose-width` (760px).
+Primary tokens: `--cr-paper` (page), `--cr-soft` (secondary surface), `--cr-ink`, `--cr-muted`, `--cr-faint`, `--cr-line`, `--cr-accent`, `--cr-accent-soft`, `--cr-accent-line`, `--cr-on-accent`, `--cr-danger`, `--cr-danger-soft`, `--cr-on-danger`, `--cr-shadow` (card shadow), `--cr-font`, `--cr-font-size`, `--cr-control-height` (46px), `--cr-textarea-min-height` (120px), `--cr-radius`, `--cr-sidebar`, `--cr-container-width` (1440px), `--cr-form-width` (860px), `--cr-prose-width` (760px).
 
 Palette rules are more specific than `:root`. To override colours for a selected palette/mode, match its selectors in your final override sheet, for example `:root[data-skin="nord"][data-theme="dark"]`. Change accent text and background together and check contrast.
 
@@ -465,3 +465,7 @@ Inter (normal and italic), Manrope and JetBrains Mono (normal and italic) are no
 GEN-I Lagoon returns unchanged from the last revision before its removal in 0.16.0 (`d9bbf6f^`, originally added in `1fc4f48`). Use `data-skin="gen-i-lagoon"` with standalone `theme-gen-i-lagoon.css` after the core stylesheet, or call `CradleThemes.select('gen-i-lagoon')` with the optional loader. It has a cyan `#78D2E2` sidebar, deep teal selection with a white inset marker, a teal-tinted workspace and accent edges on metrics. Light, dark and system-auto modes are supported; typography stays independent and self-hosted. Supporting colours are digital adaptations.
 
 The gallery selector and demo `themes.css` index include Lagoon again. Publish `theme-gen-i-lagoon.css` when offering it in an application. Both repository deployment allowlists include the restored file (33 assets plus generated `version.txt`); synchronize the installed Forgejo hook and Bob receiver before an authorized main push.
+
+### Card shadow (0.18.0)
+
+`cr-card` now has a faint shadow under its border, read from the new `--cr-shadow` token: `0 1px 2px 0 rgb(0 0 0 / .05)` in light mode and `rgb(0 0 0 / .3)` in dark mode, matching the Home Assistant Cradle theme. Every palette inherits it. Set `--cr-shadow: none` in `:root` to restore flat cards. No asset changes.
