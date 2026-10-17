@@ -1,6 +1,6 @@
 # Cradle CSS
 
-A private, small CSS library extracted from Cradle. Version **0.18.0**.
+A private, small CSS library extracted from Cradle. Version **0.18.1**.
 
 Neutral surfaces, subtle borders, compact navigation, readable 16px text and restrained accent colours. Plain HTML and CSS, with no package manager, framework, build step or required JavaScript. Inter is the default font family, with system fallbacks. Optional `fonts.css` self-hosts Inter, Manrope and JetBrains Mono; the core alone makes no network requests.
 
@@ -91,7 +91,7 @@ Configuration card collections should be sorted by display name with locale-awar
 
 Configuration editors use unnumbered fieldsets, ordered by purpose: identity, connection/location, options, then optional testing. Put the display name first (wider) and the stable ID/address second, with Enabled immediately below. Rare optional settings belong in a closed native `details` section. Keep the primary connection fields visible.
 
-Use one persistent `cr-dialog-foot` for saving the whole form: optional Delete at the left, a `role="status"` element with `cr-dialog-status` to occupy spare space, then Cancel and one primary Save at the right. Keep validation and save feedback in that status beside the actions; on narrow screens nonempty feedback occupies its own row above the buttons, which retain their normal height. Do not repeat Save buttons inside sections or imply they save only that section. Save buttons submit the form; section actions (connect, discover, test) use `type="button"`. Applications own dirty/busy state and whether saving keeps the editor open; use Cancel to discard pending edits and the header close control for dismissal. `cr-dialog-body` scrolls while the footer stays visible.
+Use one persistent `cr-dialog-foot` for saving the whole form: optional Delete at the left, a `role="status"` element with `cr-dialog-status` to occupy spare space, then Cancel and one primary Save at the right. Keep validation and save feedback in that status beside the actions; on narrow screens nonempty feedback occupies its own row above the buttons, which retain their normal height. Do not repeat Save buttons inside sections or imply they save only that section. Save buttons submit the form; section actions (connect, discover, test) use `type="button"`. Use generic Delete, Cancel and Save labels. Save keeps the editor open and is disabled while unchanged or busy. Applications implement dirty/busy state; use Cancel to discard pending edits and the header close control for dismissal. `cr-dialog-body` scrolls while the footer stays visible.
 
 ```html
 <footer class="cr-dialog-foot">
@@ -469,3 +469,7 @@ The gallery selector and demo `themes.css` index include Lagoon again. Publish `
 ### Card shadow (0.18.0)
 
 `cr-card` now has a faint shadow under its border, read from the new `--cr-shadow` token: `0 1px 2px 0 rgb(0 0 0 / .05)` in light mode and `rgb(0 0 0 / .3)` in dark mode, matching the Home Assistant Cradle theme. Every palette inherits it. Set `--cr-shadow: none` in `:root` to restore flat cards. No asset changes.
+
+### Editor convention example (0.18.1)
+
+The gallery dialog demonstrates one Save action that stays open, disables when unchanged and reports feedback in the footer. Cancel or Escape discards pending edits on reopening. This is optional example JavaScript; applications implement their own persistence and busy state.

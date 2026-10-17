@@ -11,8 +11,24 @@ document.querySelector('#font').addEventListener('change', event => {
   window.CradleFonts.select(event.target.value);
 });
 const dialog = document.querySelector('#example-dialog');
+const editor = dialog.querySelector('form'), editorSave = editor.querySelector('[value="save"]');
+const editorStatus = editor.querySelector('[role="status"]');
+const editorFields = [...editor.querySelectorAll('input,select,textarea')];
+const editorValues = () => editorFields.map(field => ({ value: field.value, checked: field.checked }));
+let savedEditorValues = editorValues();
+const updateEditorSave = () => { editorSave.disabled = JSON.stringify(editorValues()) === JSON.stringify(savedEditorValues); };
+for (const event of ['input', 'change']) editor.addEventListener(event, updateEditorSave);
+editor.addEventListener('submit', event => {
+  if (event.submitter?.value !== 'save') return;
+  event.preventDefault(); savedEditorValues = editorValues();
+  editorStatus.textContent = 'Saved. You can keep editing.';
+  document.querySelector('#feedback').textContent = 'Project saved in this example.';
+  updateEditorSave();
+});
 document.querySelector('#open-dialog').addEventListener('click', () => {
   dialog.returnValue = '';
+  editorFields.forEach((field, i) => { field.value = savedEditorValues[i].value; field.checked = savedEditorValues[i].checked; });
+  editorStatus.textContent = ''; for (const details of editor.querySelectorAll('details')) details.open = false; updateEditorSave();
   dialog.showModal();
 });
 dialog.addEventListener('close', () => {
