@@ -1,6 +1,6 @@
 # Cradle CSS
 
-A private, small CSS library extracted from Cradle. Version **0.17.0**.
+A private, small CSS library extracted from Cradle. Version **0.17.1**.
 
 Neutral surfaces, subtle borders, compact navigation, readable 16px text and restrained accent colours. Plain HTML and CSS, with no package manager, framework, build step or required JavaScript. Inter is the default font family, with system fallbacks. Optional `fonts.css` self-hosts Inter, Manrope and JetBrains Mono; the core alone makes no network requests.
 
@@ -86,6 +86,21 @@ CradleFonts.select('native-mono'); // Set the interface font (JetBrains Mono).
 | Loading indicator | `cr-busy` (hide with `hidden`; respects reduced motion) |
 | Lucide icons | `cr-icon` on `<svg>` with optional local `lucide.svg` |
 | Supporting text | `cr-subtle`, `cr-error`, `cr-sr-only` |
+
+Configuration card collections should be sorted by display name with locale-aware, case-insensitive natural ordering (for example, Server 2 before Server 10). Keep disabled items in alphabetical order and wrap only their title in native `<s>` inside the existing `<strong>`; details and Edit stay readable and usable. The application owns ordering and enabled state; this convention needs no extra CSS or library JavaScript.
+
+Configuration editors use unnumbered fieldsets, ordered by purpose: identity, connection/location, options, then optional testing. Put the display name first (wider) and the stable ID/address second, with Enabled immediately below. Rare optional settings belong in a closed native `details` section. Keep the primary connection fields visible.
+
+Use one persistent `cr-dialog-foot` for saving the whole form: optional Delete at the left, a `role="status"` element with `cr-dialog-status` to occupy spare space, then Cancel and one primary Save at the right. Keep validation and save feedback in that status beside the actions. Do not repeat Save buttons inside sections or imply they save only that section. Save buttons submit the form; section actions (connect, discover, test) use `type="button"`. Applications own dirty/busy state and whether saving keeps the editor open; use Cancel to discard pending edits and the header close control for dismissal. `cr-dialog-body` scrolls while the footer stays visible.
+
+```html
+<footer class="cr-dialog-foot">
+  <button type="button" class="cr-button cr-danger">Delete</button>
+  <span role="status" class="cr-subtle cr-dialog-status"></span>
+  <button type="button" class="cr-button">Cancel</button>
+  <button type="submit" class="cr-button cr-primary">Save</button>
+</footer>
+```
 
 Single-line inputs and selects share a 46px minimum height (`--cr-control-height`). Textareas inside `cr-field` have a 120px minimum height (`--cr-textarea-min-height`) and remain vertically resizable; larger `rows` values can make them taller. Override these tokens in `:root` or on an individual form.
 

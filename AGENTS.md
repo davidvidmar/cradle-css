@@ -14,6 +14,10 @@ Private CSS library extracted from Cradle. Read README.md before changing compon
 - Do not commit, tag or push without explicit user approval in the current turn. After file changes, remind the user to commit and push. Every authorized push to main must deploy the CSS gallery to Bob; the user gave standing deployment authorization on 2026-10-13. Verify the deployed commit, assets, health and sign-in before reporting success.
 - Keep secrets and machine-local files out of Git.
 
+- Configuration card collections sort by display name (locale-aware, case-insensitive natural order). Disabled cards retain their alphabetical position and wrap only the title in native `<s>`; keep details readable and editing available. Applications own sorting and enabled state; core CSS needs no JavaScript.
+
+- Configuration editors use unnumbered sections; display name first/wider, ID/address second, Enabled below. Rare optional settings use closed details. One persistent footer holds optional Delete left, cr-dialog-status feedback, Cancel, and one primary Save right. No duplicate section saves. Section actions use type=button; application owns state and save-close behavior.
+
 ## Library decisions
 
 - 2026-10-12: version 0.2.0 adds optional sort-tables.js. Tables opt in via data-sortable; header data-sort is text/number/date and cells can supply data-sort-value. Native header buttons expose aria-sort; missing/invalid values stay last and ties are stable. Only simple one-header/one-body unmerged tables are supported; sorting covers rendered rows. Existing nodes/handlers are preserved. Core CSS remains usable without JavaScript. Gallery and README show usage; deployment must include sort-tables.js. Desktop/mobile Chromium checks passed for type ordering, direction toggles, Enter/Space, sort state, missing values, idempotent initialization, row events, natural sorting and ties. Changes are local pending commit/push/deploy.

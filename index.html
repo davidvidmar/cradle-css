@@ -27,7 +27,7 @@
         <a href="#reading">Reading &amp; chat</a>
         <a href="#icons">Icons</a>
       </nav>
-      <div class="cr-sidebar-foot cr-subtle">Private library · 0.17.0</div>
+      <div class="cr-sidebar-foot cr-subtle">Private library · 0.17.1</div>
     </aside>
     <main class="cr-main">
       <div class="cr-container">
@@ -105,14 +105,14 @@
           <h2>Cards &amp; metrics</h2>
           <div class="cr-grid">
             <article class="cr-card">
+              <div class="cr-card-head"><div class="cr-identity"><span class="cr-avatar" aria-hidden="true">P</span><strong><s>Project archive</s></strong></div><span class="cr-badge cr-outline">Disabled</span></div>
+              <p class="cr-subtle">A second card using the same spacing and controls.</p>
+              <button class="cr-button" type="button">Edit</button>
+            </article>
+            <article class="cr-card">
               <div class="cr-card-head"><div class="cr-identity"><span class="cr-avatar" aria-hidden="true">N</span><strong>Sample notes</strong></div><span class="cr-badge">Ready</span></div>
               <p class="cr-subtle">Personal notes and project ideas.</p>
               <div class="cr-toolbar"><button class="cr-button" type="button">Edit</button><span class="cr-badge cr-outline">Local directory</span></div>
-            </article>
-            <article class="cr-card">
-              <div class="cr-card-head"><div class="cr-identity"><span class="cr-avatar" aria-hidden="true">P</span><strong>Project archive</strong></div><span class="cr-badge cr-outline">Paused</span></div>
-              <p class="cr-subtle">A second card using the same spacing and controls.</p>
-              <button class="cr-button" type="button">Edit</button>
             </article>
           </div>
           <h3>Overview</h3>
@@ -146,7 +146,7 @@
           <div class="cr-table-wrap" tabindex="0" role="region" aria-label="Sample source status">
             <table class="cr-table">
               <thead><tr><th scope="col">Source</th><th scope="col">Documents</th><th scope="col" data-sort="date">Last updated</th><th scope="col" data-sort="text">Status</th></tr></thead>
-              <tbody><tr><td>Sample notes</td><td>128</td><td data-sort-value="2026-10-12T09:00:00Z">12 Oct, 09:00</td><td><span class="cr-badge">Ready</span></td></tr><tr><td>Project archive</td><td>64</td><td data-sort-value="2026-10-11T18:30:00Z">11 Oct, 18:30</td><td><span class="cr-badge cr-outline">Paused</span></td></tr><tr><td>Design ideas</td><td>9</td><td data-sort-value="2026-10-10T14:15:00Z">10 Oct, 14:15</td><td><span class="cr-badge">Ready</span></td></tr></tbody>
+              <tbody><tr><td>Sample notes</td><td>128</td><td data-sort-value="2026-10-12T09:00:00Z">12 Oct, 09:00</td><td><span class="cr-badge">Ready</span></td></tr><tr><td>Project archive</td><td>64</td><td data-sort-value="2026-10-11T18:30:00Z">11 Oct, 18:30</td><td><span class="cr-badge cr-outline">Disabled</span></td></tr><tr><td>Design ideas</td><td>9</td><td data-sort-value="2026-10-10T14:15:00Z">10 Oct, 14:15</td><td><span class="cr-badge">Ready</span></td></tr></tbody>
             </table>
           </div>
           <section id="sticky-tables" class="cr-section">
@@ -2101,8 +2101,8 @@
   <dialog class="cr-dialog" id="example-dialog" aria-labelledby="dialog-title">
     <form method="dialog">
       <header class="cr-dialog-head"><h2 id="dialog-title">Edit project</h2><button class="cr-button cr-quiet" type="submit" value="cancel" aria-label="Close dialog" formnovalidate>Close</button></header>
-      <div class="cr-dialog-body cr-form"><label class="cr-field">Project name<input name="project" value="My workspace" required autofocus></label><p class="cr-subtle">Native dialog handles focus and Escape. This is a local example.</p></div>
-      <footer class="cr-dialog-foot"><button class="cr-button" type="submit" value="cancel" formnovalidate>Cancel</button><button class="cr-button cr-primary" type="submit" value="save">Save</button></footer>
+      <div class="cr-dialog-body cr-form"><fieldset><legend>Project</legend><div class="cr-row"><label class="cr-field">Name<input name="project" value="My workspace" required autofocus></label><label class="cr-field">ID<input name="id" value="workspace" readonly></label></div><label class="cr-check"><input type="checkbox" checked>Enabled</label></fieldset><details class="cr-details"><summary>Advanced settings</summary><label class="cr-field">Optional tags<input name="tags"></label></details><p class="cr-subtle">Native dialog handles focus and Escape. This is a local example.</p></div>
+      <footer class="cr-dialog-foot"><span class="cr-subtle cr-dialog-status" role="status"></span><button class="cr-button" type="submit" value="cancel" formnovalidate>Cancel</button><button class="cr-button cr-primary" type="submit" value="save">Save</button></footer>
     </form>
   </dialog>
 </body>
