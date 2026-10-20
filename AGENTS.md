@@ -115,3 +115,5 @@ Private CSS library extracted from Cradle. Read README.md before changing compon
 - 2026-10-17 card shadow (0.18.0): user asked for the BirdNET-Go card shadow in Cradle, matching the Home Assistant Cradle theme (`~/src/ha-theme/ha-theme-cradle`). New `--cr-shadow` token (light `0 1px 2px 0 rgb(0 0 0 / .05)`, dark `.3` alpha, set in the core dark blocks so every palette inherits it) applied to `.cr-card` only; metrics, dialogs and fieldsets unchanged. README/gallery version updated. No asset changes, so deployment allowlists are untouched. Changes local; no commit/push authorized.
 
 - 0.18.1 aligns the native dialog gallery with the editor convention: one generic Save, disabled when unchanged, saves locally without closing; Cancel/Escape restores the last saved values on reopening. Core CSS and app state remain independent.
+
+- Table surfaces (0.18.2): `.cr-table-wrap`, `.cr-table` and `.cr-prose table` use `--cr-paper` by default so settings canvases do not show through. Headers retain `--cr-soft`; preserve theme-aware dark surfaces.

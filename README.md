@@ -1,6 +1,6 @@
 # Cradle CSS
 
-A private, small CSS library extracted from Cradle. Version **0.18.1**.
+A private, small CSS library extracted from Cradle. Version **0.18.2**.
 
 Neutral surfaces, subtle borders, compact navigation, readable 16px text and restrained accent colours. Plain HTML and CSS, with no package manager, framework, build step or required JavaScript. Inter is the default font family, with system fallbacks. Optional `fonts.css` self-hosts Inter, Manrope and JetBrains Mono; the core alone makes no network requests.
 
@@ -473,3 +473,7 @@ The gallery selector and demo `themes.css` index include Lagoon again. Publish `
 ### Editor convention example (0.18.1)
 
 The gallery dialog demonstrates one Save action that stays open, disables when unchanged and reports feedback in the footer. Cancel or Escape discards pending edits on reopening. This is optional example JavaScript; applications implement their own persistence and busy state.
+
+### Table surfaces (0.18.2)
+
+Table wrappers, component tables and prose tables use `--cr-paper` by default: white in the default light theme and the selected paper surface in dark or coloured palettes. Tables stay opaque on a `--cr-soft` settings canvas. Header cells retain their subtle `--cr-soft` background.
