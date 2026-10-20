@@ -1,6 +1,6 @@
 # Cradle CSS
 
-A private, small CSS library extracted from Cradle. Version **0.18.2**.
+A private, small CSS library extracted from Cradle. Version **0.18.3**.
 
 Neutral surfaces, subtle borders, compact navigation, readable 16px text and restrained accent colours. Plain HTML and CSS, with no package manager, framework, build step or required JavaScript. Inter is the default font family, with system fallbacks. Optional `fonts.css` self-hosts Inter, Manrope and JetBrains Mono; the core alone makes no network requests.
 
@@ -477,3 +477,7 @@ The gallery dialog demonstrates one Save action that stays open, disables when u
 ### Table surfaces (0.18.2)
 
 Table wrappers, component tables and prose tables use `--cr-paper` by default: white in the default light theme and the selected paper surface in dark or coloured palettes. Tables stay opaque on a `--cr-soft` settings canvas. Header cells retain their subtle `--cr-soft` background.
+
+### Card and form surfaces (0.18.3)
+
+Cards, metric tiles and form fieldsets use `--cr-paper` so a surrounding soft canvas does not show through. This is white in the default light palette and the selected paper surface in dark or coloured palettes. Use `cr-card` for application result cards instead of copying only their borders.

@@ -117,3 +117,5 @@ Private CSS library extracted from Cradle. Read README.md before changing compon
 - 0.18.1 aligns the native dialog gallery with the editor convention: one generic Save, disabled when unchanged, saves locally without closing; Cancel/Escape restores the last saved values on reopening. Core CSS and app state remain independent.
 
 - Table surfaces (0.18.2): `.cr-table-wrap`, `.cr-table` and `.cr-prose table` use `--cr-paper` by default so settings canvases do not show through. Headers retain `--cr-soft`; preserve theme-aware dark surfaces.
+
+- Card/form surfaces (0.18.3): `.cr-metric` and `.cr-form fieldset` use `--cr-paper`, matching `.cr-card`. Consumers should apply `cr-card` to their cards rather than duplicating border-only frames.
