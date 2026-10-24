@@ -1,6 +1,6 @@
 # Cradle CSS
 
-A private, small CSS library extracted from Cradle. Version **0.18.3**.
+A private, small CSS library extracted from Cradle. Version **0.19.0**.
 
 Neutral surfaces, subtle borders, compact navigation, readable 16px text and restrained accent colours. Plain HTML and CSS, with no package manager, framework, build step or required JavaScript. Inter is the default font family, with system fallbacks. Optional `fonts.css` self-hosts Inter, Manrope and JetBrains Mono; the core alone makes no network requests.
 
@@ -102,7 +102,7 @@ Use one persistent `cr-dialog-foot` for saving the whole form: optional Delete a
 </footer>
 ```
 
-Single-line inputs and selects share a 46px minimum height (`--cr-control-height`). Textareas inside `cr-field` have a 120px minimum height (`--cr-textarea-min-height`) and remain vertically resizable; larger `rows` values can make them taller. Override these tokens in `:root` or on an individual form.
+Single-line inputs and selects share a 34px minimum height (`--cr-control-height`) and 6px vertical padding. Their actual height follows the font: about 35px at 13px text, 36px at 14px and 40px at the default 16px. Version 0.19.0 changes the previous 46px minimum and 9px padding; set the token to 46px and restore 9px vertical padding if the older spacious layout is required. Textareas inside `cr-field` have a 120px minimum height (`--cr-textarea-min-height`) and remain vertically resizable; larger `rows` values can make them taller. Override these tokens in `:root` or on an individual form.
 
 Copy the markup from `index.html`. For navigation, use `aria-current="page"` for a current page or `location` for an anchor. Button appearance is explicit and does not depend on IDs or submit behavior. Use labels, named dialogs, table headers and actual HTML controls.
 

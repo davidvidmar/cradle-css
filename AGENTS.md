@@ -119,3 +119,5 @@ Private CSS library extracted from Cradle. Read README.md before changing compon
 - Table surfaces (0.18.2): `.cr-table-wrap`, `.cr-table` and `.cr-prose table` use `--cr-paper` by default so settings canvases do not show through. Headers retain `--cr-soft`; preserve theme-aware dark surfaces.
 
 - Card/form surfaces (0.18.3): `.cr-metric` and `.cr-form fieldset` use `--cr-paper`, matching `.cr-card`. Consumers should apply `cr-card` to their cards rather than duplicating border-only frames.
+
+- Form sizing (0.19.0, breaking): single-line inputs/selects use a 34px minimum and 6px vertical padding so 13/14/16px text produces approximately 35/36/40px controls. Textareas keep 9px padding and a 120px minimum. This replaces the 46px/9px defaults from 0.4.1.
