@@ -1,15 +1,15 @@
-/* Cradle CSS 0.19.0 — private, framework-free. */
+/* Cradle CSS 0.20.0 — private, framework-free. */
 :root {
  --cr-font: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
  --cr-mono:ui-monospace,SFMono-Regular,Consolas,monospace;
  --cr-control-height: 34px; --cr-textarea-min-height: 120px;
  --cr-icon-size: 18px; --cr-icon-stroke: 2;
  --cr-font-size: 16px; --cr-radius: 10px; --cr-sidebar: 268px;
- --cr-table-max-height: 320px; --cr-progress-height: 8px;
+ --cr-grid-min: 320px; --cr-table-max-height: 320px; --cr-progress-height: 8px;
  --cr-container-width: 1440px; --cr-form-width: 860px; --cr-prose-width: 760px;
  --cr-faint: #798391; --cr-danger: #a33a2c; --cr-danger-soft: #fdf1ef; --cr-on-danger: #fff; --cr-on-accent: #fff; --cr-shadow: 0 1px 2px 0 rgb(0 0 0 / .05);
  color-scheme: light;
- --cr-paper:#ffffff;--cr-soft:#f6f8fa;--cr-ink:#24292f;--cr-muted:#57606a;--cr-line:#d0d7de;--cr-accent:#0969da;--cr-accent-soft:#ddf4ff;--cr-accent-line:var(--cr-line)
+ --cr-paper:#ffffff;--cr-soft:#f6f8fa;--cr-ink:#24292f;--cr-muted:#57606a;--cr-line:#d0d7de;--cr-accent:#0969da;--cr-accent-soft:#ddf4ff;--cr-accent-line:var(--cr-line); --cr-control-line:var(--cr-line)
 }
 @media (prefers-color-scheme: dark) {
  :root:not([data-theme="light"]) { --cr-shadow:0 1px 2px 0 rgb(0 0 0 / .3); --cr-paper:#0d1117;--cr-soft:#161b22;--cr-ink:#e6edf3;--cr-muted:#9da7b3;--cr-line:#30363d;--cr-accent:#79b8ff;--cr-accent-soft:#172f4d;--cr-accent-line:var(--cr-line); --cr-faint:#9aa3ad; --cr-danger:#ef8a7c; --cr-danger-soft:#2b1715; --cr-on-danger:var(--cr-paper); --cr-on-accent:var(--cr-paper); color-scheme:dark; }
@@ -33,7 +33,7 @@ body.cradle { margin:0; }
 .cr-sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; border:0; }
 
 /* Controls: explicit variants, independent of element IDs and button type. */
-.cr-button { display:inline-flex; align-items:center; justify-content:center; gap:6px; min-height:34px; padding:6px 14px; border:1px solid var(--cr-line); border-radius:8px; background:var(--cr-paper); color:var(--cr-ink); font-size:13px; font-weight:600; line-height:1.6; cursor:pointer; text-decoration:none; }
+.cr-button { display:inline-flex; align-items:center; justify-content:center; gap:6px; min-height:34px; padding:6px 14px; border:1px solid var(--cr-control-line); border-radius:8px; background:var(--cr-paper); color:var(--cr-ink); font-size:13px; font-weight:600; line-height:1.6; cursor:pointer; text-decoration:none; }
 .cr-button:where(:not(.cr-bare)):hover:not(:disabled) { background:var(--cr-soft); border-color:var(--cr-faint); }
 .cr-button:disabled { opacity:.5; cursor:default; }
 .cr-button.cr-primary { background:var(--cr-accent); border-color:var(--cr-accent); color:var(--cr-on-accent); }
@@ -43,7 +43,7 @@ body.cradle { margin:0; }
 .cr-button.cr-danger { color:var(--cr-danger); border-color:var(--cr-danger); }
 .cr-button.cr-danger:hover:not(:disabled) { background:var(--cr-danger-soft); border-color:var(--cr-danger); }
 .cr-button.cr-danger:active:not(:disabled) { background:var(--cr-danger-soft); filter:brightness(.95); }
-.cradle :where(input:not([type="checkbox"]):not([type="radio"]),select,textarea) { min-width:0; max-width:100%; background:var(--cr-paper); border:1px solid var(--cr-line); border-radius:8px; padding:9px 11px; }
+.cradle :where(input:not([type="checkbox"]):not([type="radio"]),select,textarea) { min-width:0; max-width:100%; background:var(--cr-paper); border:1px solid var(--cr-control-line); border-radius:8px; padding:9px 11px; }
 .cradle :where(input:not([type="checkbox"]):not([type="radio"]),select) { min-height:max(var(--cr-control-height), calc(1.6em + 14px)); padding:6px 11px; }
 .cradle :where(input[type="checkbox"],input[type="radio"],progress) { accent-color:var(--cr-accent); }
 .cradle :where(textarea) { resize:vertical; }
@@ -75,7 +75,7 @@ body.cradle { margin:0; }
 .cr-check input { margin:0; }
 
 /* Cards, avatars and badges. */
-.cr-grid { display:grid; align-items:start; grid-template-columns:repeat(auto-fill,minmax(min(320px,100%),1fr)); gap:14px; }
+.cr-grid { display:grid; align-items:start; grid-template-columns:repeat(auto-fill,minmax(min(var(--cr-grid-min),100%),1fr)); gap:14px; }
 .cr-card { min-width:0; padding:16px 18px; border:1px solid var(--cr-line); border-radius:var(--cr-radius); background:var(--cr-paper); box-shadow:var(--cr-shadow); }
 .cr-card-head { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:10px; }
 .cr-identity { display:flex; align-items:center; gap:10px; min-width:0; }
@@ -228,3 +228,28 @@ body.cradle { margin:0; }
 
 /* Optional Lucide SVGs inherit text colour; labels belong to their controls. */
 .cr-icon { display:inline-block; width:var(--cr-icon-size); height:var(--cr-icon-size); flex:none; vertical-align:-.15em; fill:none; stroke:currentColor; stroke-width:var(--cr-icon-stroke); stroke-linecap:round; stroke-linejoin:round; }
+
+/* Focus halo on text controls, from Sumi.css; the outline stays for forced-colors and keyboard focus. */
+.cradle :where(input:not([type="checkbox"]):not([type="radio"]),select,textarea):focus-visible { border-color:var(--cr-accent); box-shadow:0 0 0 3px color-mix(in srgb, var(--cr-accent) 30%, transparent); }
+.cradle :is(input,select,textarea)[aria-invalid="true"]:focus-visible { box-shadow:0 0 0 3px color-mix(in srgb, var(--cr-danger) 30%, transparent); }
+
+/* Switch: a native checkbox with role="switch" keeps keyboard and form behavior. */
+.cradle input[type="checkbox"][role="switch"] { appearance:none; flex:none; position:relative; width:36px; height:21px; margin:0; border:1px solid var(--cr-control-line); border-radius:999px; background:var(--cr-soft); cursor:pointer; transition:background-color .15s, border-color .15s; }
+.cradle input[type="checkbox"][role="switch"]::before { content:""; position:absolute; top:2px; left:2px; width:15px; height:15px; border-radius:50%; background:var(--cr-faint); transition:translate .18s, background-color .15s; }
+.cradle input[type="checkbox"][role="switch"]:checked { background:var(--cr-accent); border-color:var(--cr-accent); }
+.cradle input[type="checkbox"][role="switch"]:checked::before { translate:15px 0; background:var(--cr-on-accent); }
+.cradle input[type="checkbox"][role="switch"]:disabled { opacity:.5; cursor:default; }
+
+/* Validation follows ARIA, so assistive technology and visuals share one flag. */
+.cradle :is(input,select,textarea)[aria-invalid="true"] { border-color:var(--cr-danger); }
+.cradle :is(input,select,textarea)[aria-invalid="true"]:focus-visible { outline-color:var(--cr-danger); }
+
+@media(prefers-reduced-motion:reduce) { .cradle, .cradle *, .cradle *::before, .cradle *::after { animation-duration:.01ms !important; transition-duration:.01ms !important; scroll-behavior:auto !important; } }
+
+@media print {
+ .cr-sidebar, .cr-busy { display:none; }
+ .cr-shell { display:block; height:auto; overflow:visible; }
+ .cr-main { overflow:visible; }
+ .cr-card, .cr-metric { box-shadow:none; break-inside:avoid; }
+ .cr-table-wrap { overflow:visible; max-height:none; }
+}

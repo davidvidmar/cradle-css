@@ -1,6 +1,6 @@
 # Cradle CSS
 
-A private, small CSS library extracted from Cradle. Version **0.19.0**.
+A private, small CSS library extracted from Cradle. Version **0.20.0**.
 
 Neutral surfaces, subtle borders, compact navigation, readable 16px text and restrained accent colours. Plain HTML and CSS, with no package manager, framework, build step or required JavaScript. Inter is the default font family, with system fallbacks. Optional `fonts.css` self-hosts Inter, Manrope and JetBrains Mono; the core alone makes no network requests.
 
@@ -36,7 +36,7 @@ Copy `cradle.css`, `fonts.css`, the ten `font-*.woff2` files and `fonts.js` into
 
 The base reset and native element styles apply inside `.cradle`. Components have `cr-` class names and tokens use `--cr-` to reduce collisions. Components must live inside `.cradle`; put native dialogs inside it too. Root tokens and colour-scheme apply to the document. This is intended as a project's base stylesheet, rather than a drop-in widget in an unrelated design system.
 
-Each optional palette is a standalone file, `theme-<name>.css`. Load the one you use after `cradle.css`, for example `theme-gen-i.css` or `theme-nord.css`. Set `data-skin` on `<html>` to `cradle`, `dracula`, `one-dark`, `nord`, `solarized`, `monokai`, `tokyo-night`, `catppuccin`, `gruvbox`, `material`, `gen-i`, `gen-i-portal` or `gen-i-lagoon`.
+Each optional palette is a standalone file, `theme-<name>.css`. Load the one you use after `cradle.css`, for example `theme-gen-i.css` or `theme-nord.css`. Set `data-skin` on `<html>` to `cradle`, `dracula`, `one-dark`, `nord`, `solarized`, `monokai`, `tokyo-night`, `catppuccin`, `gruvbox`, `material`, `gen-i`, `gen-i-portal`, `gen-i-lagoon`, `sumi` or `sshole`.
 
 **Palette pickers: load only the selected palette.** Do not link `themes.css` in an application; it `@import`s every palette, so each page downloads all 12 files. Include `themes.js` instead and call `CradleThemes.select(skin)` (from settings, a cache or a picker). It fetches just `theme-<skin>.css` from the folder next to `themes.js`, switches `data-skin` after the file has loaded (no unstyled flash), removes the previous palette, and treats `cradle` as the built-in default with nothing to load. It also applies an existing `data-skin` on `<html>` at startup. Unknown names, including names whose file is missing (such as removed palettes), fall back to `cradle` and drop the previous palette file; the name is validated before it forms a URL. Publish `themes.js` and the `theme-*.css` files you offer; `themes.css` is kept only for demos that want everything at once.
 
@@ -481,3 +481,9 @@ Table wrappers, component tables and prose tables use `--cr-paper` by default: w
 ### Card and form surfaces (0.18.3)
 
 Cards, metric tiles and form fieldsets use `--cr-paper` so a surrounding soft canvas does not show through. This is white in the default light palette and the selected paper surface in dark or coloured palettes. Use `cr-card` for application result cards instead of copying only their borders.
+
+### Switch, ARIA validation, grid token, motion and print (0.20.0)
+
+Inspired by a review of Sumi.css; independent implementation. `<input type="checkbox" role="switch">` inside `.cradle` renders a switch (use inside `cr-check`; label it like any checkbox). Inputs, selects and textareas with `aria-invalid="true"` get a danger border and focus ring; pair them with a `cr-error` message via `aria-describedby`. `--cr-grid-min` (default 320px) sets the minimum `cr-grid` column width. Inside `.cradle`, `prefers-reduced-motion: reduce` now shortens all animations and transitions, and a print block hides the sidebar and busy bar and lets the shell, main area and table wrappers flow across pages. No new assets; deployment allowlists are unchanged.
+
+Also in 0.20.0: text controls get a soft 3px accent halo on keyboard focus (from Sumi.css), and the new `--cr-control-line` token (default `var(--cr-line)`) sets the border of inputs, selects, textareas, buttons and switches separately from surface borders, so a palette can use light card/table borders with stronger control borders. Existing palettes are unchanged. Two palettes were added: `sumi` (blue accent, cool grays, light/dark, light surface borders with stronger control borders and a softer shadow) and `sshole` (always dark, taken from sshhole.com: `#0b0d10` surfaces, `#e8e6e1` text, `#f5c542` yellow accent, `#ff6b6b` danger; it stays dark even when `data-theme="light"`). Publish `theme-sumi.css` and `theme-sshole.css` when offering them. Both repository deployment allowlists include them (35 assets plus version.txt); synchronize the installed Forgejo hook and Bob receiver before an authorized main push.
